@@ -43,8 +43,33 @@ public class MyCoords implements coords_converter {
 
 	@Override
 	public Point3D vector3D(Point3D gps0, Point3D gps1) {
-		// TODO Auto-generated method stub
-		return null;
+		// Common values
+	    double b        = RADUIS_EARTH + destination.altitude;
+	    double c        = RADUIS_EARTH + this.altitude;
+
+	    double b2       = b*b;
+	    double c2       = c*c;
+	    double bc2      = 2*b*c;
+
+	    // Longitudinal calculations
+	    double alpha    = destination.longitude - this.longitude;
+	    // Conversion to radian
+	    alpha = alpha * Math.PI / 180;
+	    // Small-angle approximation
+	    double cos      = 1 - alpha*alpha/2; //Math.cos(alpha);
+	    // Use the law of cosines / Al Kashi theorem
+	    double x        = Math.sqrt(b2 + c2 - bc2*cos);
+
+	    // Repeat for latitudinal calculations
+	    alpha      = destination.latitude - this.latitude;
+	    alpha      = alpha * Math.PI / 180;
+	    double cos = 1 - alpha*alpha/2; //Math.cos(alpha);
+	    double y   = Math.sqrt(b2 + c2 - bc2*cos);
+
+	    // Obtain vertical difference, too
+	    double z   = destination.altitude - this.altitude;
+
+	    return new Point3D(x, y, z);
 	}
 
 	@Override
