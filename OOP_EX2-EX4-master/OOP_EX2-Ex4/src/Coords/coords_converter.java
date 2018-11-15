@@ -15,7 +15,7 @@ public interface coords_converter {
 	public Point3D add(Point3D gps, Point3D local_vector_in_meter);
 	/** computes the 3D distance (in meters) between the two gps like points */
 	public double distance3d(Point3D gps0, Point3D gps1);
-	/** computes the 3D vector (in meters) between two gps like points */
+	/**b  */
 	public Point3D vector3D(Point3D gps0, Point3D gps1);
 	/** computes the polar representation of the 3D vector be gps0-->gps1 
 	 * Note: this method should return an azimuth (aka yaw), elevation (pitch), and distance*/
