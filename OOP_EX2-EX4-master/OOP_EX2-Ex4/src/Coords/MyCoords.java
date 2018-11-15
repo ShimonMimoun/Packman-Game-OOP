@@ -12,30 +12,29 @@ public class MyCoords implements coords_converter {
 
 	@Override
 	public Point3D add(Point3D gps, Point3D local_vector_in_meter) {
-		// TODO Auto-generated method stub
-		return null;
+		Point3D meterToGPs = local_vector_in_meter.ConvertToGps();
+		System.out.println(meterToGPs.toString());
+		double ans_x = gps.ix()+meterToGPs.ix();
+		double ans_y = gps.iy()+meterToGPs.iy();
+		double ans_z = gps.iz()+meterToGPs.iz();
+
+		return new Point3D(ans_x,ans_y,ans_z);
 	}
 
 	@Override
 	public double distance3d(Point3D gps0, Point3D gps1) {
 		double diff_p1_x=gps0.x()-gps1.x();
 		double diff_p1_y=gps0.y()-gps1.y();
-
 		double diff_radian_x=(diff_p1_x*Math.PI)/180;
 		double diff_radian_y=(diff_p1_y*Math.PI)/180;
-
 		double long_norm=Math.cos((gps0.x()*Math.PI)/180);
-
 		double to_meter_x=Math.sin(diff_radian_x)*RADUIS_EARTH;
 		double to_meter_y=Math.sin(diff_radian_y)*RADUIS_EARTH*long_norm;
 
 		double result =Math.sqrt((to_meter_x*to_meter_x)+(to_meter_y*to_meter_y));
 
 		return result;
-		
-		
-		
-		
+
 		
 		// TODO Auto-generated method stub
 	
@@ -43,38 +42,21 @@ public class MyCoords implements coords_converter {
 
 	@Override
 	public Point3D vector3D(Point3D gps0, Point3D gps1) {
-		// Common values
-	    double b        = RADUIS_EARTH + destination.altitude;
-	    double c        = RADUIS_EARTH + this.altitude;
+		
+		Point3D gps0ToMeters = new Point3D(gps0);
+		Point3D gps1ToMeters = new Point3D(gps1);
+		
+		double m_x = gps1ToMeters.ix()-gps0ToMeters.ix();
+		double m_y = gps1ToMeters.ix()-gps0ToMeters.ix();
+		double m_z = gps1ToMeters.ix()-gps0ToMeters.ix();
 
-	    double b2       = b*b;
-	    double c2       = c*c;
-	    double bc2      = 2*b*c;
 
-	    // Longitudinal calculations
-	    double alpha    = destination.longitude - this.longitude;
-	    // Conversion to radian
-	    alpha = alpha * Math.PI / 180;
-	    // Small-angle approximation
-	    double cos      = 1 - alpha*alpha/2; //Math.cos(alpha);
-	    // Use the law of cosines / Al Kashi theorem
-	    double x        = Math.sqrt(b2 + c2 - bc2*cos);
-
-	    // Repeat for latitudinal calculations
-	    alpha      = destination.latitude - this.latitude;
-	    alpha      = alpha * Math.PI / 180;
-	    double cos = 1 - alpha*alpha/2; //Math.cos(alpha);
-	    double y   = Math.sqrt(b2 + c2 - bc2*cos);
-
-	    // Obtain vertical difference, too
-	    double z   = destination.altitude - this.altitude;
-
-	    return new Point3D(x, y, z);
+		return new Point3D (m_x,m_y,m_z);
 	}
 
 	@Override
 	public double[] azimuth_elevation_dist(Point3D gps0, Point3D gps1) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
@@ -83,5 +65,7 @@ public class MyCoords implements coords_converter {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	
 
 }
