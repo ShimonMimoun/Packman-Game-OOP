@@ -11,15 +11,14 @@ public class test {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-/*
+
 		Point3D gps0=new Point3D(32.103315,35.209039,670);
 		Point3D gps1=new Point3D(32.106352,35.205225,650);
 
 		double a=distance3d(gps0, gps1);
 		System.out.println(a);
 
-
-*/
+/*
 		double x,y,z;
 		x=1;y=2;z=3;
 			
@@ -38,26 +37,25 @@ public class test {
 				System.out.println(x);
 				System.out.println(y);
 System.out.println(z);
+
+	*/
 	}
 	
 
 	public static double  distance3d(Point3D gps0, Point3D gps1) {
+		Point3D gps0Change = gps0.ConvertToCartesian();
+		Point3D gps1Change = gps1.ConvertToCartesian();
+//		double diff_p1_x=gps0.x()-gps1.x();
+//		double diff_p1_y=gps0.y()-gps1.y();
+//		double diff_radian_x=(diff_p1_x*Math.PI)/180;
+//		double diff_radian_y=(diff_p1_y*Math.PI)/180;
+//		double long_norm=Math.cos((gps0.x()*Math.PI)/180);
+//		double to_meter_x=Math.sin(diff_radian_x)*RADUIS_EARTH;
+//		double to_meter_y=Math.sin(diff_radian_y)*RADUIS_EARTH*long_norm;
+//
+//		double result =Math.sqrt((to_meter_x*to_meter_x)+(to_meter_y*to_meter_y));
 
-		double diff_p1_x=gps0.x()-gps1.x();
-		double diff_p1_y=gps0.y()-gps1.y();
-		double diff_p1_z=gps0.z()-gps1.z();
-
-		double diff_radian_x=(diff_p1_x*Math.PI)/180;
-		double diff_radian_y=(diff_p1_y*Math.PI)/180;
-
-		double long_norm=Math.cos((gps0.x()*Math.PI)/180);
-
-		double to_meter_x=Math.sin(diff_radian_x)*RADUIS_EARTH;
-		double to_meter_y=Math.sin(diff_radian_y)*RADUIS_EARTH*long_norm;
-
-		double result =Math.sqrt((to_meter_x*to_meter_x)+(to_meter_y*to_meter_y));
-
-		return result;
+		return Math.abs(gps0Change.distance3D(gps1Change));
 	}
 }
 
