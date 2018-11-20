@@ -13,14 +13,16 @@ public class MyCoords implements coords_converter {
 
 	@Override
 	public Point3D add(Point3D gps, Point3D local_vector_in_meter) {
-		Point3D meterToGPs = local_vector_in_meter.ConvertToGps();
-		System.out.println(meterToGPs.toString());
-	//	double ans_x = gps.x()+meterToGPs.x();
-	//	double ans_y = gps.y()+meterToGPs.y();
-	//	double ans_z = gps.z()+meterToGPs.z();
+		Point3D covertedCartisian = gps.ConvertToCartesian();
+		
+		double ans_x = covertedCartisian.x()+local_vector_in_meter.x();
+		double ans_y = covertedCartisian.y()+local_vector_in_meter.y();
+		double ans_z = covertedCartisian.z()+local_vector_in_meter.z();
 
-	gps.add(meterToGPs);
-	return gps;
+		Point3D ans = new Point3D(ans_x,ans_y,ans_z);
+		ans.ConvertToGps();
+
+	return ans.ConvertToGps();
 	}
 
 	@Override
