@@ -7,6 +7,7 @@ import Geom.Point3D;
 
 public class MyCoords implements coords_converter {
 	
+	
 	public static final int RADUIS_EARTH = 6371000;
 	
 
@@ -50,6 +51,7 @@ public class MyCoords implements coords_converter {
 		Point3D gps0ToMeters = new Point3D(gps0);
 		Point3D gps1ToMeters = new Point3D(gps1);
 		
+
 		double m_x = gps1ToMeters.x()-gps0ToMeters.x();
 		double m_y = gps1ToMeters.y()-gps0ToMeters.y();
 		double m_z = gps1ToMeters.z()-gps0ToMeters.z();
@@ -80,5 +82,4 @@ public class MyCoords implements coords_converter {
 	}
 	
 	
-
 }
