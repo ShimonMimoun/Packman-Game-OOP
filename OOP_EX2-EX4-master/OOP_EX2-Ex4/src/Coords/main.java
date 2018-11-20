@@ -5,18 +5,21 @@ import Geom.Point3D;
 public class main {
 
 	public static void main(String[] args) {
+		// TODO Auto-generated method stub
 
-		MyCoords m = new MyCoords();
-		Point3D p = new Point3D(1,2,3);
-		Point3D p1 = new Point3D(2,3,4);
+		Point3D gps0=new Point3D(32.103315,35.209039,670);
+		Point3D gps1=new Point3D(32.106352,35.205225,650);
+		//System.out.println(a);
 		
-		Point3D b = p.ConvertToGps();
-		System.out.println(b.toString());
+		Point3D convert=new Point3D(0, 0, 0);
+		convert=gps0.ConvertToCartesian();
+		
+		System.out.println(gps0);
+		
+		
+		System.out.println(convert);
+		System.out.println((Math.asin(0.5)*180)/3.14);
 
-		
-		
-		System.out.println(m.toString());
-		
 
 //		double x,y,z;
 //		x=1;y=2;z=3;
@@ -38,8 +41,8 @@ public class main {
 //		System.out.println(z);
 
 	}
-
 }
+
 
 
 

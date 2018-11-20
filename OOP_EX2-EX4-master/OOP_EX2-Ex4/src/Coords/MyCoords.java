@@ -37,7 +37,7 @@ public class MyCoords implements coords_converter {
 //
 //		double result =Math.sqrt((to_meter_x*to_meter_x)+(to_meter_y*to_meter_y));
 
-		return Math.abs(gps0Change.distance3D(gps1Change));
+		return gps0Change.distance3D(gps1Change);
 
 		
 		// TODO Auto-generated method stub
