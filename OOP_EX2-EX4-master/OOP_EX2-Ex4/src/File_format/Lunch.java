@@ -6,8 +6,8 @@ import java.io.IOException;
 public class Lunch {
 
 	public static void main(String[] args) throws IOException {
-		File file = CsvFileHelper.getResource("OOP_EX2-Ex4/data/WigleWifi_20171201110209.csv");
-		csv2kml.to_KML(csv2kml.readFile(file), "ouput.kml");
+		File file = CsvFileHelper.getResource("OOP_EX2-Ex4/data/WigleWifi_20171203085618.csv");
+		csv2kml.to_KML(csv2kml.readFile(file), "OOP_EX2-Ex4/data/ouput.kml");
 		
 	}
 }
