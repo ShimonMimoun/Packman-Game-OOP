@@ -15,11 +15,12 @@ public class MyCoords implements coords_converter {
 	public Point3D add(Point3D gps, Point3D local_vector_in_meter) {
 		Point3D meterToGPs = local_vector_in_meter.ConvertToGps();
 		System.out.println(meterToGPs.toString());
-		double ans_x = gps.x()+meterToGPs.x();
-		double ans_y = gps.y()+meterToGPs.y();
-		double ans_z = gps.z()+meterToGPs.z();
+	//	double ans_x = gps.x()+meterToGPs.x();
+	//	double ans_y = gps.y()+meterToGPs.y();
+	//	double ans_z = gps.z()+meterToGPs.z();
 
-		return new Point3D(ans_x,ans_y,ans_z);
+	gps.add(meterToGPs);
+	return gps;
 	}
 
 	@Override
