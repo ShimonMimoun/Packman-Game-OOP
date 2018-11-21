@@ -237,9 +237,9 @@ public final static int DOWN = 6, UP = 7;
 		
 		public Point3D ConvertToGps() {		
 		
-			double	r = Math.sqrt(_x * _x + _y * _y + _z * _z);
-			double longitude = Math.acos(_z/r);
-			double latidude= Math.atan(_y / _x);
+			double	r = Math.sqrt(_x * _x + _y * _y + _z * _z)*180/Math.PI;
+			double longitude = Math.acos(_z/r)*180/Math.PI;
+			double latidude= Math.atan(_y / _x)*180/Math.PI;
 			
 			return new Point3D (r,longitude,latidude);
 			
