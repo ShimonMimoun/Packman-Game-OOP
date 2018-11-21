@@ -22,11 +22,7 @@ public class csv2kml {
         int i=0;
         for (String line = br.readLine(); line != null; line = br.readLine()) {
             result.add(line.split(","));
-            if(i++==2) {
-            	
-            	for(int i1=0;i1<line.split(",").length;i1++)
-            		System.out.println(line.split(",")[i1]);
-             }
+      
             }
         
 
@@ -81,6 +77,7 @@ public class csv2kml {
             }
             content.add(kmlend);
             bw.write(String.join("\n", content));
+            System.out.println("Operation Complete");
             bw.close();
         } 
         catch (IOException e) {
