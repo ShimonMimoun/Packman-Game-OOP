@@ -238,8 +238,8 @@ public final static int DOWN = 6, UP = 7;
 		public Point3D ConvertToGps() {		
 		
 			double	r = Math.sqrt(_x * _x + _y * _y + _z * _z);
-			double longitude = Math.acos(_x / Math.sqrt(_x * _x + _y * _y)) * (_y < 0 ? -1 : 1);
-			double latidude= Math.acos(_z / r);
+			double longitude = Math.acos(_z/r);
+			double latidude= Math.atan(_y / _x);
 			
 			return new Point3D (r,longitude,latidude);
 			
@@ -251,9 +251,9 @@ public final static int DOWN = 6, UP = 7;
 			double longitude = _y;
 			double latidude = _z;
 			
-			double Gps_x = r * Math.sin(latidude) * Math.cos(longitude);
-			double Gps_y = r * Math.sin(latidude) * Math.sin(longitude);
-			double Gps_z = r * Math.cos(latidude);
+			double Gps_x = r * Math.sin(longitude) * Math.cos(latidude);
+			double Gps_y = r * Math.sin(longitude) * Math.sin(latidude);
+			double Gps_z = r * Math.cos(longitude);
 			
 			return new Point3D(Gps_x,Gps_y,Gps_z);
 		}
