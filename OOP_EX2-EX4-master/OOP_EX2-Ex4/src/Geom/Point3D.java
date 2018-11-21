@@ -251,7 +251,7 @@ public final static int DOWN = 6, UP = 7;
 			double longitude = _y;
 			double latidude = _z;
 			
-			double Gps_x = r * Math.sin(latidude) * Math.cos(longitude);
+			double Gps_x = r * Math.sin(latidude/180*Math.PI) * Math.cos(longitude);
 			double Gps_y = r * Math.sin(latidude) * Math.sin(longitude);
 			double Gps_z = r * Math.cos(latidude);
 			
