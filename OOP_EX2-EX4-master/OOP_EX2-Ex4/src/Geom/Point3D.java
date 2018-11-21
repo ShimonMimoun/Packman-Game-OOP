@@ -8,6 +8,7 @@ public class Point3D implements Geom_element, Serializable
 	 */
 	private static final long serialVersionUID = 1L;
 	private double _x,_y,_z;
+	public static final int RADUIS_EARTH = 6371000;
 
 	public Point3D(double x,double y,double z) 
 	{
@@ -237,23 +238,20 @@ public final static int DOWN = 6, UP = 7;
 		
 		public Point3D ConvertToGps() {		
 		
-			double	r = Math.sqrt(_x * _x + _y * _y + _z * _z)*180/Math.PI;
-			double longitude = Math.acos(_z/r)*180/Math.PI;
-			double latidude= Math.atan(_y / _x)*180/Math.PI;
+			
+			double r=Math.asin(_z/RADUIS_EARTH)*180/Math.PI;
+			double longitude=Math.atan2(_y, _x)*180/Math.PI;
+			double latidude =Math.sqrt(Math.pow(_x, 2)+Math.pow(_y, 2)+Math.pow(_z, 2));
 			
 			return new Point3D (r,longitude,latidude);
 			
 		}
 		
 		public Point3D ConvertToCartesian() {
-			
-			double r = _x;
-			double longitude = _y;
-			double latidude = _z;
-			
-			double Gps_x = r * Math.sin(longitude) * Math.cos(latidude);
-			double Gps_y = r * Math.sin(longitude) * Math.sin(latidude);
-			double Gps_z = r * Math.cos(longitude);
+						
+			double Gps_x = Math.cos(_y/180*Math.PI) * Math.cos(_x/180*Math.PI)*(RADUIS_EARTH+_z);;
+			double Gps_y =Math.sin(_y/180*Math.PI) * Math.cos(_x/180*Math.PI)*(RADUIS_EARTH+_z);
+			double Gps_z = (RADUIS_EARTH+_z)*Math.sin(_x/180*Math.PI);
 			
 			return new Point3D(Gps_x,Gps_y,Gps_z);
 		}

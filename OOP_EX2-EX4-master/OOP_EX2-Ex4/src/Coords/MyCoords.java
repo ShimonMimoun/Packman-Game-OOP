@@ -30,17 +30,7 @@ public class MyCoords implements coords_converter {
 		
 		Point3D gps0Change = gps0.ConvertToCartesian();
 		Point3D gps1Change = gps1.ConvertToCartesian();
-//		double diff_p1_x=gps0.x()-gps1.x();
-//		double diff_p1_y=gps0.y()-gps1.y();
-//		double diff_radian_x=(diff_p1_x*Math.PI)/180;
-//		double diff_radian_y=(diff_p1_y*Math.PI)/180;
-//		double long_norm=Math.cos((gps0.x()*Math.PI)/180);
-//		double to_meter_x=Math.sin(diff_radian_x)*RADUIS_EARTH;
-//		double to_meter_y=Math.sin(diff_radian_y)*RADUIS_EARTH*long_norm;
-//
-//		double result =Math.sqrt((to_meter_x*to_meter_x)+(to_meter_y*to_meter_y));
-
-		return gps0Change.distance3D(gps1Change);
+		return Math.abs(gps0Change.distance3D(gps1Change));
 
 		
 		// TODO Auto-generated method stub
