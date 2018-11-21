@@ -13,13 +13,16 @@ public class MyCoords implements coords_converter {
 
 	@Override
 	public Point3D add(Point3D gps, Point3D local_vector_in_meter) {
-		Point3D meterToGPs = local_vector_in_meter.ConvertToGps();
-		System.out.println(meterToGPs.toString());
-		double ans_x = gps.x()+meterToGPs.x();
-		double ans_y = gps.y()+meterToGPs.y();
-		double ans_z = gps.z()+meterToGPs.z();
+		Point3D covertedCartisian = gps.ConvertToCartesian();
+		
+		double ans_x = covertedCartisian.x()+local_vector_in_meter.x();
+		double ans_y = covertedCartisian.y()+local_vector_in_meter.y();
+		double ans_z = covertedCartisian.z()+local_vector_in_meter.z();
 
-		return new Point3D(ans_x,ans_y,ans_z);
+		Point3D ans = new Point3D(ans_x,ans_y,ans_z);
+		ans.ConvertToGps();
+
+	return ans.ConvertToGps();
 	}
 
 	@Override
@@ -27,16 +30,6 @@ public class MyCoords implements coords_converter {
 		
 		Point3D gps0Change = gps0.ConvertToCartesian();
 		Point3D gps1Change = gps1.ConvertToCartesian();
-//		double diff_p1_x=gps0.x()-gps1.x();
-//		double diff_p1_y=gps0.y()-gps1.y();
-//		double diff_radian_x=(diff_p1_x*Math.PI)/180;
-//		double diff_radian_y=(diff_p1_y*Math.PI)/180;
-//		double long_norm=Math.cos((gps0.x()*Math.PI)/180);
-//		double to_meter_x=Math.sin(diff_radian_x)*RADUIS_EARTH;
-//		double to_meter_y=Math.sin(diff_radian_y)*RADUIS_EARTH*long_norm;
-//
-//		double result =Math.sqrt((to_meter_x*to_meter_x)+(to_meter_y*to_meter_y));
-
 		return Math.abs(gps0Change.distance3D(gps1Change));
 
 		
