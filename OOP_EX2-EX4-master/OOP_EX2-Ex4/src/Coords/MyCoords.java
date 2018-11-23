@@ -58,7 +58,7 @@ public class MyCoords implements coords_converter {
 
 		double[] ans = new double[3];
 		ans[0] = gps1.north_angle(gps0);
-		ans[1] = Math.toDegrees(Math.acos((gps1.z()-gps0.z())/(distance3d(gps1 , gps0))))-90;
+		ans[1] = Math.toDegrees(Math.asin((gps0.z()-gps1.z())/(distance3d(gps0 , gps1))));
 		ans[2] = distance3d(gps1, gps0);
 		
 		return ans;
