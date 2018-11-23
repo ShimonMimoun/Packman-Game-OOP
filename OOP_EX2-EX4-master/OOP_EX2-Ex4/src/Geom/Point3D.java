@@ -35,18 +35,18 @@ public class Point3D implements Geom_element, Serializable
 	////////////////////////////       methods        /////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 
-	
+
 	public double x() {return _x;}
 	public double y() {return _y;}
 	public double z() {return _z;}
 	public int ix() {return (int)_x;}
 	public int iy() {return (int)_y;}
 	public int iz() {return (int)_z;}
-		
+
 	public void add(Point3D p) { add(p._x,p._y,p._z);}
 	public void add(double dx, double dy, double dz) {
-			_x+=dx;_y+=dy;_z+=dz;
-		}
+		_x+=dx;_y+=dy;_z+=dz;
+	}
 	public void add(double x, double y){this.add(x,y,0);}
 
 	public String toString() 
@@ -75,41 +75,41 @@ public class Point3D implements Geom_element, Serializable
 	{
 		return ( this.distance3D(p2)< dist );
 	}
-	  public boolean equalsXY (Point3D p)
-	    {return p._x == _x && p._y == _y;}
-	    
-    public String toFile()  {return _x+","+_y+","+_z;}
-    
-    public String toFile1()  {return "Point3D "+_x+" "+_y+" "+_z;}
+	public boolean equalsXY (Point3D p)
+	{return p._x == _x && p._y == _y;}
 
-    ////////////////////////////////////////////////////////////////////////////////////////
+	public String toFile()  {return _x+","+_y+","+_z;}
 
-public final static int ONSEGMENT = 0,  LEFT = 1, RIGHT = 2, INFRONTOFA = 3, BEHINDB = 4, ERROR = 5;
-public final static int DOWN = 6, UP = 7;
+	public String toFile1()  {return "Point3D "+_x+" "+_y+" "+_z;}
 
-/** return up iff this point is above the SEGMENT (not the line) */
-    public int pointLineTest2(Point3D a, Point3D b) {
-    	int flag = this.pointLineTest(a,b);
-    	if(a._x < b._x ) {
-    		if(a._x<=_x && b._x>_x) {
-    			if (flag == LEFT) return DOWN;
-    			if (flag == RIGHT) return UP;
-    		}
-    	}
-    	else 
-    	if(a._x > b._x ) {
-    		if(b._x<=_x && a._x>_x) {
-    			if (flag == RIGHT) return DOWN;
-    			if (flag == LEFT) return UP;
-    		}
-    	}	
-    	return flag;
+	////////////////////////////////////////////////////////////////////////////////////////
+
+	public final static int ONSEGMENT = 0,  LEFT = 1, RIGHT = 2, INFRONTOFA = 3, BEHINDB = 4, ERROR = 5;
+	public final static int DOWN = 6, UP = 7;
+
+	/** return up iff this point is above the SEGMENT (not the line) */
+	public int pointLineTest2(Point3D a, Point3D b) {
+		int flag = this.pointLineTest(a,b);
+		if(a._x < b._x ) {
+			if(a._x<=_x && b._x>_x) {
+				if (flag == LEFT) return DOWN;
+				if (flag == RIGHT) return UP;
+			}
+		}
+		else 
+			if(a._x > b._x ) {
+				if(b._x<=_x && a._x>_x) {
+					if (flag == RIGHT) return DOWN;
+					if (flag == LEFT) return UP;
+				}
+			}	
+		return flag;
 	}
 
- 
-    /** pointLineTest <br>
+
+	/** pointLineTest <br>
 	test the following location of a point regards a line segment - all in 2D projection.<br><br>
-   
+
 	ONSEGMENT:  �����a----+----b������                              <br> <br>
 
 	           +       +        +                              <br>
@@ -122,49 +122,49 @@ public final static int DOWN = 6, UP = 7;
 	INFRONTOFA:  ��+��a---------b������                              <br>
         BEHINDB:  �����a---------b����+�                              <br>
 	ERROR: a==b || a==null || b == null;                               <br>
-    */
+	 */
 
-    public int pointLineTest(Point3D a, Point3D b) {
+	public int pointLineTest(Point3D a, Point3D b) {
 
-	if(a== null || b==null || a.equalsXY(b)) return ERROR;
+		if(a== null || b==null || a.equalsXY(b)) return ERROR;
 
-	double dx = b._x-a._x;
-	double dy = b._y-a._y;
-	double res = dy*(_x-a._x)-dx*(_y-a._y);
+		double dx = b._x-a._x;
+		double dy = b._y-a._y;
+		double res = dy*(_x-a._x)-dx*(_y-a._y);
 
-	if (res < 0) return LEFT;
-	if (res > 0) return RIGHT;
-	
-	if (dx > 0) {
-	    if (_x < a._x) return INFRONTOFA;
-	    if (b._x < _x) return BEHINDB;
-	    return ONSEGMENT;
+		if (res < 0) return LEFT;
+		if (res > 0) return RIGHT;
+
+		if (dx > 0) {
+			if (_x < a._x) return INFRONTOFA;
+			if (b._x < _x) return BEHINDB;
+			return ONSEGMENT;
+		}
+		if (dx < 0) {
+			if (_x > a._x) return INFRONTOFA;
+			if (b._x > _x) return BEHINDB;
+			return ONSEGMENT;
+		}
+		if (dy > 0) {
+			if (_y < a._y) return INFRONTOFA;
+			if (b._y < _y) return BEHINDB;
+			return ONSEGMENT;
+		}
+		if (dy < 0) {
+			if (_y > a._y) return INFRONTOFA;
+			if (b._y > _y) return BEHINDB;
+			return ONSEGMENT;
+		}
+		return ERROR;
 	}
-	if (dx < 0) {
-	    if (_x > a._x) return INFRONTOFA;
-	    if (b._x > _x) return BEHINDB;
-	    return ONSEGMENT;
-	}
-	if (dy > 0) {
-	    if (_y < a._y) return INFRONTOFA;
-	    if (b._y < _y) return BEHINDB;
-	    return ONSEGMENT;
-	}
-	if (dy < 0) {
-	    if (_y > a._y) return INFRONTOFA;
-	    if (b._y > _y) return BEHINDB;
-	    return ONSEGMENT;
-	}
-	return ERROR;
-    }
-	
-	
+
+
 	////////////////////////////////////////////////////////////////
 	public void rescale(Point3D center, Point3D vec) {
 		if(center!=null && vec != null)
 			rescale(center,vec.x(),vec.y(),vec.z());
 	}
-	
+
 	public void rescale(Point3D center, double size) {
 		if(center!=null && size>0)
 			rescale(center,size,size,size);
@@ -174,13 +174,13 @@ public final static int DOWN = 6, UP = 7;
 		_y = center._y + ((_y - center._y) * sizeY);
 		_z = center._z + ((_z - center._z) * sizeZ);
 	} 
-	
+
 	public void rotate2D(Point3D center, double angle) {
- 	// angle -1/2PI .. 1/2Piregular degrees. 
+		// angle -1/2PI .. 1/2Piregular degrees. 
 		_x = _x - center.x();
 		_y = _y - center.y();
 		double a = Math.atan2(_y,_x);
-	//	System.out.println("Angle: "+a);
+		//	System.out.println("Angle: "+a);
 		double radius = Math.sqrt((_x*_x) + (_y*_y));
 		_x = (center.x() +  radius * Math.cos(a+angle));
 		_y = (center.y() +  radius * Math.sin(a+angle));
@@ -204,11 +204,11 @@ public final static int DOWN = 6, UP = 7;
 		if(p==null) throw new RuntimeException("** Error: Point3D angleZ got null **");
 		return Math.atan2((p._z-_z), this.distance2D(p));
 	}	
-/** return the (planer angle of the vector between this --> p, in DEGREES, in a
- * compass order: north 0, east 90, south 180, west 270.
- * @param p is the end point of the vector (z value is ignored). 
- * @return angle in compass styye [0,360).
- */
+	/** return the (planer angle of the vector between this --> p, in DEGREES, in a
+	 * compass order: north 0, east 90, south 180, west 270.
+	 * @param p is the end point of the vector (z value is ignored). 
+	 * @return angle in compass styye [0,360).
+	 */
 	public double north_angle(Point3D p) {
 		double ans = 0;
 		double a_rad = Math.atan2((p._y-_y), (p._x-_x));
@@ -235,34 +235,14 @@ public final static int DOWN = 6, UP = 7;
 
 	}
 	/// Convert Functions \\\
-		
-		public Point3D ConvertToGps() {		
-		
-			
-			double r=Math.asin(_z/RADUIS_EARTH)*180/Math.PI;
-			double longitude=Math.atan2(_y, _x)*180/Math.PI;
-			double latidude =Math.sqrt(Math.pow(_x, 2)+Math.pow(_y, 2)+Math.pow(_z, 2));
-			
-			return new Point3D (r,longitude,latidude);
-			
-		}
-		
-		public Point3D ConvertToCartesian() {
 
-						
-			double Gps_x = Math.cos(_y/180*Math.PI) * Math.cos(_x/180*Math.PI)*(RADUIS_EARTH+_z);;
-			double Gps_y =Math.sin(_y/180*Math.PI) * Math.cos(_x/180*Math.PI)*(RADUIS_EARTH+_z);
-			double Gps_z = (RADUIS_EARTH+_z)*Math.sin(_x/180*Math.PI);
 
-			
-			return new Point3D(Gps_x,Gps_y,Gps_z);
-		}
-		
-		
-		
-		
-////////////////////////////////////////////////////////////////
-	
+
+
+
+
+	////////////////////////////////////////////////////////////////
+
 	/** transform from radians to angles */
 	public static double r2d(double a) { return Math.toDegrees(a);}
 	/** transform from radians to angles */
