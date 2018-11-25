@@ -76,20 +76,18 @@ public class MyCoords implements coords_converter {
 	
 	public Point3D ConvertToGps(Point3D p) {		
 
-
-		double r=Math.asin(p.z()/RADUIS_EARTH)*180/Math.PI;
-		double longitude=Math.atan2(p.y(), p.x())*180/Math.PI;
-		double latidude =Math.sqrt(Math.pow(p.x(), 2)+Math.pow(p.y(), 2)+Math.pow(p.z(), 2));
-
-		return new Point3D (r,longitude,latidude);
-
+		double x=Math.asin(p.z()/RADUIS_EARTH)*180/Math.PI;
+		double y=Math.atan2(p.y(), p.x())*180/Math.PI;
+		double r =Math.sqrt(Math.pow(p.x(), 2)+Math.pow(p.y(), 2)+Math.pow(p.z(), 2))-RADUIS_EARTH;
+		return new Point3D (x,y,r);
+		
 	}
 
 	public Point3D ConvertToCartesian(Point3D p) {
 
 
 		double Gps_x = Math.cos(p.y()/180*Math.PI) * Math.cos(p.x()/180*Math.PI)*(RADUIS_EARTH+p.z());;
-		double Gps_y =Math.sin(p.y()/180*Math.PI) * Math.cos(p.x()/180*Math.PI)*(RADUIS_EARTH+p.z());
+		double Gps_y = Math.sin(p.y()/180*Math.PI) * Math.cos(p.x()/180*Math.PI)*(RADUIS_EARTH+p.z());
 		double Gps_z = (RADUIS_EARTH+p.z())*Math.sin(p.x()/180*Math.PI);
 
 

@@ -66,6 +66,11 @@ public class csv2kml {
                         +nameData[6]+": <b>"+s[6]+" </b><br/>"
                         +nameData[7]+": <b>"+s[7]+" </b><br/>"
                         +nameData[8]+": <b>"+s[8]+" </b><br/>"
+                        +nameData[8]+": <b>"+s[9]+" </b><br/>"
+                        +nameData[8]+": <b>"+s[10]+" </b><br/>"
+
+
+                        
                         
                         
                         +"]]></description>\n" +
