@@ -9,12 +9,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import GIS.Eelement;
+import GIS.Layer;
 
 
 public class csv2kml {
 	
+	
+	
     public static List<String[]> readFile(File file) throws IOException {
-
+    	
+ 
         List<String[]> result = new ArrayList<String[]>();
 
         FileReader fr = new FileReader(file);
@@ -35,6 +40,8 @@ public class csv2kml {
     
     
     static void to_KML(List<String[]> a, String output) {
+    	Layer myLayer = new Layer();
+    	
         ArrayList<String> content = new ArrayList<String>();
         String kmlstart = 
                  "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" + 
@@ -62,26 +69,29 @@ public class csv2kml {
                         +nameData[2]+": <b>"+s[2]+" </b><br/>"
                         +nameData[3]+": <b>"+s[3]+" </b><br/>" // time and date
                         +nameData[4]+": <b>"+s[4]+" </b><br/>"
-                        +nameData[5]+": <b>"+s[5]+" </b><br/>"
+                        +nameData[5]+": <b>"+s[5]+" </b><br/>" // rssi
                         +nameData[6]+": <b>"+s[6]+" </b><br/>" // latitauo
                         +nameData[7]+": <b>"+s[7]+" </b><br/>" // logntiue
                         +nameData[8]+": <b>"+s[8]+" </b><br/>" // altito to meter
                         +nameData[9]+": <b>"+s[9]+" </b><br/>" //accaryto meter
                         +nameData[10]+": <b>"+s[10]+" </b><br/>" //type wifi
 
-
-                        
-                        
                         
                         +"]]></description>\n" +
                         "<Point>\n" +
                         "<coordinates>"+s[7]+","+s[6]+"</coordinates>" +
                         "</Point>\n" +
                         "</Placemark>\n";
+                Eelement myelm  = new Eelement(s[3], s[5],s[6],s[7],s[8],s[9],s[10]);
+                myLayer.add(myelm);
                 content.add(kmlelement);
+
+
             }
             content.add(kmlend);
             bw.write(String.join("\n", content));
+            content.toString();
+
             System.out.println("Operation Complete");
             bw.close();
         } 
