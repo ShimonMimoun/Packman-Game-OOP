@@ -60,14 +60,14 @@ public class csv2kml {
                         "<![CDATA[B"
                         +nameData[0]+": <b>"+s[0]+" </b><br/>"
                         +nameData[2]+": <b>"+s[2]+" </b><br/>"
-                        +nameData[3]+": <b>"+s[3]+" </b><br/>"
+                        +nameData[3]+": <b>"+s[3]+" </b><br/>" // time and date
                         +nameData[4]+": <b>"+s[4]+" </b><br/>"
                         +nameData[5]+": <b>"+s[5]+" </b><br/>"
-                        +nameData[6]+": <b>"+s[6]+" </b><br/>"
-                        +nameData[7]+": <b>"+s[7]+" </b><br/>"
-                        +nameData[8]+": <b>"+s[8]+" </b><br/>"
-                        +nameData[8]+": <b>"+s[9]+" </b><br/>"
-                        +nameData[8]+": <b>"+s[10]+" </b><br/>"
+                        +nameData[6]+": <b>"+s[6]+" </b><br/>" // latitauo
+                        +nameData[7]+": <b>"+s[7]+" </b><br/>" // logntiue
+                        +nameData[8]+": <b>"+s[8]+" </b><br/>" // altito to meter
+                        +nameData[9]+": <b>"+s[9]+" </b><br/>" //accaryto meter
+                        +nameData[10]+": <b>"+s[10]+" </b><br/>" //type wifi
 
 
                         
