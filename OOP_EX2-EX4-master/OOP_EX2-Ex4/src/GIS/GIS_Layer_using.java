@@ -6,9 +6,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-public class Layer implements GIS_layer {
+public class GIS_Layer_using implements GIS_layer {
     Set<GIS_element> element_List = new HashSet<GIS_element>(); 
-	MetaData mt = new MetaData();
+    Meta_Data_using mt = new Meta_Data_using();
 	
 	
 	@Override
