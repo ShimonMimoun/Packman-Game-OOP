@@ -4,7 +4,7 @@ import Coords.MyCoords;
 import Geom.Geom_element;
 import Geom.Point3D;
 
-public class Eelement  implements GIS_element  {
+public class Element  implements GIS_element  {
 	
 	MetaData mt = new MetaData();
 	
@@ -17,7 +17,7 @@ public class Eelement  implements GIS_element  {
 	private String type;
 	
 	
-	public Eelement(String timeDate , String RSSI,String Latitude,String Longitude,String AltitudeMeters, String AccuracyMeters,String type) {
+	public Element(String timeDate , String RSSI,String Latitude,String Longitude,String AltitudeMeters, String AccuracyMeters,String type) {
 		
 		this.RSSI = RSSI;
 		this.Lat = Latitude;
@@ -108,6 +108,13 @@ public class Eelement  implements GIS_element  {
 		setLon(lon+"");
 		setaltMeters(AltitudeMeters+"");
 		
+	}
+	
+	
+	@Override
+	public String toString() {
+
+		return super.toString();
 	}
 
 	

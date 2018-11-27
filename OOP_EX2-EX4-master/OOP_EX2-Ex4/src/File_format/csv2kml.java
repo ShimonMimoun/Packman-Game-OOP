@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import GIS.Eelement;
+import GIS.Element;
 import GIS.Layer;
 
 
@@ -82,7 +82,7 @@ public class csv2kml {
                         "<coordinates>"+s[7]+","+s[6]+"</coordinates>" +
                         "</Point>\n" +
                         "</Placemark>\n";
-                Eelement myelm  = new Eelement(s[3], s[5],s[6],s[7],s[8],s[9],s[10]);
+                Element myelm  = new Element(s[3], s[5],s[6],s[7],s[8],s[9],s[10]);
                 myLayer.add(myelm);
                 content.add(kmlelement);
 
@@ -90,8 +90,6 @@ public class csv2kml {
             }
             content.add(kmlend);
             bw.write(String.join("\n", content));
-            content.toString();
-
             System.out.println("Operation Complete");
             bw.close();
         } 
