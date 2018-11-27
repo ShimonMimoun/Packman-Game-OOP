@@ -25,11 +25,11 @@ public class Meta_Data_using implements Meta_data {
 		return this.UTC;
 	}
 	public String UTFFormat() {
-		String s = Instant.ofEpochMilli(getUTC()).atOffset(ZoneOffset.UTC).toString();
-		String Time = s.substring(11, 19);
-		String Date = s.substring(0, 10);
-		String Total = ""+Date  +" "+  Time+"";
-		return Total;
+		String str = Instant.ofEpochMilli(getUTC()).atOffset(ZoneOffset.UTC).toString();
+		String theTime = str.substring(11, 19);
+		String Date = str.substring(0, 10);
+		String alltheTime = ""+Date  +" "+  theTime+"";
+		return alltheTime;
 	}
 
 	@Override
@@ -50,18 +50,5 @@ public class Meta_Data_using implements Meta_data {
 		return ""+UTFFormat() + "," + Orientation + "," + color+"";
 	}
 
-
-
-	
-	
-	//@Override
-	/*public String toString() {
-		String s = Instant.ofEpochMilli(getUTC()).atOffset(ZoneOffset.UTC).toString();
-		String Time = s.substring(11, 19);
-		String Date = s.substring(0, 10);
-		String Total = "Date: " + Date + ", " + "Time: " +  Time;
-		return Total;
-	}
-*/
 	
 }

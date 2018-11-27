@@ -72,11 +72,8 @@ public class Gis_element_using  implements GIS_element  {
 	@Override
 	public Geom_element getGeom() {
 		
-		double Latitude = Double.parseDouble(this.Lat);
-		double Longitude = Double.parseDouble(this.Lon);
-		double AltitudeMeters = Double.parseDouble(this.AltitudeMeters);
-	
-		return new Point3D (Latitude,Longitude,AltitudeMeters);
+		Point3D ans = String_2_Point3D(this.Lat,this.Lon,this.AltitudeMeters);
+		return ans;
 	}
 
 	@Override
