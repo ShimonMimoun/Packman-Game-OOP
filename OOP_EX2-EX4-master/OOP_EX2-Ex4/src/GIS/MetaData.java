@@ -8,9 +8,11 @@ public class MetaData implements Meta_data {
 
 	@Override
 	public long getUTC() {
-		long time = new Date().getTime();
-		return time;
+		return 0;
 	}
+	
+//	long time = new Date().getTime();
+//	return time;
 
 	@Override
 	public String toString() {
@@ -20,7 +22,6 @@ public class MetaData implements Meta_data {
 
 	@Override
 	public Point3D get_Orientation() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

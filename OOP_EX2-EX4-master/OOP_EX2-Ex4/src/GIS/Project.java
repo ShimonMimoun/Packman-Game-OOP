@@ -6,13 +6,12 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class Project  implements GIS_project{
-    Set<GIS_layer> element_List = new HashSet<GIS_layer>(); 
+    Set<GIS_layer> layer_List = new HashSet<GIS_layer>(); 
 
 	MetaData mt = new MetaData();
 
 	@Override
 	public boolean add(GIS_layer e) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
