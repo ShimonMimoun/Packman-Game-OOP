@@ -1,11 +1,9 @@
 package GIS;
 
-<<<<<<< HEAD
 import java.util.Date;
 
 import Geom.Point3D;
-=======
->>>>>>> refs/remotes/origin/master
+
 
 import com.sun.jmx.snmp.Timestamp;
 
@@ -18,7 +16,6 @@ public class MetaData implements Meta_data {
 		return time;
 
 	}
-	
 
 	@Override
 	public String toString() {
