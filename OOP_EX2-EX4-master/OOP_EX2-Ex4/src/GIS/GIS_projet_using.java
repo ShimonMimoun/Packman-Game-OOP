@@ -1,49 +1,14 @@
 package GIS;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-public class Layer implements GIS_layer {
-	
-	ArrayList<Eelement> element_List = new ArrayList<>();
-	MetaData mt = new MetaData();
-	
-	
-	@Override
-	public boolean add(GIS_element e) {
-		
-		try {
-		element_List.add((Eelement) e);
-		}catch (RuntimeException e1) {
-			return false;
-		}
-	
-		return true;
-	}
+public class GIS_projet_using implements GIS_project{
 
 	@Override
-	public boolean addAll(Collection<? extends GIS_element> c) {
+	public int size() {
 		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void clear() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean contains(Object o) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean containsAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
+		return 0;
 	}
 
 	@Override
@@ -53,33 +18,15 @@ public class Layer implements GIS_layer {
 	}
 
 	@Override
-	public Iterator<GIS_element> iterator() {
+	public boolean contains(Object o) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Iterator<GIS_layer> iterator() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public boolean remove(Object o) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean removeAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean retainAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	@Override
@@ -95,14 +42,51 @@ public class Layer implements GIS_layer {
 	}
 
 	@Override
+	public boolean add(GIS_layer e) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean remove(Object o) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean containsAll(Collection<?> c) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean addAll(Collection<? extends GIS_layer> c) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean retainAll(Collection<?> c) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean removeAll(Collection<?> c) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
 	public Meta_data get_Meta_data() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
 
-	
-	
-	
 }

@@ -4,7 +4,7 @@ package GIS;
 import com.sun.jmx.snmp.Timestamp;
 
 import Geom.Point3D;
-public class MetaData implements Meta_data {
+public class Meta_Data_using implements Meta_data {
 
 	@Override
 	public long getUTC() {
