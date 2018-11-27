@@ -11,7 +11,7 @@ import Geom.Point3D;
 public class Meta_Data_using implements Meta_data {
 	private long UTC;
 	private Point3D Orientation;
-	private String color = null;
+	private String color;
 	
 	public Meta_Data_using() {
 		this.UTC = getUTC();
@@ -39,6 +39,10 @@ public class Meta_Data_using implements Meta_data {
 	
 	public String getColor() {
 		return this.color;
+	}
+	
+	public void setColor(String Color) {
+		this.color = Color;
 	}
 
 	@Override

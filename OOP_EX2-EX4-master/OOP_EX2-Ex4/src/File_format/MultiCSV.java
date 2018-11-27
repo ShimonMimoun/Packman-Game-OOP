@@ -13,12 +13,6 @@ import GIS.GIS_projet_using;
 
 public class MultiCSV {
 
-
-	public static void main(String[] args) throws IOException {
-		listDirectory("OOP_EX2-Ex4/data/");
-		
-		
-	}
 	public  static void  listDirectory(String dir) throws IOException {
 
 		String Outpout=dir;
@@ -41,10 +35,11 @@ public class MultiCSV {
 
 		}
 
-		CrateKML_Full(listeFichiers,Outpout);
+		CrateKML_Project(listeFichiers,Outpout);
+		//CreateKml_foreach_CSV(listeFichiers,Outpout);
 	}    
 
-	public static void CrateKML_Full(ArrayList<String> Repertoire,String Destination)throws IOException
+	public static void CrateKML_Project(ArrayList<String> Repertoire,String Destination)throws IOException
 	{
 		GIS_projet_using myProject = new GIS_projet_using();
 		for (int i = 0; i < Repertoire.size(); i++) {
@@ -53,9 +48,10 @@ public class MultiCSV {
 			GIS_Layer_using myLayer= csv2kml.ReadCsv_Layer(csv2kml.readFile(file));
 			myProject.add(myLayer);
 		}
-		myProject.to_KML("OOP_EX2-Ex4/data/shimon.kml");
+		myProject.to_KML("OOP_EX2-Ex4/data/MyProject.kml");
+		
 	}
-	public static void CreateKml(ArrayList<String> Repertoire,String Destination) throws IOException
+	public static void CreateKml_foreach_CSV(ArrayList<String> Repertoire,String Destination) throws IOException
 	{
 
 		for (int i = 0; i < Repertoire.size(); i++) {

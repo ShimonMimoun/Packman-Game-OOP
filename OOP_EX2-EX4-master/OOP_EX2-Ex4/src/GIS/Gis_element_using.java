@@ -84,7 +84,6 @@ public class Gis_element_using  implements GIS_element  {
 		return this.mt;
 	}
 	
-	// [32.000, 35.233, WIFI, 4 , -30 +getdata().toString]
 	@Override
 	public void translate(Point3D vec) {
 		MyCoords m = new MyCoords();

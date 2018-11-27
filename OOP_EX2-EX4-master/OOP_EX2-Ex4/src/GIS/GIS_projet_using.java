@@ -148,7 +148,7 @@ public class GIS_projet_using implements GIS_project{
 
 
 		                        
-		                        +"]]></description>\n" +
+		                        +"]]></description>\n" +"<styleUrl>#"+data[13]+"</styleUrl>"+
 		                        "<Point>\n" +
 		                        "<coordinates>"+data[7]+","+data[6]+"</coordinates>" +
 		                        "</Point>\n" +
