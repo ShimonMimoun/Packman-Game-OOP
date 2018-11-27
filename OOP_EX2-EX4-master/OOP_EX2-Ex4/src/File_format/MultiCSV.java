@@ -7,9 +7,18 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import GIS.GIS_Layer_using;
+import GIS.GIS_projet_using;
+
 
 public class MultiCSV {
-	
+
+
+	public static void main(String[] args) throws IOException {
+		listDirectory("OOP_EX2-Ex4/data/");
+		
+		
+	}
 	public  static void  listDirectory(String dir) throws IOException {
 
 		String Outpout=dir;
@@ -32,10 +41,20 @@ public class MultiCSV {
 
 		}
 
-//test
-		CreateKml(listeFichiers,Outpout);
+		CrateKML_Full(listeFichiers,Outpout);
 	}    
 
+	public static void CrateKML_Full(ArrayList<String> Repertoire,String Destination)throws IOException
+	{
+		GIS_projet_using myProject = new GIS_projet_using();
+		for (int i = 0; i < Repertoire.size(); i++) {
+
+			File file = CsvFileHelper.getResource(Destination+Repertoire.get(i));
+			GIS_Layer_using myLayer= csv2kml.ReadCsv_Layer(csv2kml.readFile(file));
+			myProject.add(myLayer);
+		}
+		myProject.to_KML("OOP_EX2-Ex4/data/shimon.kml");
+	}
 	public static void CreateKml(ArrayList<String> Repertoire,String Destination) throws IOException
 	{
 

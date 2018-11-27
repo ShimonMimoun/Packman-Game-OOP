@@ -9,13 +9,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
+
 import GIS.Gis_element_using;
 import GIS.GIS_Layer_using;
-=======
-import GIS.Element;
-import GIS.Layer;
->>>>>>> branch 'master' of https://github.com/omerpaz1/GPS-Ex2.git
+import GIS.GIS_projet_using;
+
 
 
 public class csv2kml {
@@ -38,14 +36,25 @@ public class csv2kml {
 
         br.close();
         fr.close();
-
         return result;
     }
     
     
-    
-    static void to_KML(List<String[]> a, String output) {
+    public static GIS_Layer_using ReadCsv_Layer(List<String[]> result)
+    {
     	GIS_Layer_using myLayer = new GIS_Layer_using();
+   
+
+    	for (int i = 2; i < result.size(); i++) {
+    		String[] s = result.get(i);
+    		Gis_element_using myelm  =new Gis_element_using(s[0],s[1],s[2],s[3],s[4],s[5],s[6],s[7],s[8],s[9],s[10]);
+            myLayer.add(myelm);
+    	}
+    	return myLayer;
+    	
+    }
+    static void to_KML(List<String[]> a, String output) {
+    	
     	
         ArrayList<String> content = new ArrayList<String>();
         String kmlstart = 
@@ -66,6 +75,7 @@ public class csv2kml {
             BufferedWriter bw = new BufferedWriter(fw);
             for (int i = 2; i < a.size(); i++) {
                 String[] s = a.get(i);
+             
                 String kmlelement ="<Placemark>\n" +
                         "<name><![CDATA["+s[1]+"]]></name>\n" +
                         "<description>"+
@@ -81,18 +91,13 @@ public class csv2kml {
                         +nameData[9]+": <b>"+s[9]+" </b><br/>" //accaryto meter
                         +nameData[10]+": <b>"+s[10]+" </b><br/>" //type wifi
 
-                        
                         +"]]></description>\n" +
                         "<Point>\n" +
                         "<coordinates>"+s[7]+","+s[6]+"</coordinates>" +
                         "</Point>\n" +
                         "</Placemark>\n";
-<<<<<<< HEAD
-                Gis_element_using myelm  = new Gis_element_using(s[3], s[5],s[6],s[7],s[8],s[9],s[10]);
-=======
-                Element myelm  = new Element(s[3], s[5],s[6],s[7],s[8],s[9],s[10]);
->>>>>>> branch 'master' of https://github.com/omerpaz1/GPS-Ex2.git
-                myLayer.add(myelm);
+
+                
                 content.add(kmlelement);
 
 

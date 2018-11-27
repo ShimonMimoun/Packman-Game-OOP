@@ -6,27 +6,39 @@ import Geom.Point3D;
 
 public class Gis_element_using  implements GIS_element  {
 	
-	Meta_Data_using mt = new Meta_Data_using();
+	Meta_Data_using mt;
 	
+	private String MAC;
+	private String SSID;
+	private String AuthMode;
+	private String FirstSeen;
+	private String Channel;
+	private String RSSI; 
 	private String Lat;
 	private String Lon;
-	private String RSSI; 
-	private String timeDate;
 	private String AltitudeMeters;	
 	private String AccuracyMeters;
 	private String type;
+
+
 	
 	
-	public Gis_element_using(String timeDate , String RSSI,String Latitude,String Longitude,String AltitudeMeters, String AccuracyMeters,String type) {
+	public Gis_element_using(String MAC , String SSID,String AuthMode,String FirstSeen,String Channel,
+			String RSSI,String Lat,String Lon , String  AltitudeMeters,String AccuracyMeters, String type) {
 		
-		this.RSSI = RSSI;
-		this.Lat = Latitude;
-		this.Lon = Longitude;
-		this.timeDate = timeDate;
-		this.AltitudeMeters = AltitudeMeters;
+		this.MAC =MAC;
+		this.SSID = SSID;
+		this.AuthMode= AuthMode;
+		this.FirstSeen =FirstSeen;
+		this.Channel = Channel;
+		this.RSSI = RSSI; 
+		this.Lat = Lat;
+		this.Lon = Lon;
+		this.AltitudeMeters = AltitudeMeters;	
 		this.AccuracyMeters = AccuracyMeters;
 		this.type = type;
-		this.mt = null;
+		this.mt = new Meta_Data_using();
+		
 	}
 	
 	/// Getters ///
@@ -71,7 +83,8 @@ public class Gis_element_using  implements GIS_element  {
 	public Meta_data getData() {
 		return this.mt;
 	}
-
+	
+	// [32.000, 35.233, WIFI, 4 , -30 +getdata().toString]
 	@Override
 	public void translate(Point3D vec) {
 		MyCoords m = new MyCoords();
@@ -109,16 +122,13 @@ public class Gis_element_using  implements GIS_element  {
 		setaltMeters(AltitudeMeters+"");
 		
 	}
-	
-	
+
 	@Override
 	public String toString() {
-
-		return super.toString();
+		return ""+MAC +"," +SSID+","+AuthMode+","+FirstSeen+","+Channel+","+RSSI+","+Lat
+				+","+Lon+","+AltitudeMeters+","+AccuracyMeters+","+type+","+mt.toString();
 	}
 
-	
-	
-	
+
 	
 }

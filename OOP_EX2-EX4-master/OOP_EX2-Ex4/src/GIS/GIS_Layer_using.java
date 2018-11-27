@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class GIS_Layer_using implements GIS_layer {
+	
     Set<GIS_element> element_List = new HashSet<GIS_element>(); 
     Meta_Data_using mt = new Meta_Data_using();
 	
@@ -82,6 +83,12 @@ public class GIS_Layer_using implements GIS_layer {
 	public Meta_data get_Meta_data() {
 		return  this.mt;
 	}
+	
+	public Set<GIS_element> getElemntsList() {
+		return this.element_List;
+	}
+	
+
 	
 	@Override
 	public String toString() {
