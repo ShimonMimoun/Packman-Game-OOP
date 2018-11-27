@@ -9,8 +9,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+<<<<<<< HEAD
 import GIS.Gis_element_using;
 import GIS.GIS_Layer_using;
+=======
+import GIS.Element;
+import GIS.Layer;
+>>>>>>> branch 'master' of https://github.com/omerpaz1/GPS-Ex2.git
 
 
 public class csv2kml {
@@ -82,7 +87,11 @@ public class csv2kml {
                         "<coordinates>"+s[7]+","+s[6]+"</coordinates>" +
                         "</Point>\n" +
                         "</Placemark>\n";
+<<<<<<< HEAD
                 Gis_element_using myelm  = new Gis_element_using(s[3], s[5],s[6],s[7],s[8],s[9],s[10]);
+=======
+                Element myelm  = new Element(s[3], s[5],s[6],s[7],s[8],s[9],s[10]);
+>>>>>>> branch 'master' of https://github.com/omerpaz1/GPS-Ex2.git
                 myLayer.add(myelm);
                 content.add(kmlelement);
 
@@ -90,8 +99,6 @@ public class csv2kml {
             }
             content.add(kmlend);
             bw.write(String.join("\n", content));
-            content.toString();
-
             System.out.println("Operation Complete");
             bw.close();
         } 
