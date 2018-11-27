@@ -1,13 +1,15 @@
 package GIS;
 
-import Geom.Point3D;
 
+import com.sun.jmx.snmp.Timestamp;
+
+import Geom.Point3D;
 public class MetaData implements Meta_data {
 
 	@Override
 	public long getUTC() {
-		// TODO Auto-generated method stub
-		return 0;
+		// TODO Auto-generated method s	tub
+		 return new Timestamp(System.currentTimeMillis()- Calendar.getInstance().getTimeZone().getOffset(System.currentTimeMillis()));
 	}
 
 	@Override
