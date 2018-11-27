@@ -109,6 +109,13 @@ public class Gis_element_using  implements GIS_element  {
 		setaltMeters(AltitudeMeters+"");
 		
 	}
+	
+	
+	@Override
+	public String toString() {
+
+		return super.toString();
+	}
 
 	
 	

@@ -2,107 +2,91 @@ package GIS;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 public class GIS_Layer_using implements GIS_layer {
-	
-	ArrayList<Gis_element_using> element_List = new ArrayList<>();
-	Meta_Data_using mt = new Meta_Data_using();
+    Set<GIS_element> element_List = new HashSet<GIS_element>(); 
+    Meta_Data_using mt = new Meta_Data_using();
 	
 	
 	@Override
-	public boolean add(GIS_element e) {
-		
-		try {
-		element_List.add((Gis_element_using) e);
-		}catch (RuntimeException e1) {
-			return false;
-		}
-	
-		return true;
+	public boolean add(GIS_element e) {	
+		return element_List.add(e);
 	}
 
 	@Override
 	public boolean addAll(Collection<? extends GIS_element> c) {
-		// TODO Auto-generated method stub
-		return false;
+		return element_List.addAll(c);
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		
+		element_List.clear();
 	}
 
 	@Override
 	public boolean contains(Object o) {
-		// TODO Auto-generated method stub
-		return false;
+		return element_List.contains(o);
+
 	}
 
 	@Override
 	public boolean containsAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
+		return element_List.containsAll(c) ;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return element_List.isEmpty();
 	}
 
 	@Override
 	public Iterator<GIS_element> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return element_List.iterator();
 	}
 
 	@Override
 	public boolean remove(Object o) {
-		// TODO Auto-generated method stub
-		return false;
+		return element_List.remove(o);
 	}
 
 	@Override
 	public boolean removeAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
+		return element_List.removeAll(c);
 	}
 
 	@Override
 	public boolean retainAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
+		return element_List.retainAll(c);
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return element_List.size();
 	}
 
 	@Override
 	public Object[] toArray() {
-		// TODO Auto-generated method stub
-		return null;
+		return element_List.toArray();
 	}
 
 	@Override
 	public <T> T[] toArray(T[] a) {
-		// TODO Auto-generated method stub
-		return null;
+		return element_List.toArray(a);
 	}
 
 	@Override
 	public Meta_data get_Meta_data() {
-		// TODO Auto-generated method stub
-		return null;
+		return  this.mt;
 	}
 	
-	
-
-	
+	@Override
+	public String toString() {
+		return element_List.toString();
+	}
 	
 	
 }
