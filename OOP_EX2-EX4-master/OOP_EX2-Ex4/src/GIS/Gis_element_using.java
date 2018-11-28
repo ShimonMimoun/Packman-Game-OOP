@@ -66,7 +66,7 @@ public class Gis_element_using  implements GIS_element  {
 
 	}
 
-	/// Getters ///
+	/// Getters ////
 
 
 	/// end Getters //
