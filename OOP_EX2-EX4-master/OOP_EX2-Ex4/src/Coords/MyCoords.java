@@ -2,17 +2,25 @@ package Coords;
 
 import Geom.Point3D;
 
-
-//		Point3D gps0=new Point3D(32.103315,35.209039,670);
-//      Point3D gps1=new Point3D(32.106352,35.205225,650);
-
+/**
+ * This class allows you to perform many functions on 3D Points Cartesian or polar.
+ * which is defined by a GPS point for example (32.106352,35,205225,650).
+ * for more explanation:
+ * https://en.wikipedia.org/wiki/Spherical_coordinate_system
+ * @author Shimon Mimoun and Omer Paz
+ *
+ */
 public class MyCoords implements coords_converter {
 	
-	
+	/**
+	 * RADUIS_EARTH = Constant that defines the radius of the earth.  
+	 * https://en.wikipedia.org/wiki/Earth_radius
+	 */
 	public static final int RADUIS_EARTH = 6371000;
 	
 
 	@Override
+	
 	public Point3D add(Point3D gps, Point3D local_vector_in_meter) {
 		Point3D covertedCartisian = ConvertToCartesian(gps);
 		

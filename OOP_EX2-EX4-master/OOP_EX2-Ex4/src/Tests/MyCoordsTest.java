@@ -62,9 +62,9 @@ class MyCoordsTest extends MyCoords {
 	@Test
 	void testAzimuth_elevation_dist() {
 		double[] acutal_Azimuth_elevation_dist  = azimuth_elevation_dist(gps0, gps1);
-//		System.out.println(acutal_Azimuth_elevation_dist[0]);
-//		System.out.println(acutal_Azimuth_elevation_dist[1]);
-//		System.out.println(acutal_Azimuth_elevation_dist[2]);
+		System.out.println(acutal_Azimuth_elevation_dist[0]);
+		System.out.println(acutal_Azimuth_elevation_dist[1]);
+		System.out.println(acutal_Azimuth_elevation_dist[2]);
 		if(acutal_Azimuth_elevation_dist[0] != 321.47050096915774) 
 			fail("You got worng with the north_angle function in point ");
 
