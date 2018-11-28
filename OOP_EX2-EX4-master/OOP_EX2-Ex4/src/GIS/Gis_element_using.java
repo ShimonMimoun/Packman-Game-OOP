@@ -69,6 +69,53 @@ public class Gis_element_using  implements GIS_element  {
 	/// Getters ////
 
 
+	public Meta_Data_using getMt() {
+		return mt;
+	}
+
+	public String getMAC() {
+		return MAC;
+	}
+
+	public String getSSID_name() {
+		return SSID_name;
+	}
+
+	public String getAuthMode() {
+		return AuthMode;
+	}
+
+	public String getFirstSeen() {
+		return FirstSeen;
+	}
+
+	public String getLat() {
+		return Lat;
+	}
+
+	public String getLon() {
+		return Lon;
+	}
+
+	public String getAltitudeMeters() {
+		return AltitudeMeters;
+	}
+
+	public int getChannel() {
+		return Channel;
+	}
+
+	public int getRSSI() {
+		return RSSI;
+	}
+
+	public double getAccuracyMeters() {
+		return AccuracyMeters;
+	}
+
+	public String getType() {
+		return type;
+	}
 	/// end Getters //
 
 	/// Setters ///
