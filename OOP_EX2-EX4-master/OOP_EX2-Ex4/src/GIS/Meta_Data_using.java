@@ -4,11 +4,19 @@ package GIS;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.util.Date;
-
-import com.sun.jmx.snmp.Timestamp;
-
 import Geom.Point3D;
+
+/**
+ * 
+ * This class implements GIS_Meta_Data functions.
+ * @author Shimon Mimoun and Omer Paz
+ *
+ */
 public class Meta_Data_using implements Meta_data {
+	
+	
+	
+	
 	private long UTC;
 	private Point3D Orientation;
 	private String color;

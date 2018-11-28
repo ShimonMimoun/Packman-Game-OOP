@@ -1,5 +1,7 @@
 package GIS;
 import java.io.BufferedWriter;
+
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,87 +10,23 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-public class GIS_projet_using implements GIS_project{
+
+/**
+ * This class implements GIS_Project functions.
+ * @author Shimon Mimoun and Omer Paz
+ *
+ */
+
+public class GIS_projet_using extends HashSet<GIS_layer> implements GIS_project{
 	
-	    Set<GIS_layer> layer_List = new HashSet<GIS_layer>(); 
+	    /**
+	 * 
+	 */
+	ArrayList<Meta_data> myElemData = new ArrayList<>();
+	
+	private static final long serialVersionUID = 1L;
 
 	    Meta_Data_using mt = new Meta_Data_using();
-
-		@Override
-		public boolean add(GIS_layer e) {
-			return layer_List.add(e);
-		}
-
-		@Override
-		public boolean addAll(Collection<? extends GIS_layer> c) {
-			// TODO Auto-generated method stub
-			return layer_List.addAll(c);
-		}
-
-		@Override
-		public void clear() {
-			layer_List.clear();			
-		}
-
-		@Override
-		public boolean contains(Object o) {
-			// TODO Auto-generated method stub
-			return layer_List.contains(o);
-		}
-
-		@Override
-		public boolean containsAll(Collection<?> c) {
-			// TODO Auto-generated method stub
-			return layer_List.containsAll(c);
-		}
-
-		@Override
-		public boolean isEmpty() {
-			// TODO Auto-generated method stub
-			return layer_List.isEmpty();
-		}
-
-		@Override
-		public Iterator<GIS_layer> iterator() {
-			// TODO Auto-generated method stub
-			return layer_List.iterator();
-		}
-
-		@Override
-		public boolean remove(Object o) {
-			// TODO Auto-generated method stub
-			return layer_List.remove(o);
-		}
-
-		@Override
-		public boolean removeAll(Collection<?> c) {
-			// TODO Auto-generated method stub
-			return layer_List.removeAll(c);
-		}
-
-		@Override
-		public boolean retainAll(Collection<?> c) {
-			// TODO Auto-generated method stub
-			return layer_List.retainAll(c);
-		}
-
-		@Override
-		public int size() {
-			// TODO Auto-generated method stub
-			return layer_List.size();
-		}
-
-		@Override
-		public Object[] toArray() {
-			// TODO Auto-generated method stub
-			return layer_List.toArray();
-		}
-
-		@Override
-		public <T> T[] toArray(T[] a) {
-			// TODO Auto-generated method stub
-			return layer_List.toArray(a);
-		}
 
 		@Override
 		public Meta_data get_Meta_data() {
@@ -96,7 +34,10 @@ public class GIS_projet_using implements GIS_project{
 			return this.mt;
 		}
 		
-		
+		/**
+		 * This functions take all the layer that he got and made a project file that include all the layers and the elements made a kml file.
+		 * @param output
+		 */
 		
 		public void to_KML(String output) {
 		       String[]name= {"MAC", "SSID", "AuthMode", "FirstSeen", "Channel", "RSSI", "Lat", "Lon", "AltitudeMeters", "AccuracyMeters", "type","UTC","Orientation ","Color"};
@@ -118,7 +59,7 @@ public class GIS_projet_using implements GIS_project{
 		            FileWriter fw = new FileWriter(output);
 		            BufferedWriter bw = new BufferedWriter(fw);
 	            
-		            for(GIS_layer current_layer: layer_List){
+		            for(Meta_data current_layer: myElemData){
 		            	
 		            	Iterator<GIS_element> myelm = current_layer.iterator();
 		            	
