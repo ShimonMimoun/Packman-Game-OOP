@@ -12,7 +12,7 @@ public interface Meta_data {
 	 * Universal Time Clock associated with this data
 	 * @return long
 	 */
-	public long getUTC();	
+	public long getUTC() throws Exception;	
 	/** @return a String representing this data */
 	public String toString();
 	/**
@@ -27,4 +27,5 @@ public interface Meta_data {
 	 */
 	
 	public void setColor(String Color);
+
 }

@@ -17,7 +17,7 @@ public class Lunch {
  */
 	public static void main(String[] args) throws IOException {
 		File file = CsvFileHelper.getResource("OOP_EX2-Ex4/data/WigleWifi_20171203085618.csv");
-		csv2kml.to_KML(csv2kml.readFile(file), "OOP_EX2-Ex4/data/Omer2.kml");
+		//csv2kml.to_KML(csv2kml.readFile(file), "OOP_EX2-Ex4/data/Omer2.kml");
 		
 		//made a project from all the csv files.
 		MultiCSV.listDirectory("OOP_EX2-Ex4/data/");

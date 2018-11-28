@@ -22,7 +22,7 @@ public class GIS_projet_using extends HashSet<GIS_layer> implements GIS_project{
 	    /**
 	 * 
 	 */
-	ArrayList<Meta_data> myElemData = new ArrayList<>();
+	ArrayList<GIS_layer> myElemData = new ArrayList<>();
 	
 	private static final long serialVersionUID = 1L;
 
@@ -59,14 +59,12 @@ public class GIS_projet_using extends HashSet<GIS_layer> implements GIS_project{
 		            FileWriter fw = new FileWriter(output);
 		            BufferedWriter bw = new BufferedWriter(fw);
 	            
-		            for(Meta_data current_layer: myElemData){
+		            for(GIS_layer current_layer : myElemData ){
 		            	
-		            	Iterator<GIS_element> myelm = current_layer.iterator();
-		            	
+		            	Iterator<GIS_element> myelm = current_layer.iterator();	            	
 		            	while(myelm.hasNext()) {
 		            		
 		            	String s = myelm.next().toString();
-		            	System.out.println(s);
 		            	String[] data=s.split(",");
 		            	
 		                String kmlelement ="<Placemark>\n" +

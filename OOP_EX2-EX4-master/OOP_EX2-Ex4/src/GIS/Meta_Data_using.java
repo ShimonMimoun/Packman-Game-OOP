@@ -9,27 +9,17 @@ import Geom.Point3D;
 /**
  * 
  * This class implements GIS_Meta_Data functions.
- * @author Shimon Mimoun and Omer Paz
  *
  */
 public class Meta_Data_using implements Meta_data {
-	
-	
-	
-	GIS_Layer_using theElem = new GIS_Layer_using();
-
 	private long UTC;
 	private Point3D Orientation;
 	private String color;
-	
-	
-	
 	
 	public Meta_Data_using() {
 		this.UTC = getUTC();
 		this.Orientation = get_Orientation();
 		this.color = getColor();
-
 	}
 
 	public long getUTC() {

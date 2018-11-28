@@ -54,24 +54,19 @@ public class Gis_element_using  implements GIS_element  {
 	public Gis_element_using(String MAC , String SSID_name,String AuthMode,String FirstSeen,String Channel,
 			String RSSI,String Lat,String Lon , String  AltitudeMeters,String AccuracyMeters, String type) {
 
-		this.MAC = MAC; // String 
-		this.SSID_name = SSID_name; //String 
-		this.AuthMode= AuthMode; //String
+		setMAC(MAC); // String 
+		setSSID_name(SSID_name); //String 
+		setAuthMode(AuthMode); //String
 		setFirstSeen(FirstSeen); // String to date 
 		setType(type);; // String 
 		setPoint(Lat,Lon,AltitudeMeters);
 		setChannel(Channel); // int
 		setRSSI(RSSI); // int
-		setAccuracyMeters(AccuracyMeters);
+		setAccuracyMeters(AccuracyMeters);		
 
 	}
 
 	/// Getters ////
-
-
-	public Meta_Data_using getMt() {
-		return mt;
-	}
 
 	public String getMAC() {
 		return MAC;
@@ -146,7 +141,21 @@ public class Gis_element_using  implements GIS_element  {
 	public void setAuthMode(String AuthMode) {
 		this.AuthMode = AuthMode;
 	}
-
+	public void setSSID_name(String name) {
+		this.SSID_name = name;
+	}
+	public void setMAC(String MAC) {
+		this.MAC = MAC;
+	}
+	public void setLat(String Lat) {
+		this.Lat = Lat;
+	}
+	public void setLon(String Lon) {
+		this.Lon = Lon;
+	}
+	public void setaltMeters(String Meters) {
+		this.AltitudeMeters = Meters;
+	}
 	
 
 
@@ -170,7 +179,7 @@ public class Gis_element_using  implements GIS_element  {
 	public void translate(Point3D vec) {
 		MyCoords m = new MyCoords();
 
-		String x = this.getlat();
+		String x = this.getLat();
 		String y = this.getLon();
 		String z = this.getAltitudeMeters();
 
@@ -207,7 +216,7 @@ public class Gis_element_using  implements GIS_element  {
 	 * @return the element
 	 */
 	public String toString() {
-		return ""+MAC +"," +SSID+","+AuthMode+","+FirstSeen+","+Channel+","+RSSI+","+Lat
+		return ""+MAC +"," +SSID_name+","+AuthMode+","+FirstSeen+","+Channel+","+RSSI+","+Lat
 				+","+Lon+","+AltitudeMeters+","+AccuracyMeters+","+type+","+mt.toString();
 	}
 

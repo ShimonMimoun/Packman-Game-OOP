@@ -1,6 +1,7 @@
 package GIS;
 
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 
@@ -14,6 +15,8 @@ public class GIS_Layer_using extends HashSet<GIS_element> implements GIS_layer {
 	private static final long serialVersionUID = 1L;
 	
     Meta_Data_using mt = new Meta_Data_using();
+    ArrayList<Meta_Data_using> layerData = new ArrayList<>();
+
 	
 	@Override
 	public Meta_data get_Meta_data() {
