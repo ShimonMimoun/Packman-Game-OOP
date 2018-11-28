@@ -24,9 +24,9 @@ public class Gis_element_using  implements GIS_element  {
 	private String SSID_name;
 	private String AuthMode;
 	private String FirstSeen;
-	private String Lat;
-	private String Lon;
-	private String AltitudeMeters;
+	private double Lat;
+	private double Lon;
+	private double AltitudeMeters;
 	private int Channel;
 	private int RSSI; 
 	private double AccuracyMeters;
@@ -84,15 +84,15 @@ public class Gis_element_using  implements GIS_element  {
 		return FirstSeen;
 	}
 
-	public String getLat() {
+	public double getLat() {
 		return Lat;
 	}
 
-	public String getLon() {
+	public double getLon() {
 		return Lon;
 	}
 
-	public String getAltitudeMeters() {
+	public double getAltitudeMeters() {
 		return AltitudeMeters;
 	}
 
@@ -129,7 +129,7 @@ public class Gis_element_using  implements GIS_element  {
 	}
 	
 	public void setPoint(String lat, String lon , String AltitudeMeters) {
-	elem_Point = new Point3D(String_2_Point3D(Lat,Lon,AltitudeMeters));
+	elem_Point = new Point3D(String_2_Point3D(lat,lon,AltitudeMeters));
 	}	
 	
 	public void setType(String type) {
@@ -148,13 +148,17 @@ public class Gis_element_using  implements GIS_element  {
 		this.MAC = MAC;
 	}
 	public void setLat(String Lat) {
-		this.Lat = Lat;
+		double theLat = Double.parseDouble(Lat);
+		this.Lat = theLat;
 	}
 	public void setLon(String Lon) {
-		this.Lon = Lon;
+		double theLon = Double.parseDouble(Lon);
+		this.Lon = theLon;
 	}
 	public void setaltMeters(String Meters) {
-		this.AltitudeMeters = Meters;
+		
+		double theMeters = Double.parseDouble(Meters);
+		this.AltitudeMeters = theMeters;
 	}
 	
 
@@ -165,9 +169,7 @@ public class Gis_element_using  implements GIS_element  {
 
 	@Override
 	public Geom_element getGeom() {
-
-		Point3D ans = String_2_Point3D(this.Lat,this.Lon,this.AltitudeMeters);
-		return ans;
+		return elem_Point;
 	}
 
 	@Override
@@ -179,15 +181,11 @@ public class Gis_element_using  implements GIS_element  {
 	public void translate(Point3D vec) {
 		MyCoords m = new MyCoords();
 
-		String x = this.getLat();
-		String y = this.getLon();
-		String z = this.getAltitudeMeters();
 
-		Point3D coverted_To_num = String_2_Point3D(x,y,z);
-
-		Point3D ans = m.add(coverted_To_num, vec);
-
-		Point3D_2_String(ans.x(),ans.y(),ans.z());
+		Point3D ans = m.add(this.elem_Point, vec);
+		setLat(ans.x()+"");
+		setLon(ans.y()+"");
+		setaltMeters(ans.z()+"");
 
 	}
 

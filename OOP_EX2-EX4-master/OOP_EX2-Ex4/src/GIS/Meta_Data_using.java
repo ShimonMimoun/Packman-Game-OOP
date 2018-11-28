@@ -50,7 +50,7 @@ public class Meta_Data_using implements Meta_data {
 
 	@Override
 	public String toString() {
-		return ""+UTFFormat() + "," + Orientation + "," + color+"";
+		return ""+UTFFormat()+ "," + Orientation + "," + color+"";
 	}
 
 	

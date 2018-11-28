@@ -71,6 +71,7 @@ public class csv2kml {
 			myLayer.add(myelm);
 			myelm.getData().setColor(random);
 
+
 		}
 		//Add color in Layer
 		myLayer.get_Meta_data().setColor(random);
