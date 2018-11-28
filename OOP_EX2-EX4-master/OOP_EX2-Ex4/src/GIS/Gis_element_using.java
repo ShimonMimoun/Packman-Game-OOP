@@ -66,7 +66,7 @@ public class Gis_element_using  implements GIS_element  {
 
 	}
 
-	/// Getters ///
+	/// Getters ////
 
 	public Meta_Data_using getMt() {
 		return mt;
