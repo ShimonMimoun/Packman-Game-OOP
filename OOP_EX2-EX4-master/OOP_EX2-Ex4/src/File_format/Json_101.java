@@ -2,7 +2,11 @@ package File_format;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
+/**
+ * Example of Json
+ * @author  Shimon Mimoun and Omer Paz
+ *
+ */
 public class Json_101 {
 
 	   public static void main(String[] args){
