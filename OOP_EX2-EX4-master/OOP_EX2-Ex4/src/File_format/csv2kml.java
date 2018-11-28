@@ -15,11 +15,24 @@ import GIS.GIS_Layer_using;
 import GIS.GIS_projet_using;
 
 
-
+/**
+ * This class can convert a Csv file into Kml As a reminder, a Csv file is a file separated by commas a
+ * Kml file is a Google Geographical file.
+ * More: https://he.wikipedia.org/wiki/CSV
+ * https://developers.google.com/kml/
+ * 
+ * @author  Shimon Mimoun and Omer Paz
+ *
+ */
 public class csv2kml {
 
 
-
+/**
+ * This class receives a file csv is knows how to read it in order to record it is given in an arraylist.
+ * @param file Csv file
+ * @return List<String[]> of Data for file 
+ * @throws IOException
+ */
 	public static List<String[]> readFile(File file) throws IOException {
 
 
@@ -39,29 +52,37 @@ public class csv2kml {
 		return result;
 	}
 
-
+/**
+ * Get a list with the read data from a List file, Send to Gis
+ * @param result List<String[]> of Data for file 
+ * @return GIS_Layer_using with the csv data
+ */
 	public static GIS_Layer_using ReadCsv_Layer(List<String[]> result)
 	{
 		GIS_Layer_using myLayer = new GIS_Layer_using();
+		// Add color Random
 		String Color []= {"red","yellow","green"};
 		int idx = new Random().nextInt(Color.length);
 		String random = (Color[idx]);
+
 		for (int i = 2; i < result.size(); i++) {
 			String[] s = result.get(i);
 			Gis_element_using myelm  =new Gis_element_using(s[0],s[1],s[2],s[3],s[4],s[5],s[6],s[7],s[8],s[9],s[10]);
-
 			myLayer.add(myelm);
-
-
 			myelm.getData().setColor(random);
 
 		}
-
-		
+		//Add color in Layer
 		myLayer.get_Meta_data().setColor(random);
 		return myLayer;
 
 	}
+	/**
+	 * Function that can write a Kml file from a Csv file
+	 * @param a List<String[]> of Data for file.
+	 * @param output Localization of the export of the file (with the name of the file).
+	 * @return Kml file
+	 */
 	static void to_KML(List<String[]> a, String output) {
 
 
