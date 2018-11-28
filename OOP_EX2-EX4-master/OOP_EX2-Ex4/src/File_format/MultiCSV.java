@@ -10,9 +10,17 @@ import java.util.regex.Pattern;
 import GIS.GIS_Layer_using;
 import GIS.GIS_projet_using;
 
-
+/**
+ * Class who knows how to scan files and find Csv files this class
+ * has several functions in addition, like converting all csv files into one kml, or into several different kml
+ * @author  Shimon Mimoun and Omer Paz
+ *
+ */
 public class MultiCSV {
-
+	/**
+	 * Returns the list of csv files found in a folder.
+	 * @param dir Destination of the Csv files to search. For exemple: "OOP_EX2-Ex4/data/"
+	 */
 	public  static void  listDirectory(String dir) throws IOException {
 
 		String Outpout=dir;
@@ -38,7 +46,11 @@ public class MultiCSV {
 		CrateKML_Project(listeFichiers,Outpout);
 		//CreateKml_foreach_CSV(listeFichiers,Outpout);
 	}    
-
+	/**
+	 * Function that receives a directory with all csv files and converts them into a single Kml using Class Gis
+	 * @param Repertoire directory of CSV files
+	 * @param Destination destination of kml files
+	 */
 	public static void CrateKML_Project(ArrayList<String> Repertoire,String Destination)throws IOException
 	{
 		GIS_projet_using myProject = new GIS_projet_using();
@@ -49,8 +61,13 @@ public class MultiCSV {
 			myProject.add(myLayer);
 		}
 		myProject.to_KML("OOP_EX2-Ex4/data/MyProject.kml");
-		
+
 	}
+	/**
+	 * Function that receives a directory with all csv files and converts them into several different kml.
+	 * @param Repertoire directory of CSV files
+	 * @param Destination destination of kml files
+	 */
 	public static void CreateKml_foreach_CSV(ArrayList<String> Repertoire,String Destination) throws IOException
 	{
 
