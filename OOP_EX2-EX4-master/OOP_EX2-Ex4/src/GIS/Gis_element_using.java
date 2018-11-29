@@ -147,19 +147,19 @@ public class Gis_element_using  implements GIS_element  {
 	public void setMAC(String MAC) {
 		this.MAC = MAC;
 	}
-	public void setLat(String Lat) {
-		double theLat = Double.parseDouble(Lat);
-		this.Lat = theLat;
-	}
-	public void setLon(String Lon) {
-		double theLon = Double.parseDouble(Lon);
-		this.Lon = theLon;
-	}
-	public void setaltMeters(String Meters) {
-		
-		double theMeters = Double.parseDouble(Meters);
-		this.AltitudeMeters = theMeters;
-	}
+//	public void setLat(String Lat) {
+//		double theLat = Double.parseDouble(Lat);
+//		this.Lat = theLat;
+//	}
+//	public void setLon(String Lon) {
+//		double theLon = Double.parseDouble(Lon);
+//		this.Lon = theLon;
+//	}
+//	public void setaltMeters(String Meters) {
+//		
+//		double theMeters = Double.parseDouble(Meters);
+//		this.AltitudeMeters = theMeters;
+//	}
 	
 
 
@@ -183,9 +183,7 @@ public class Gis_element_using  implements GIS_element  {
 
 
 		Point3D ans = m.add(this.elem_Point, vec);
-		setLat(ans.x()+"");
-		setLon(ans.y()+"");
-		setaltMeters(ans.z()+"");
+		elem_Point = new Point3D(ans.x(),ans.y(),ans.z());
 
 	}
 
@@ -201,13 +199,13 @@ public class Gis_element_using  implements GIS_element  {
 
 
 	// convert point to string and set the varulbs
-	private void Point3D_2_String(double lat , double lon, double AltitudeMeters) {
-
-		setLat(lat+"");
-		setLon(lon+"");
-		setaltMeters(AltitudeMeters+"");
-
-	}
+//	private void Point3D_2_String(double lat , double lon, double AltitudeMeters) {
+//
+//		setLat(lat+"");
+//		setLon(lon+"");
+//		setaltMeters(AltitudeMeters+"");
+//
+//	}
 
 	/**
 	 * Create a String of the element and adiing the meta data information.

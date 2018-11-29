@@ -63,7 +63,6 @@ public class GIS_projet_using extends HashSet<GIS_layer> implements GIS_project{
 		            	
 		            	Iterator<GIS_element> myelm = current_layer.iterator();	            	
 		            	while(myelm.hasNext()) {
-		            		
 		            	String s = myelm.next().toString();
 		            	String[] data=s.split(",");
 		            	
