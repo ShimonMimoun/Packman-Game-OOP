@@ -29,7 +29,7 @@ public class Gis_element_using  implements GIS_element  {
 	private double AltitudeMeters;
 	private int Channel;
 	private int RSSI; 
-	private double AccuracyMeters;
+	private int AccuracyMeters;
 	private String type;
 
 
@@ -63,7 +63,7 @@ public class Gis_element_using  implements GIS_element  {
 		setChannel(Channel); // int
 		setRSSI(RSSI); // int
 		setAccuracyMeters(AccuracyMeters);		
-
+		mt=new Meta_Data_using();
 	}
 
 	/// Getters ////
@@ -124,8 +124,9 @@ public class Gis_element_using  implements GIS_element  {
 		this.RSSI = theRSSI;
 	}
 	public void setAccuracyMeters(String AccuracyMeters) {
+		
 		double theAccuracyMeters = Double.parseDouble(AccuracyMeters);
-		this.AccuracyMeters = theAccuracyMeters;
+		this.AccuracyMeters =(int) theAccuracyMeters;
 	}
 	
 	public void setPoint(String lat, String lon , String AltitudeMeters) {
@@ -196,6 +197,7 @@ public class Gis_element_using  implements GIS_element  {
 		Double x = Double.parseDouble(lat);
 		Double y = Double.parseDouble(lon);
 		Double z = Double.parseDouble(AltitudeMeters);
+
 		return new Point3D(x,y,z);
 	}
 
@@ -214,8 +216,8 @@ public class Gis_element_using  implements GIS_element  {
 	 * @return the element
 	 */
 	public String toString() {
-		return ""+MAC +"," +SSID_name+","+AuthMode+","+FirstSeen+","+Channel+","+RSSI+","+Lat
-				+","+Lon+","+AltitudeMeters+","+AccuracyMeters+","+type+","+mt.toString();
+
+		return ""+MAC +"," +SSID_name+","+AuthMode+","+FirstSeen+","+Channel+","+RSSI+","+elem_Point.toString()+","+AccuracyMeters+","+type+","+getData().toString();
 	}
 
 

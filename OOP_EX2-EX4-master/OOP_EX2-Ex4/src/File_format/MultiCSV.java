@@ -59,8 +59,10 @@ public class MultiCSV {
 			File file = CsvFileHelper.getResource(Destination+Repertoire.get(i));
 			GIS_Layer_using myLayer= csv2kml.ReadCsv_Layer(csv2kml.readFile(file));
 			myProject.add(myLayer);
+			
 		}
-		myProject.to_KML("OOP_EX2-Ex4/data/MyProject.kml");
+		
+		myProject.to_KML("OOP_EX2-Ex4/data/MyProject2.kml");
 
 	}
 	/**
