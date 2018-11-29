@@ -1,9 +1,12 @@
 package GIS;
 
 
-import java.time.Instant;
-import java.time.ZoneOffset;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
 import Geom.Point3D;
 
 /**
@@ -22,17 +25,35 @@ public class Meta_Data_using implements Meta_data {
 		this.color = getColor();
 	}
 
-	public long getUTC() {
-		long time = new Date().getTime();
-		this.UTC = time;
-		return this.UTC;
+
+	public void setUTC(String DateAndTime) throws ParseException
+	{
+	
+		long millis  = DateToMilis(DateAndTime);
+		UTC = millis;
 	}
-	public String UTFFormat() {
-		String str = Instant.ofEpochMilli(getUTC()).atOffset(ZoneOffset.UTC).toString();
-		String theTime = str.substring(11, 19);
-		String Date = str.substring(0, 10);
-		String alltheTime = ""+Date  +" "+  theTime+"";
-		return alltheTime;
+	
+	private long DateToMilis(String dateAndTime) throws ParseException
+	{
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+		format.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+		Date date = format.parse(dateAndTime);
+		long millis = date.getTime();
+		return millis;
+	}
+	
+	
+	@Override
+	public long getUTC()
+	{
+		return UTC;
+	}
+	private String longToDate(long millis)
+	{
+		SimpleDateFormat sdf = new SimpleDateFormat();
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        return sdf.format(new Date(millis));
 	}
 
 	@Override
@@ -50,7 +71,7 @@ public class Meta_Data_using implements Meta_data {
 
 	@Override
 	public String toString() {
-		return ""+UTFFormat()+ "," + Orientation + "," + color+"";
+		return ""+longToDate(UTC)+ "," + Orientation + "," + color+"";
 	}
 
 	

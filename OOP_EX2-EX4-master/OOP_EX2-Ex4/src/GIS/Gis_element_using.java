@@ -23,7 +23,6 @@ public class Gis_element_using  implements GIS_element  {
 	private String MAC;
 	private String SSID_name;
 	private String AuthMode;
-	private String FirstSeen;
 	private double Lat;
 	private double Lon;
 	private double AltitudeMeters;
@@ -51,13 +50,13 @@ public class Gis_element_using  implements GIS_element  {
 	 * @param type
 	 */
 
-	public Gis_element_using(String MAC , String SSID_name,String AuthMode,String FirstSeen,String Channel,
+	public Gis_element_using(String MAC , String SSID_name,String AuthMode,String Channel,
 			String RSSI,String Lat,String Lon , String  AltitudeMeters,String AccuracyMeters, String type) {
 
 		setMAC(MAC); // String 
 		setSSID_name(SSID_name); //String 
 		setAuthMode(AuthMode); //String
-		setFirstSeen(FirstSeen); // String to date 
+		
 		setType(type);; // String 
 		setPoint(Lat,Lon,AltitudeMeters);
 		setChannel(Channel); // int
@@ -80,9 +79,7 @@ public class Gis_element_using  implements GIS_element  {
 		return AuthMode;
 	}
 
-	public String getFirstSeen() {
-		return FirstSeen;
-	}
+
 
 	public double getLat() {
 		return Lat;
@@ -136,9 +133,7 @@ public class Gis_element_using  implements GIS_element  {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public void setFirstSeen(String FirstSeen) {
-		this.FirstSeen = FirstSeen;
-	}
+
 	public void setAuthMode(String AuthMode) {
 		this.AuthMode = AuthMode;
 	}
@@ -217,7 +212,7 @@ public class Gis_element_using  implements GIS_element  {
 	 */
 	public String toString() {
 
-		return ""+MAC +"," +SSID_name+","+AuthMode+","+FirstSeen+","+Channel+","+RSSI+","+elem_Point.toString()+","+AccuracyMeters+","+type+","+getData().toString();
+		return ""+MAC +"," +SSID_name+","+AuthMode+","+Channel+","+RSSI+","+elem_Point.toString()+","+AccuracyMeters+","+type+","+getData().toString();
 	}
 
 

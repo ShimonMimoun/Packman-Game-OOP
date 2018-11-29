@@ -35,7 +35,7 @@ public class GIS_projet_using extends HashSet<GIS_layer> implements GIS_project{
 	 * @param output
 	 */
 	public void to_KML(String output) {
-		String[]name= {"MAC", "SSID", "AuthMode", "FirstSeen", "Channel", "RSSI", "Lat", "Lon", "AltitudeMeters", "AccuracyMeters", "type","UTC","Orientation ","Color"};
+		String[]name= {"MAC", "SSID", "AuthMode", "Channel", "RSSI", "Lat", "Lon", "AltitudeMeters", "AccuracyMeters", "type","UTC","Orientation ","Color"};
 
 		ArrayList<String> content = new ArrayList<String>();
 		String kmlstart = 
@@ -71,23 +71,22 @@ public class GIS_projet_using extends HashSet<GIS_layer> implements GIS_project{
 							"<![CDATA[B"
 							+name[0]+": <b>"+data[0]+" </b><br/>"
 							+name[2]+": <b>"+data[2]+" </b><br/>"
-							+name[3]+": <b>"+data[3]+" </b><br/>" // time and date
-							+name[4]+": <b>"+data[4]+" </b><br/>"
-							+name[5]+": <b>"+data[5]+" </b><br/>" // rssi
-							+name[6]+": <b>"+data[6]+" </b><br/>" // latitauo
-							+name[7]+": <b>"+data[7]+" </b><br/>" // logntiue
-							+name[8]+": <b>"+data[8]+" </b><br/>" // altito to meter
-							+name[9]+": <b>"+data[9]+" </b><br/>" //accaryto meter
+							+name[3]+": <b>"+data[3]+" </b><br/>"
+							+name[4]+": <b>"+data[4]+" </b><br/>" // rssi
+							+name[5]+": <b>"+data[5]+" </b><br/>" // latitauo
+							+name[6]+": <b>"+data[6]+" </b><br/>" // logntiue
+							+name[7]+": <b>"+data[7]+" </b><br/>" // altito to meter
+							+name[8]+": <b>"+data[8]+" </b><br/>" //accaryto meter
+							+name[9]+": <b>"+data[9]+" </b><br/>" //type wifi
 							+name[10]+": <b>"+data[10]+" </b><br/>" //type wifi
 							+name[11]+": <b>"+data[11]+" </b><br/>" //type wifi
 							+name[12]+": <b>"+data[12]+" </b><br/>" //type wifi
-							+name[13]+": <b>"+data[13]+" </b><br/>" //type wifi
 
 
 
-							+"]]></description>\n" +"<styleUrl>#"+data[13]+"</styleUrl>"+
+							+"]]></description>\n" +"<styleUrl>#"+data[12]+"</styleUrl>"+
 							"<Point>\n" +
-							"<coordinates>"+data[7]+","+data[6]+"</coordinates>" +
+							"<coordinates>"+data[6]+","+data[5]+"</coordinates>" +
 							"</Point>\n" +
 							"</Placemark>\n";
 

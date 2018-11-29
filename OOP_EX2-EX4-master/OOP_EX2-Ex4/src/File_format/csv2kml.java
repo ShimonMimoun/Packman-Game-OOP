@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -56,8 +57,9 @@ public class csv2kml {
  * Get a list with the read data from a List file, Send to Gis
  * @param result List<String[]> of Data for file 
  * @return GIS_Layer_using with the csv data
+ * @throws ParseException 
  */
-	public static GIS_Layer_using ReadCsv_Layer(List<String[]> result)
+	public static GIS_Layer_using ReadCsv_Layer(List<String[]> result) throws ParseException
 	{
 		GIS_Layer_using myLayer = new GIS_Layer_using();
 		// Add color Random
@@ -67,8 +69,9 @@ public class csv2kml {
 
 		for (int i = 2; i < result.size(); i++) {
 			String[] s = result.get(i);
-			Gis_element_using myelm  =new Gis_element_using(s[0],s[1],s[2],s[3],s[4],s[5],s[6],s[7],s[8],s[9],s[10]);
+			Gis_element_using myelm  =new Gis_element_using(s[0],s[1],s[2],s[4],s[5],s[6],s[7],s[8],s[9],s[10]);
 			
+			myelm.getData().setUTC(s[3]);
 			myLayer.add(myelm);
 			myelm.getData().setColor(random);
 

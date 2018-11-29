@@ -1,5 +1,7 @@
 package GIS;
 
+import java.text.ParseException;
+
 import Geom.Point3D;
 /**
  * This interface represents a meta data such as (UTD , Oriantation , Color and String).
@@ -27,5 +29,7 @@ public interface Meta_data {
 	 */
 	
 	public void setColor(String Color);
+	public void setUTC(String DateAndTime) throws ParseException;
+	
 
 }

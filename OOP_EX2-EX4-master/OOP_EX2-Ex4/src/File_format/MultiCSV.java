@@ -3,6 +3,7 @@ package File_format;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -43,15 +44,21 @@ public class MultiCSV {
 
 		}
 
-		CrateKML_Project(listeFichiers,Outpout);
+		try {
+			CrateKML_Project(listeFichiers,Outpout);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//CreateKml_foreach_CSV(listeFichiers,Outpout);
 	}    
 	/**
 	 * Function that receives a directory with all csv files and converts them into a single Kml using Class Gis
 	 * @param Repertoire directory of CSV files
 	 * @param Destination destination of kml files
+	 * @throws ParseException 
 	 */
-	public static void CrateKML_Project(ArrayList<String> Repertoire,String Destination)throws IOException
+	public static void CrateKML_Project(ArrayList<String> Repertoire,String Destination)throws IOException, ParseException
 	{
 		GIS_projet_using myProject = new GIS_projet_using();
 		for (int i = 0; i < Repertoire.size(); i++) {
