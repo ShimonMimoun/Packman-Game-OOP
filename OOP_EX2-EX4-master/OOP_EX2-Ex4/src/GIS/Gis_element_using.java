@@ -23,13 +23,12 @@ public class Gis_element_using  implements GIS_element  {
 	private String MAC;
 	private String SSID_name;
 	private String AuthMode;
-	private String FirstSeen;
 	private double Lat;
 	private double Lon;
 	private double AltitudeMeters;
 	private int Channel;
 	private int RSSI; 
-	private double AccuracyMeters;
+	private int AccuracyMeters;
 	private String type;
 
 
@@ -51,19 +50,18 @@ public class Gis_element_using  implements GIS_element  {
 	 * @param type
 	 */
 
-	public Gis_element_using(String MAC , String SSID_name,String AuthMode,String FirstSeen,String Channel,
+	public Gis_element_using(String MAC , String SSID_name,String AuthMode,String Channel,
 			String RSSI,String Lat,String Lon , String  AltitudeMeters,String AccuracyMeters, String type) {
-
+		
 		setMAC(MAC); // String 
 		setSSID_name(SSID_name); //String 
 		setAuthMode(AuthMode); //String
-		setFirstSeen(FirstSeen); // String to date 
 		setType(type);; // String 
 		setPoint(Lat,Lon,AltitudeMeters);
 		setChannel(Channel); // int
 		setRSSI(RSSI); // int
 		setAccuracyMeters(AccuracyMeters);		
-
+		mt=new Meta_Data_using();
 	}
 
 	/// Getters ////
@@ -79,11 +77,6 @@ public class Gis_element_using  implements GIS_element  {
 	public String getAuthMode() {
 		return AuthMode;
 	}
-
-	public String getFirstSeen() {
-		return FirstSeen;
-	}
-
 	public double getLat() {
 		return Lat;
 	}
@@ -124,8 +117,9 @@ public class Gis_element_using  implements GIS_element  {
 		this.RSSI = theRSSI;
 	}
 	public void setAccuracyMeters(String AccuracyMeters) {
+		
 		double theAccuracyMeters = Double.parseDouble(AccuracyMeters);
-		this.AccuracyMeters = theAccuracyMeters;
+		this.AccuracyMeters =(int) theAccuracyMeters;
 	}
 	
 	public void setPoint(String lat, String lon , String AltitudeMeters) {
@@ -135,9 +129,7 @@ public class Gis_element_using  implements GIS_element  {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public void setFirstSeen(String FirstSeen) {
-		this.FirstSeen = FirstSeen;
-	}
+
 	public void setAuthMode(String AuthMode) {
 		this.AuthMode = AuthMode;
 	}
@@ -147,21 +139,6 @@ public class Gis_element_using  implements GIS_element  {
 	public void setMAC(String MAC) {
 		this.MAC = MAC;
 	}
-//	public void setLat(String Lat) {
-//		double theLat = Double.parseDouble(Lat);
-//		this.Lat = theLat;
-//	}
-//	public void setLon(String Lon) {
-//		double theLon = Double.parseDouble(Lon);
-//		this.Lon = theLon;
-//	}
-//	public void setaltMeters(String Meters) {
-//		
-//		double theMeters = Double.parseDouble(Meters);
-//		this.AltitudeMeters = theMeters;
-//	}
-	
-
 
 
 	/// end Setters ///
@@ -194,26 +171,17 @@ public class Gis_element_using  implements GIS_element  {
 		Double x = Double.parseDouble(lat);
 		Double y = Double.parseDouble(lon);
 		Double z = Double.parseDouble(AltitudeMeters);
+
 		return new Point3D(x,y,z);
 	}
-
-
-	// convert point to string and set the varulbs
-//	private void Point3D_2_String(double lat , double lon, double AltitudeMeters) {
-//
-//		setLat(lat+"");
-//		setLon(lon+"");
-//		setaltMeters(AltitudeMeters+"");
-//
-//	}
 
 	/**
 	 * Create a String of the element and adiing the meta data information.
 	 * @return the element
 	 */
 	public String toString() {
-		return ""+MAC +"," +SSID_name+","+AuthMode+","+FirstSeen+","+Channel+","+RSSI+","+Lat
-				+","+Lon+","+AltitudeMeters+","+AccuracyMeters+","+type+","+mt.toString();
+
+		return ""+MAC +"," +SSID_name+","+AuthMode+","+Channel+","+RSSI+","+elem_Point.toString()+","+AccuracyMeters+","+type+","+getData().toString();
 	}
 
 
