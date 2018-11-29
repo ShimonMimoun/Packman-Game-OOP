@@ -77,6 +77,7 @@ public class Gis_element_using  implements GIS_element  {
 	public String getAuthMode() {
 		return AuthMode;
 	}
+
 	public double getLat() {
 		return Lat;
 	}

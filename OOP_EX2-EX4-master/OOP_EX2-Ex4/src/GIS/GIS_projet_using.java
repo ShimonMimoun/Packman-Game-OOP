@@ -5,11 +5,9 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+
 
 /**
  * This class implements GIS_Project functions.
@@ -18,7 +16,6 @@ import java.util.Set;
  */
 
 public class GIS_projet_using extends HashSet<GIS_layer> implements GIS_project{
-
 
 	private static final long serialVersionUID = 1L;
 
@@ -102,8 +99,12 @@ public class GIS_projet_using extends HashSet<GIS_layer> implements GIS_project{
 		}
 	}
 
+
 	@Override
 	public Meta_data get_Meta_data() {
 		return this.mt;
 	}
-}
+
+	
+	}
+
