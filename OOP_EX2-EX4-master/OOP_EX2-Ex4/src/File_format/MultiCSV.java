@@ -69,7 +69,7 @@ public class MultiCSV {
 			
 		}
 		
-		myProject.to_KML("OOP_EX2-Ex4/data/MyProject2.kml");
+		myProject.to_KML("OOP_EX2-Ex4/data/MyProject.kml");
 
 	}
 	/**
