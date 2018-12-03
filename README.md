@@ -27,7 +27,7 @@ The tests of the function were carried out by Junit, all the functions have thei
 
 # Authors
 
-Shimon Mimoun&Omer Paz 
+Shimon Mimoun & Omer Paz 
 
 # Built With
 
