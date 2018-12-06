@@ -36,7 +36,7 @@ public class MyFarme extends JFrame implements MouseListener
 	public ArrayList<Packman>Packmans=new ArrayList<>();
 	private int x = -1;
 	private int y = -1;
-	
+
 
 
 
@@ -104,11 +104,11 @@ public class MyFarme extends JFrame implements MouseListener
 			for (int i=0; i<Fruits.size(); i++) 
 			{
 				int r = 10;
-				String s1[]=Fruits.get(i).split(",");
-				int x_temp=(int)((Double.parseDouble(s1[0])*getWidth()));
-				int y_temp=(int)((Double.parseDouble(s1[1])*getHeight()));	
-				g.setColor(Color.cyan);
-				g.fillOval(x_temp, y_temp, r, r);
+				int  x_temp=(int)(Fruits.get(i).getFuritPoint().x()*getWidth());
+				int  y_temp=(int)(Fruits.get(i).getFuritPoint().y()*getHeight());	
+
+				g.setColor(Color.yellow);
+			g.fillOval(x_temp, y_temp, r, r);
 			}
 		}
 	}
@@ -127,9 +127,8 @@ public class MyFarme extends JFrame implements MouseListener
 
 		double y_temp=arg.getY();
 		y_temp=y_temp/getHeight();
-		
-		Packmans.add(e)
-		Fruits.add(x_temp+","+y_temp);
+
+		Fruits.add(new Furit(new Point3D(x_temp, y_temp, 0)));
 
 		x = arg.getX();
 		y = arg.getY();
