@@ -77,7 +77,7 @@ public class MyFarme extends JFrame implements MouseListener
 
 		Furit_item.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-		mouseClickedFruits(getCursor());
+		//mouseClickedFruits(getCursor());
 				tpaint(getGraphics());
 		
 			}
@@ -138,10 +138,15 @@ public class MyFarme extends JFrame implements MouseListener
 		repaint();
 	}
 
-	public void mouseClickedPackman (ActionListener actionListener) {
+	public void mouseClicked (MouseEvent arg0) {
+		x = arg0.getX();
+		y = arg0.getY();  
+                paintElement();
 
 		repaint();
-	}	@Override
+	}	
+	 
+	
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
@@ -163,6 +168,12 @@ public class MyFarme extends JFrame implements MouseListener
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

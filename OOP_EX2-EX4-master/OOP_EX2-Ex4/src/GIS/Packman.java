@@ -1,13 +1,15 @@
 package GIS;
 
-import org.junit.experimental.theories.Theories;
-
 import Geom.Circle;
 import Geom.Point3D;
 
-public class Packman {
+public class Packman extends Point3D {
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Circle packCircle;
 	int radius;
 	Point3D packLocation;
@@ -16,11 +18,13 @@ public class Packman {
 	
 	
 	public Packman(Point3D point , double speed, int radius) {
-		this.packLocation = point;
+		super(point);
+//		this.packLocation = point;
 		this.speed  = speed;
 		this.radius = radius;
 		
 	}
+	
 	
 	
 
