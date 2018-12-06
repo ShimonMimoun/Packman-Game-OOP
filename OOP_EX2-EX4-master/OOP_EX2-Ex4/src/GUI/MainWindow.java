@@ -65,6 +65,7 @@ public class MainWindow extends JFrame implements MouseListener
 			y = y - (r / 2);
 			g.setColor(Color.red);
 			g.fillOval(x, y, r, r);
+			
 			for (int i=0; i<test.size(); i++) 
 			{
 				String s1[]=test.get(i).split(",");
@@ -88,6 +89,7 @@ public class MainWindow extends JFrame implements MouseListener
 
 			System.out.println("("+ arg.getX() + "," + arg.getY() +")");
 			test.add(arg.getX()+","+arg.getY());
+			
 			x = arg.getX();
 			y = arg.getY();
 			repaint();
