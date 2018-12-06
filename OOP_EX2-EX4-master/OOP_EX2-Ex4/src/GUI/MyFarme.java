@@ -19,6 +19,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import Coords.Map;
+import GIS.Furit;
+import GIS.Packman;
 import Geom.Point3D;
 
 
@@ -30,11 +32,11 @@ public class MyFarme extends JFrame implements MouseListener
 	private static final long serialVersionUID = 1L;
 	public Map theMap = new Map();
 	public BufferedImage myImage;
-	public ArrayList<String>Fruits=new ArrayList<>();
-	public ArrayList<String>Packmans=new ArrayList<>();
+	public ArrayList<Furit>Fruits=new ArrayList<>();
+	public ArrayList<Packman>Packmans=new ArrayList<>();
 	private int x = -1;
 	private int y = -1;
-	
+
 
 
 
@@ -102,11 +104,11 @@ public class MyFarme extends JFrame implements MouseListener
 			for (int i=0; i<Fruits.size(); i++) 
 			{
 				int r = 10;
-				String s1[]=Fruits.get(i).split(",");
-				int x_temp=(int)((Double.parseDouble(s1[0])*getWidth()));
-				int y_temp=(int)((Double.parseDouble(s1[1])*getHeight()));	
-				g.setColor(Color.cyan);
-				g.fillOval(x_temp, y_temp, r, r);
+				int  x_temp=(int)(Fruits.get(i).getFuritPoint().x()*getWidth());
+				int  y_temp=(int)(Fruits.get(i).getFuritPoint().y()*getHeight());	
+
+				g.setColor(Color.yellow);
+			g.fillOval(x_temp, y_temp, r, r);
 			}
 		}
 	}
@@ -125,16 +127,10 @@ public class MyFarme extends JFrame implements MouseListener
 
 		double y_temp=arg.getY();
 		y_temp=y_temp/getHeight();
-		
-		
-		Point3D p = new Point3D(32.10573800004135,35.20227899996007,0);
-		Point3D ans;
-		
-		ans = theMap.GPS2Pixel(p, getWidth(), getHeight());
-		
-		
-		System.out.println(ans.x()+","+ans.y());
-		Fruits.add(x_temp+","+y_temp);
+
+
+		Fruits.add(new Furit(new Point3D(x_temp, y_temp, 0)));
+
 
 		x = arg.getX();
 		y = arg.getY();
