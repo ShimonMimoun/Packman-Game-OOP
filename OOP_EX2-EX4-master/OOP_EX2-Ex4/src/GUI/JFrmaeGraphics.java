@@ -7,15 +7,19 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 public class JFrmaeGraphics extends JPanel{
 
-
+	public BufferedImage myImage;
+	
 	public void paint(Graphics g){
-		// Image image = Toolkit.getDefaultToolkit().getImage("example.jpg");
+	//	 Image image = Toolkit.getDefaultToolkit().getImage("image.jpg");
 			int w = this.getWidth();
 			int h = this.getHeight();
+			
 			 g.setColor(Color.red);
 			 g.fillOval(w/3, h/3, w/3, h/3);
 			g.setColor(Color.blue);

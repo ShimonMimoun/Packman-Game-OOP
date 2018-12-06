@@ -1,6 +1,8 @@
 package GUI;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Menu;
 import java.awt.MenuBar;
 import java.awt.MenuItem;
@@ -9,6 +11,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -17,6 +20,7 @@ import javax.swing.JFrame;
 public class MainWindow extends JFrame implements MouseListener
 {
 	public BufferedImage myImage;
+	public ArrayList<String>test=new ArrayList<>();
 	
 	public MainWindow() 
 	{
@@ -28,16 +32,17 @@ public class MainWindow extends JFrame implements MouseListener
 	{
 		MenuBar menuBar = new MenuBar();
 		Menu menu = new Menu("Menu"); 
-		MenuItem item1 = new MenuItem("menu item 1");
-		MenuItem item2 = new MenuItem("menu item 2");
+		MenuItem item1 = new MenuItem("Refresh");
+		MenuItem item2 = new MenuItem("Reload");
 		
 		menuBar.add(menu);
 		menu.add(item1);
 		menu.add(item2);
+	
 		this.setMenuBar(menuBar);
 		
 		try {
-			 myImage = ImageIO.read(new File("image.jpg"));
+			 myImage = ImageIO.read(new File("c://image.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		
@@ -48,26 +53,41 @@ public class MainWindow extends JFrame implements MouseListener
 
 	public void paint(Graphics g)
 	{
-		g.drawImage(myImage, 0, 0, this);
+		
+	      Image scaledImage = myImage.getScaledInstance(this.getWidth(),this.getHeight(),myImage.SCALE_SMOOTH);
+          g.drawImage(scaledImage, 0, 0, null);
 	
 		if(x!=-1 && y!=-1)
 		{
 			int r = 10;
 			x = x - (r / 2);
 			y = y - (r / 2);
+			g.setColor(Color.red);
 			g.fillOval(x, y, r, r);
 		}
+	}
+	public void point()
+	{
+		
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent arg) {
 		System.out.println("mouse Clicked");
+		System.out.println(getWidth()+" ,"+getHeight());
+		
 		System.out.println("("+ arg.getX() + "," + arg.getY() +")");
+		test.add(arg.getX()","+arg.getY());
 		x = arg.getX();
 		y = arg.getY();
 		repaint();
 	}
 
+	public void repaint() {
+		 repaint(0, 0, 0, getWidth(),getHeight());
+		 this.getGraphics().
+		 
+	}
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		System.out.println("mouse entered");
