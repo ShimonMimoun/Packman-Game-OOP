@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
+import javafx.geometry.Dimension2D;
+
 
 
 public class MyFarme extends JFrame implements MouseListener
@@ -29,6 +31,10 @@ public class MyFarme extends JFrame implements MouseListener
 	public BufferedImage myImage;
 	public ArrayList<String>Fruits=new ArrayList<>();
 	public ArrayList<String>Packmans=new ArrayList<>();
+	private int x = -1;
+	private int y = -1;
+
+
 
 
 	public MyFarme() 
@@ -40,9 +46,11 @@ public class MyFarme extends JFrame implements MouseListener
 	private void initGUI() {
 		MenuBar menuBarOption = new MenuBar();
 
+
 		Menu OptionMenu = new Menu("File"); 
+
 		Menu AddMenu = new Menu("Add"); 
-		
+
 		menuBarOption.add(OptionMenu);
 		menuBarOption.add(AddMenu);
 
@@ -60,18 +68,18 @@ public class MyFarme extends JFrame implements MouseListener
 		AddMenu.add(Furit_item);
 
 		this.setMenuBar(menuBarOption);
-		
+
 		// menu item functions. //
-		
+
 		Packman_Item.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				mouseClickedOmer(this);
 
-				
+
 			}
 		});
 
-		
+
 		try {
 			myImage = ImageIO.read(new File("Ariel1.png"));
 		} catch (IOException e) {
@@ -79,8 +87,6 @@ public class MyFarme extends JFrame implements MouseListener
 		}		
 	}
 
-	int x = -1;
-	int y = -1;
 
 	public void paint(Graphics g)
 	{
@@ -90,17 +96,13 @@ public class MyFarme extends JFrame implements MouseListener
 
 		if(x!=-1 && y!=-1)
 		{
-			int r = 10;
-			x = x - (r / 2);
-			y = y - (r / 2);
-			g.setColor(Color.red);
-			g.fillOval(x, y, r, r);
 
 			for (int i=0; i<Fruits.size(); i++) 
 			{
+				int r = 10;
 				String s1[]=Fruits.get(i).split(",");
-				int x_temp=Integer.parseInt(s1[0])- (r / 2);;
-				int y_temp=Integer.parseInt(s1[1])- (r / 2);;
+				int x_temp=(int)((Double.parseDouble(s1[0])*getWidth()));
+				int y_temp=(int)((Double.parseDouble(s1[1])*getHeight()));	
 				g.setColor(Color.cyan);
 				g.fillOval(x_temp, y_temp, r, r);
 			}
@@ -114,21 +116,26 @@ public class MyFarme extends JFrame implements MouseListener
 
 	@Override
 	public void mouseClicked(MouseEvent arg) {
-		System.out.println(getWidth()+" ,"+getHeight());
 
-		System.out.println("("+ arg.getX() + "," + arg.getY() +")");
-		Fruits.add(arg.getX()+","+arg.getY());
+		double test=arg.getX();
+		test=test/getWidth();
+
+
+		double test2=arg.getY();
+		test2=test2/getHeight();
+
+
+		Fruits.add(test+","+test2);
 
 		x = arg.getX();
 		y = arg.getY();
 		repaint();
 	}
-	public void mouseClickedOmer (ActionListener actionListener) {
-		System.out.println("omersexy");
-		repaint();
-	}
 
-	@Override
+	public void mouseClickedOmer (ActionListener actionListener) {
+		System.out.println("test");
+		repaint();
+	}	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
