@@ -49,8 +49,8 @@ class MyCoordsTest extends MyCoords {
 	@Test
 	void testVector3D() {
 
-		Point3D p0 = ConvertToCartesian(gps0);
-		Point3D p1 = ConvertToCartesian(gps1);
+		Point3D p0 = gps0.ConvertToCartesian();
+		Point3D p1 = gps1.ConvertToCartesian();
 		Point3D expctedPoint = new Point3D(p1.x()-p0.x(),p1.y()-p0.y(),p1.z()-p0.z());
 		Point3D acutalPoint  = vector3D(gps0, gps1);
 

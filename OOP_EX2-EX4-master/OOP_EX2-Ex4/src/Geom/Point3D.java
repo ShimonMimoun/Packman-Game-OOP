@@ -235,7 +235,25 @@ public class Point3D implements Geom_element, Serializable
 
 	}
 	/// Convert Functions \\\
+	public Point3D ConvertToGps() {		
 
+		double x=Math.asin(_z/RADUIS_EARTH)*180/Math.PI;
+		double y=Math.atan2(_y, _x)*180/Math.PI;
+		double r =Math.sqrt(Math.pow(_x, 2)+Math.pow(_y, 2)+Math.pow(_z, 2))-RADUIS_EARTH;
+		return new Point3D (x,y,r);
+		
+	}
+
+	public Point3D ConvertToCartesian() {
+
+
+		double Gps_x = Math.cos(_y/180*Math.PI) * Math.cos(_x/180*Math.PI)*(RADUIS_EARTH+_z);;
+		double Gps_y = Math.sin(_y/180*Math.PI) * Math.cos(_x/180*Math.PI)*(RADUIS_EARTH+_z);
+		double Gps_z = (RADUIS_EARTH+_z)*Math.sin(_x/180*Math.PI);
+
+
+		return new Point3D(Gps_x,Gps_y,Gps_z);
+	}
 
 
 

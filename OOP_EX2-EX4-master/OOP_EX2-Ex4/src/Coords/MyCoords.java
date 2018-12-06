@@ -22,23 +22,23 @@ public class MyCoords implements coords_converter {
 	@Override
 	
 	public Point3D add(Point3D gps, Point3D local_vector_in_meter) {
-		Point3D covertedCartisian = ConvertToCartesian(gps);
+		Point3D covertedCartisian = gps.ConvertToCartesian();
 		
 		double ans_x = covertedCartisian.x()+local_vector_in_meter.x();
 		double ans_y = covertedCartisian.y()+local_vector_in_meter.y();
 		double ans_z = covertedCartisian.z()+local_vector_in_meter.z();
+		
+		Point3D ans = new Point3D(ans_x,ans_y,ans_z);
 
-		Point3D ans = ConvertToGps(new Point3D(ans_x,ans_y,ans_z));
-	
 
-	return ans;
+	return ans.ConvertToGps();
 	}
 
 	@Override
 	public double distance3d(Point3D gps0, Point3D gps1) {
 		
-		Point3D gps0Change = ConvertToCartesian(gps0);
-		Point3D gps1Change = ConvertToCartesian(gps1);
+		Point3D gps0Change = gps0.ConvertToCartesian();
+		Point3D gps1Change = gps1.ConvertToCartesian();
 		return Math.abs(gps0Change.distance3D(gps1Change));
 
 		
@@ -49,8 +49,8 @@ public class MyCoords implements coords_converter {
 	@Override
 	public Point3D vector3D(Point3D gps0, Point3D gps1) {
 		
-		Point3D gps0ToMeters = ConvertToCartesian(gps0);
-		Point3D gps1ToMeters = ConvertToCartesian(gps1);
+		Point3D gps0ToMeters = gps0.ConvertToCartesian();
+		Point3D gps1ToMeters = gps1.ConvertToCartesian();
 		
 
 		double m_x = gps1ToMeters.x()-gps0ToMeters.x();
@@ -82,25 +82,6 @@ public class MyCoords implements coords_converter {
 	
 	/// covnert functions ///
 	
-	public Point3D ConvertToGps(Point3D p) {		
-
-		double x=Math.asin(p.z()/RADUIS_EARTH)*180/Math.PI;
-		double y=Math.atan2(p.y(), p.x())*180/Math.PI;
-		double r =Math.sqrt(Math.pow(p.x(), 2)+Math.pow(p.y(), 2)+Math.pow(p.z(), 2))-RADUIS_EARTH;
-		return new Point3D (x,y,r);
-		
-	}
-
-	public Point3D ConvertToCartesian(Point3D p) {
-
-
-		double Gps_x = Math.cos(p.y()/180*Math.PI) * Math.cos(p.x()/180*Math.PI)*(RADUIS_EARTH+p.z());;
-		double Gps_y = Math.sin(p.y()/180*Math.PI) * Math.cos(p.x()/180*Math.PI)*(RADUIS_EARTH+p.z());
-		double Gps_z = (RADUIS_EARTH+p.z())*Math.sin(p.x()/180*Math.PI);
-
-
-		return new Point3D(Gps_x,Gps_y,Gps_z);
-	}
 	
 	
 }

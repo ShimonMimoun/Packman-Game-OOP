@@ -2,6 +2,7 @@ package Packmen;
 
 import java.util.ArrayList;
 
+import GIS.Furit;
 import GIS.Packman;
 
 public class Game {

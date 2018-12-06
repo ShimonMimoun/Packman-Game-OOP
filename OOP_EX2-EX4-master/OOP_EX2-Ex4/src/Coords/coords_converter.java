@@ -55,11 +55,12 @@ public interface coords_converter {
 	 * @param p Point3D Cartesian
 	 * @return Point3D GPS 
 	 */
-	public Point3D ConvertToGps(Point3D p) ;
-	/**
-	 * Convert GPS Point3D toi Cartesian Point3D
-	 * @param p Point3D GPS 
-	 * @return Point3D Cartesian
-	 */
-	public Point3D ConvertToCartesian(Point3D p);
 }
+//	public Point3D ConvertToGps(Point3D p) ;
+//	/**
+//	 * Convert GPS Point3D toi Cartesian Point3D
+//	 * @param p Point3D GPS 
+//	 * @return Point3D Cartesian
+//	 */
+//	public Point3D ConvertToCartesian(Point3D p);
+//}

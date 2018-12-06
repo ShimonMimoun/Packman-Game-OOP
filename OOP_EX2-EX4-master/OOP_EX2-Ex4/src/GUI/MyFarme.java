@@ -18,6 +18,11 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
+import Coords.Map;
+import GIS.Furit;
+import GIS.Packman;
+import Geom.Point3D;
+
 
 public class MyFarme extends JFrame implements MouseListener
 {
@@ -25,11 +30,13 @@ public class MyFarme extends JFrame implements MouseListener
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public Map theMap = new Map();
 	public BufferedImage myImage;
-	public ArrayList<String>Fruits=new ArrayList<>();
-	public ArrayList<String>Packmans=new ArrayList<>();
+	public ArrayList<Furit>Fruits=new ArrayList<>();
+	public ArrayList<Packman>Packmans=new ArrayList<>();
 	private int x = -1;
 	private int y = -1;
+	
 
 
 
@@ -120,8 +127,8 @@ public class MyFarme extends JFrame implements MouseListener
 
 		double y_temp=arg.getY();
 		y_temp=y_temp/getHeight();
-
-
+		
+		Packmans.add(e)
 		Fruits.add(x_temp+","+y_temp);
 
 		x = arg.getX();

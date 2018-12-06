@@ -22,6 +22,7 @@ import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import javax.swing.Action;
 import javax.swing.ButtonGroup;
+import java.awt.Color;
 
 
 public class Check extends JFrame {
@@ -64,6 +65,7 @@ public class Check extends JFrame {
 		menuBar.add(mnOmer);
 		
 		JMenuItem RunMenu = new JMenuItem("Run");
+		RunMenu.setBackground(Color.RED);
 		mnOmer.add(RunMenu);
 		
 		JMenuItem mntmSabba = new JMenuItem("Load");

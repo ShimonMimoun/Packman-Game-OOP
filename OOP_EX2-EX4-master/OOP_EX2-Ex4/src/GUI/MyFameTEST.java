@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
+import Coords.*;
+import Geom.Point3D;
+
 
 
 public class MyFameTEST extends JFrame implements MouseListener
@@ -29,6 +32,9 @@ public class MyFameTEST extends JFrame implements MouseListener
 	public BufferedImage myImage;
 	public ArrayList<String>Fruits=new ArrayList<>();
 	public ArrayList<String>Packmans=new ArrayList<>();
+	public Point3D ans = new Point3D(0,0,0);
+	public Map m = new Map();
+
 
 
 	public MyFameTEST() 
@@ -100,6 +106,7 @@ public class MyFameTEST extends JFrame implements MouseListener
 				String s1[]=Fruits.get(i).split(",");
 				int x_temp=Integer.parseInt(s1[0])- (r / 2);;
 				int y_temp=Integer.parseInt(s1[1])- (r / 2);;
+				
 				g.setColor(Color.cyan);
 				g.fillOval(x_temp, y_temp, r, r);
 			}
@@ -109,13 +116,17 @@ public class MyFameTEST extends JFrame implements MouseListener
 
 	@Override
 	public void mouseClicked(MouseEvent arg) {
-		System.out.println(getWidth()+" ,"+getHeight());
-
-		System.out.println("("+ arg.getX() + "," + arg.getY() +")");
-		Fruits.add(arg.getX()+","+arg.getY());
 
 		x = arg.getX();
 		y = arg.getY();
+		
+		//System.out.println(getWidth()+" ,"+getHeight());
+		ans = m.Pixel2GPS(x, y, getWidth(), getHeight());
+		System.out.println("("+ ans.x() + "," + ans.y() +")");
+		//Fruits.add(arg.getX()+","+arg.getY());
+
+		
+		
 		repaint();
 	}
 	public void mouseClickedOmer (ActionListener actionListener) {
