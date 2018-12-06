@@ -67,7 +67,7 @@ public class MyFarme extends JFrame implements MouseListener
 
 		MenuItem Packman_Item = new MenuItem("Packman");
 		MenuItem Furit_item = new MenuItem("Furit");
-
+		
 		AddMenu.add(Packman_Item);
 		AddMenu.add(Furit_item);
 
@@ -75,12 +75,13 @@ public class MyFarme extends JFrame implements MouseListener
 
 		// menu item functions. //
 
-		Packman_Item.addActionListener(new ActionListener() {
+		Furit_item.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mouseClickedOmer(this);
-
-
+		mouseClickedFruits(getCursor());
+				tpaint(getGraphics());
+		
 			}
+			
 		});
 
 
@@ -97,6 +98,10 @@ public class MyFarme extends JFrame implements MouseListener
 
 		Image scaledImage = myImage.getScaledInstance(this.getWidth(),this.getHeight(),myImage.SCALE_SMOOTH);
 		g.drawImage(scaledImage, 0, 0, null);
+	}
+	public void tpaint(Graphics g)
+	{
+
 
 		if(x!=-1 && y!=-1)
 		{
@@ -113,13 +118,9 @@ public class MyFarme extends JFrame implements MouseListener
 		}
 	}
 
-	public void point()
-	{
+	
 
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent arg) {
+	public void mouseClickedFruits(MouseEvent arg) {
 
 		double x_temp=arg.getX();
 		x_temp=x_temp/getWidth();
@@ -135,8 +136,8 @@ public class MyFarme extends JFrame implements MouseListener
 		repaint();
 	}
 
-	public void mouseClickedOmer (ActionListener actionListener) {
-		System.out.println("test");
+	public void mouseClickedPackman (ActionListener actionListener) {
+
 		repaint();
 	}	@Override
 	public void mouseExited(MouseEvent arg0) {
