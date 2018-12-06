@@ -15,9 +15,13 @@ import javax.swing.JMenu;
 
 import javax.swing.JMenuItem;
 
-
+import com.sun.prism.Image;
 
 import javax.swing.ImageIcon;
+import javax.swing.AbstractAction;
+import java.awt.event.ActionEvent;
+import javax.swing.Action;
+import javax.swing.ButtonGroup;
 
 
 public class Check extends JFrame {
@@ -27,6 +31,8 @@ public class Check extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	public JLabel myMap;
+	private final Action action = new SwingAction();
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	/**
 	 * Launch the application.
@@ -61,18 +67,36 @@ public class Check extends JFrame {
 		mnOmer.add(RunMenu);
 		
 		JMenuItem mntmSabba = new JMenuItem("Load");
+		buttonGroup.add(mntmSabba);
 		mnOmer.add(mntmSabba);
 		
 		JMenuItem SaveMenu = new JMenuItem("Save");
 		mnOmer.add(SaveMenu);
+		
+		JMenu mnOmer_1 = new JMenu("omer");
+		menuBar.add(mnOmer_1);
+		
+		JMenuItem mntmAaa = new JMenuItem("aaa");
+		mnOmer_1.add(mntmAaa);
+		
+		JMenuBar menuBar_1 = new JMenuBar();
+		menuBar.add(menuBar_1);
 		getContentPane().setLayout(null);
 		
 		myMap = new JLabel("");
-		java.awt.Image map = new ImageIcon(this.getClass().getResource("Ariel1.png")).getImage();
-		myMap.setIcon(new ImageIcon(map));
+//		Image map = new ImageIcon(this.getClass().getResource("Ariel1.png")).getImage();
+//		myMap.setIcon(new ImageIcon(map));
 		myMap.setBounds(0, 0, 700, 307);
 		getContentPane().add(myMap);
 				
+	}
+	private class SwingAction extends AbstractAction {
+		public SwingAction() {
+			putValue(NAME, "SwingAction");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+		public void actionPerformed(ActionEvent e) {
+		}
 	}
 }
 	
