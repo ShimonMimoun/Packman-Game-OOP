@@ -18,9 +18,6 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-import javafx.geometry.Dimension2D;
-
-
 
 public class MyFarme extends JFrame implements MouseListener
 {
@@ -117,15 +114,15 @@ public class MyFarme extends JFrame implements MouseListener
 	@Override
 	public void mouseClicked(MouseEvent arg) {
 
-		double test=arg.getX();
-		test=test/getWidth();
+		double x_temp=arg.getX();
+		x_temp=x_temp/getWidth();
 
 
-		double test2=arg.getY();
-		test2=test2/getHeight();
+		double y_temp=arg.getY();
+		y_temp=y_temp/getHeight();
 
 
-		Fruits.add(test+","+test2);
+		Fruits.add(x_temp+","+y_temp);
 
 		x = arg.getX();
 		y = arg.getY();
