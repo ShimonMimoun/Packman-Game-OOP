@@ -81,7 +81,7 @@ public class Game {
 	}
 
 
-	public void CsvPackmans() throws IOException{		
+	public void Csvread() throws IOException{		
 		//File file = CsvFileHelper.getResource(path);
 		List<String[]> s = csv2kml.readFile2(path);
 

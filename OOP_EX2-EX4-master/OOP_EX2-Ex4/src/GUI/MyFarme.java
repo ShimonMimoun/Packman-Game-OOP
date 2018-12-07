@@ -166,7 +166,7 @@ public class MyFarme extends JFrame implements MouseListener
 					System.out.println(fileChooser.getSelectedFile().getPath());
 					Game myGame = new Game(Packmans,Fruits, fileChooser.getSelectedFile().getPath());
 					try {
-					myGame.CsvPackmans();
+					myGame.Csvread();
 					Packmans = myGame.myPackmens;
 					Fruits = myGame.myFruits;
 					isGamer = 2;
@@ -256,7 +256,6 @@ public class MyFarme extends JFrame implements MouseListener
 		{
 			if (isGamer!=0)
 			{
-				System.out.println("in paint");
 				for (int i=0; i<Fruits.size(); i++) 
 				{
 					int r_fruits = 10;
@@ -291,12 +290,15 @@ public class MyFarme extends JFrame implements MouseListener
 		double y_temp=arg.getY();
 		y_temp=y_temp/getHeight();
 		Point3D point_return=new Point3D(x_temp, y_temp, 0);
+		Point3D covertedfromPixel = theMap.Pixel2GPS(x_temp, y_temp, getWidth(),getHeight());
+
 
 		if (isGamer==(1))
 		{	
 			Fruits.add(new Furit(point_return,1));
 			x = arg.getX();
 			y = arg.getY();
+			System.out.println("Fruit: Point("+covertedfromPixel.x()+","+covertedfromPixel.y()+")");
 			repaint();
 
 		}else if (isGamer==(-1))
@@ -304,6 +306,8 @@ public class MyFarme extends JFrame implements MouseListener
 			Packmans.add(new Packman(point_return, 1, 1));
 			x = arg.getX();
 			y = arg.getY();
+			System.out.println("Packman: Point("+covertedfromPixel.x()+","+covertedfromPixel.y()+")");
+
 			repaint();
 		}
 
