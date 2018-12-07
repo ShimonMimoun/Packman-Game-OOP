@@ -5,21 +5,20 @@ import java.awt.Image;
 import java.awt.Menu;
 import java.awt.MenuBar;
 import java.awt.MenuItem;
-import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
 
 import Coords.Map;
 import GIS.Furit;
@@ -37,9 +36,9 @@ public class MyFarme extends JFrame implements MouseListener
 	public BufferedImage myImage;
 	public ArrayList<Furit>Fruits=new ArrayList<>();
 	public ArrayList<Packman>Packmans=new ArrayList<>();
-	private int x = -1;
-	private int y = -1;
-	private int isGamer=0;
+	private int x = -1;//check that there is a point click
+	private int y = -1;//check that there is a point click
+	private int isGamer=0;// if is Gamer==1 --> Fruit :::: if is Gamer == -1 --> Packman 
 
 
 
@@ -51,41 +50,62 @@ public class MyFarme extends JFrame implements MouseListener
 	}
 
 	private void initGUI() {
+		try {
+			myImage = ImageIO.read(new File("Ariel1.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
+		
 		MenuBar menuBarOption = new MenuBar();
-
-
+		
 		Menu OptionMenu = new Menu("File"); 
-
-		Menu AddMenu = new Menu("Add"); 
-		Menu Add_import=new Menu ("Import");
-		Menu Add_export=new Menu ("Export");
-
 		menuBarOption.add(OptionMenu);
-		menuBarOption.add(AddMenu);
-		menuBarOption.add(Add_import);
-		menuBarOption.add(Add_export);
-
-
-
-
 		MenuItem runItem = new MenuItem("Run");
 		MenuItem reload_item = new MenuItem("Reload");
-
-
-
 		OptionMenu.add(runItem);
 		OptionMenu.add(reload_item);
+		MenuItem exit = new MenuItem("Exit");
+		OptionMenu.add(exit);
 
+		
+		
+		Menu AddMenu = new Menu("Add"); 
+		menuBarOption.add(AddMenu);
+		MenuItem Packman_Item = new MenuItem("Packman");
+		MenuItem Furit_item = new MenuItem("Furit");
+		AddMenu.add(Packman_Item);
+		AddMenu.add(Furit_item);
 
+		
+		Menu Add_import=new Menu ("Import");
 		MenuItem Csv_read = new MenuItem("Import Csv ");
 		Add_import.add(Csv_read);
-
+		
+		
+		menuBarOption.add(Add_import);
+		Menu Add_export=new Menu ("Export");
+		menuBarOption.add(Add_export);
 		MenuItem Csv_writing_csv = new MenuItem(" Csv ");
 		MenuItem Csv_writing_kml = new MenuItem(" Kml ");
 		Add_export.add(Csv_writing_csv);
 		Add_export.add(Csv_writing_kml);
+		
+		
+		this.setMenuBar(menuBarOption);
+	
+		
 
 
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		reload_item.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -102,7 +122,7 @@ public class MyFarme extends JFrame implements MouseListener
 		});
 
 
-		MenuItem exit = new MenuItem("Exit");
+	
 
 		exit.addActionListener(new ActionListener() {
 			@Override
@@ -111,17 +131,10 @@ public class MyFarme extends JFrame implements MouseListener
 			}
 		});
 
+		
+	
 
-		OptionMenu.add(exit);
-
-		MenuItem Packman_Item = new MenuItem("Packman");
-		MenuItem Furit_item = new MenuItem("Furit");
-
-		AddMenu.add(Packman_Item);
-		AddMenu.add(Furit_item);
-
-
-		this.setMenuBar(menuBarOption);
+		
 
 		// menu item functions. //
 
@@ -155,11 +168,39 @@ public class MyFarme extends JFrame implements MouseListener
 				}
 			}
 		});
-		try {
-			myImage = ImageIO.read(new File("Ariel1.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}		
+		
+		
+		
+		
+		
+		Csv_writing_csv.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+				jfc.setDialogTitle("Export to Csv File");
+				jfc.setAcceptAllFileFilterUsed(false);
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("csv","CSV");
+				jfc.addChoosableFileFilter(filter);
+				
+				 int returnValue = jfc.showSaveDialog(null);
+
+				if (returnValue == JFileChooser.APPROVE_OPTION) {
+					File selectedFile = jfc.getSelectedFile();
+					System.out.println(selectedFile.getAbsolutePath());
+				}
+
+				
+			}
+			
+		});
+		
+		
+		
+		
+		
+		
+		
 	}
 
 
