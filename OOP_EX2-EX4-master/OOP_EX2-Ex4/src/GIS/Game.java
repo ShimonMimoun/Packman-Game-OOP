@@ -100,13 +100,13 @@ public class Game {
 				myFruits.add(new Furit(p, Weight));
 			}
 		}
-//		for (int j = 0; j < myPackmens.size(); j++) {
-//			System.out.println(myPackmens.get(j).toString());
-//		}
-//		for (int i = 0; i < myFruits.size(); i++) {
-//			System.out.println(myFruits.get(i).toString());
-//
-//		}
+		for (int j = 0; j < myPackmens.size(); j++) {
+			System.out.println(myPackmens.get(j).toString());
+		}
+		for (int i = 0; i < myFruits.size(); i++) {
+			System.out.println(myFruits.get(i).toString());
+
+		}
 	}
 }
 

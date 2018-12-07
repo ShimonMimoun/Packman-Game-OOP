@@ -298,6 +298,8 @@ public class MyFarme extends JFrame implements MouseListener
 			Fruits.add(new Furit(point_return,1));
 			x = arg.getX();
 			y = arg.getY();
+			System.out.println("omer"+arg.getX()+","+arg.getY());
+			System.out.println("??"+getWidth()+","+getHeight());
 			System.out.println("Fruit: Point("+covertedfromPixel.x()+","+covertedfromPixel.y()+")");
 			repaint();
 
