@@ -123,8 +123,9 @@ public class Gis_element_using  implements GIS_element  {
 		this.AccuracyMeters =(int) theAccuracyMeters;
 	}
 	
-	public void setPoint(String lat, String lon , String AltitudeMeters) {
-	elem_Point = new Point3D(String_2_Point3D(lat,lon,AltitudeMeters));
+	public Point3D setPoint(String lat, String lon , String AltitudeMeters) {
+		elem_Point = new Point3D(lat, lon, AltitudeMeters);
+		return elem_Point;
 	}	
 	
 	public void setType(String type) {
@@ -167,14 +168,14 @@ public class Gis_element_using  implements GIS_element  {
 
 	// Helping functions //
 
-	private Point3D String_2_Point3D(String lat , String lon , String AltitudeMeters) {
-
-		Double x = Double.parseDouble(lat);
-		Double y = Double.parseDouble(lon);
-		Double z = Double.parseDouble(AltitudeMeters);
-
-		return new Point3D(x,y,z);
-	}
+//	public Point3D String_2_Point3D(String lat , String lon , String AltitudeMeters) {
+//
+//		Double x = Double.parseDouble(lat);
+//		Double y = Double.parseDouble(lon);
+//		Double z = Double.parseDouble(AltitudeMeters);
+//
+//		return new Point3D(x,y,z);
+//	}
 
 	/**
 	 * Create a String of the element and adiing the meta data information.

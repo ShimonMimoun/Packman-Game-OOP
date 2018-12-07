@@ -16,6 +16,9 @@ public class Point3D implements Geom_element, Serializable
 		_y=y;
 		_z=z;
 	}
+	public Point3D(String lat , String lon , String AltitudeMeters) {
+		String_2_Point3D(lat, lon ,AltitudeMeters);
+	}
 
 	public Point3D(Point3D p) 
 	{
@@ -254,8 +257,14 @@ public class Point3D implements Geom_element, Serializable
 
 		return new Point3D(Gps_x,Gps_y,Gps_z);
 	}
+	
+	public void String_2_Point3D(String lat , String lon , String AltitudeMeters) {
 
+		_x = Double.parseDouble(lat);
+		_y = Double.parseDouble(lon);
+		_z = Double.parseDouble(AltitudeMeters);
 
+	}
 
 
 

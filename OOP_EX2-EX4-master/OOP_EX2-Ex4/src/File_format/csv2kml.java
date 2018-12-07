@@ -52,6 +52,24 @@ public class csv2kml {
 		fr.close();
 		return result;
 	}
+	public static List<String[]> readFile2(String file) throws IOException {
+
+
+		List<String[]> result = new ArrayList<String[]>();
+
+		FileReader fr = new FileReader(file);
+		BufferedReader br = new BufferedReader(fr);
+		int i=0;
+		for (String line = br.readLine(); line != null; line = br.readLine()) {
+			result.add(line.split(","));
+
+		}
+
+
+		br.close();
+		fr.close();
+		return result;
+	}
 
 /**
  * Get a list with the read data from a List file, Send to Gis

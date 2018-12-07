@@ -2,18 +2,30 @@ package GIS;
 
 import Geom.Point3D;
 
-public class Furit {
-	
+public class Furit extends Point3D {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Point3D FuritPoint;
-	
- public Furit(Point3D p) {
-		
-		FuritPoint = p;
+	int Weight;
+
+	public Furit(Point3D p, int Weight) {
+		super(p);
+		this.FuritPoint = p;
+		this.Weight = Weight;
 	}
 
-public Point3D getFuritPoint() {
-	return FuritPoint;
-}
-	
+
+	public int getWeight() {
+		return Weight;
+	}
+
+	@Override
+	public String toString() {
+		return "Furit [FuritPoint=" + FuritPoint.toString() + ", Weight=" + Weight + "]";
+	}
+
 
 }
