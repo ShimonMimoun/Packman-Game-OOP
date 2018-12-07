@@ -40,8 +40,6 @@ public class MyFarme extends JFrame implements MouseListener
 	public BufferedImage myImage;
 	public ArrayList<Furit>Fruits=new ArrayList<>();
 	public ArrayList<Packman>Packmans=new ArrayList<>();
-	private int x = -1;//check that there is a point click
-	private int y = -1;//check that there is a point click
 	private int isGamer=0;// if is Gamer==1 --> Fruit :::: if is Gamer == -1 --> Packman 
 
 
@@ -119,8 +117,6 @@ public class MyFarme extends JFrame implements MouseListener
 				theMap = new Map();
 				Fruits=new ArrayList<>();
 				Packmans=new ArrayList<>();
-				x = -1;
-				y = -1;
 				isGamer=0;
 				new MyFarme();
 				repaint();
@@ -170,6 +166,7 @@ public class MyFarme extends JFrame implements MouseListener
 					Packmans = myGame.myPackmens;
 					Fruits = myGame.myFruits;
 					isGamer = 2;
+			
 					repaint();
 
 					} catch (IOException e1) {
@@ -236,13 +233,6 @@ public class MyFarme extends JFrame implements MouseListener
 
 		});
 
-
-
-
-
-
-
-
 	}
 
 
@@ -252,8 +242,7 @@ public class MyFarme extends JFrame implements MouseListener
 		Image scaledImage = myImage.getScaledInstance(this.getWidth(),this.getHeight(),myImage.SCALE_SMOOTH);
 		g.drawImage(scaledImage, 0, 0, null);
 
-		if(x!=-1 && y!=-1)
-		{
+		
 			if (isGamer!=0)
 			{
 				for (int i=0; i<Fruits.size(); i++) 
@@ -261,6 +250,7 @@ public class MyFarme extends JFrame implements MouseListener
 					int r_fruits = 10;
 					int  x_temp_fruits=(int)(Fruits.get(i).x()*getWidth());
 					int  y_temp_fruits=(int)(Fruits.get(i).y()*getHeight());	
+					
 
 					g.setColor(Color.red);
 					g.fillOval(x_temp_fruits ,y_temp_fruits, r_fruits, r_fruits);
@@ -276,7 +266,7 @@ public class MyFarme extends JFrame implements MouseListener
 					g.fillOval(x_temp_Packmans, y_temp_Packmans, r_Packmans, r_Packmans);
 				}
 			}
-		}
+		
 	}
 	
 
@@ -296,19 +286,14 @@ public class MyFarme extends JFrame implements MouseListener
 		if (isGamer==(1))
 		{	
 			Fruits.add(new Furit(point_return,1));
-			x = arg.getX();
-			y = arg.getY();
-			System.out.println("omer"+arg.getX()+","+arg.getY());
-			System.out.println("??"+getWidth()+","+getHeight());
-			System.out.println("Fruit: Point("+covertedfromPixel.x()+","+covertedfromPixel.y()+")");
+			System.out.println("fruit"+covertedfromPixel.toString());
+
 			repaint();
 
 		}else if (isGamer==(-1))
 		{
 			Packmans.add(new Packman(point_return, 1, 1));
-			x = arg.getX();
-			y = arg.getY();
-			System.out.println("Packman: Point("+covertedfromPixel.x()+","+covertedfromPixel.y()+")");
+			System.out.println("Packman"+covertedfromPixel.toString());
 
 			repaint();
 		}

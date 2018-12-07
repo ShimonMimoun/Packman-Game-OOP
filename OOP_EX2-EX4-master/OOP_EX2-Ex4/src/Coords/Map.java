@@ -7,7 +7,7 @@ public class Map {
 									 //y		//x
 	Point3D leftUp = new Point3D(32.105770,  35.202469);
 	Point3D RightUp = new Point3D(32.105770 , 35.211588);
-	Point3D leftDown = new Point3D(32.101899, 32.105770);
+	Point3D leftDown = new Point3D(32.101899, 35.202469);
 	Point3D RightDown = new Point3D(32.101899, 35.211588);
 
 	
@@ -16,8 +16,9 @@ public class Map {
 		double x_length = RightUp.y()-leftUp.y();
 		double y_length = leftDown.x()-leftUp.x();
 		
-		double ans_x = x * (x_length)+leftUp.y();
-		double ans_y = y * (y_length)+leftUp.x();
+
+		double ans_x = x * x_length+leftUp.y();
+		double ans_y = y* y_length+RightUp.x();
 		
 		Point3D ans_in_Gps = new Point3D(ans_y,ans_x);
 		

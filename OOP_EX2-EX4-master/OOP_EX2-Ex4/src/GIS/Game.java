@@ -7,23 +7,21 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import File_format.CsvFileHelper;
 import File_format.csv2kml;
 import Geom.Point3D;
-
+import Coords.Map;
 public class Game {
 
 	public  ArrayList<Packman> myPackmens = new ArrayList<>();
 	public  ArrayList<Furit> myFruits = new ArrayList<>();
 	public 	String path;
+	public Map theMap = new Map();
 
 	public Game(ArrayList<Packman> p , ArrayList<Furit> f, String path) {
 		this.myPackmens = p;
 		this.myFruits = f;
 		this.path = path;
 	}
-
-
 
 
 
@@ -41,15 +39,22 @@ public class Game {
 		sb.append(',');
 		sb.append(this.myFruits.size());
 		sb.append('\n');
+		
+//		for (int i = 0; i < myPackmens.size(); i++) {
+//			theMap.Pixel2GPS(x, y, x_lengthMap, y_lengthMap)
+//			myPackmens.get(i).
+//			
+//		}
 
 		for (int i = 0; i < this.myPackmens.size(); i++) {
+		
 			sb.append("Packman");
 			sb.append(',');
 			sb.append(i);
 			sb.append(',');
-			sb.append(this.myPackmens.get(i).y());
-			sb.append(',');
 			sb.append(this.myPackmens.get(i).x());
+			sb.append(',');
+			sb.append(this.myPackmens.get(i).y());
 			sb.append(',');
 			sb.append(this.myPackmens.get(i).z());
 			sb.append(',');
@@ -63,9 +68,9 @@ public class Game {
 			sb.append(',');
 			sb.append(i);
 			sb.append(',');
-			sb.append(this.myFruits.get(i).y());
-			sb.append(',');
 			sb.append(this.myFruits.get(i).x());
+			sb.append(',');
+			sb.append(this.myFruits.get(i).y());
 			sb.append(',');
 			sb.append(this.myFruits.get(i).z());
 			sb.append(',');	
@@ -100,13 +105,15 @@ public class Game {
 				myFruits.add(new Furit(p, Weight));
 			}
 		}
-		for (int j = 0; j < myPackmens.size(); j++) {
-			System.out.println(myPackmens.get(j).toString());
-		}
-		for (int i = 0; i < myFruits.size(); i++) {
-			System.out.println(myFruits.get(i).toString());
 
-		}
+		//		for (int j = 0; j < myPackmens.size(); j++) {
+		//			System.out.println(myPackmens.get(j).toString());
+		//		}
+		//		for (int i = 0; i < myFruits.size(); i++) {
+		//			System.out.println(myFruits.get(i).toString());
+		//
+		//		}
+
 	}
 }
 
