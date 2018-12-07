@@ -166,7 +166,12 @@ public class MyFarme extends JFrame implements MouseListener
 					System.out.println(fileChooser.getSelectedFile().getPath());
 					Game myGame = new Game(Packmans,Fruits, fileChooser.getSelectedFile().getPath());
 					try {
-						myGame.readCsv();
+					myGame.CsvPackmans();
+					Packmans = myGame.myPackmens;
+					Fruits = myGame.myFruits;
+					isGamer = 2;
+					repaint();
+
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
@@ -251,7 +256,7 @@ public class MyFarme extends JFrame implements MouseListener
 		{
 			if (isGamer!=0)
 			{
-
+				System.out.println("in paint");
 				for (int i=0; i<Fruits.size(); i++) 
 				{
 					int r_fruits = 10;
@@ -274,7 +279,7 @@ public class MyFarme extends JFrame implements MouseListener
 			}
 		}
 	}
-
+	
 
 
 	public void mouseClicked(MouseEvent arg) {
