@@ -9,45 +9,35 @@ public class Map {
 	Point3D RightUp = new Point3D(32.105770 , 35.211588);
 	Point3D leftDown = new Point3D(32.101899, 35.202469);
 	Point3D RightDown = new Point3D(32.101899, 35.211588);
+	double x_length = RightUp.y()-leftUp.y();
+	double y_length = leftDown.x()-leftUp.x();
 
 	
-	public  Point3D Pixel2GPS(double x , double y , int x_lengthMap , int y_lengthMap) {
+	public  Point3D Pixel2GPS(double Dx , double Dy) {
 		
-		double x_length = RightUp.y()-leftUp.y();
-		double y_length = leftDown.x()-leftUp.x();
 		
-
-		double ans_x = x * x_length+leftUp.y();
-		double ans_y = y* y_length+RightUp.x();
+		double lon_x = Dx * x_length+leftUp.y();
+		double lat_y = Dy* y_length+RightUp.x();
 		
-		Point3D ans_in_Gps = new Point3D(ans_y,ans_x);
+		Point3D ans_in_Gps = new Point3D(lat_y,lon_x);
 
 		
 		return ans_in_Gps;
 	}
 	
-	public Point3D GPS2Pixel(Point3D p, int x_lengthMap ,int y_lengthMap ) {
+	public Point3D GPS2Pixel(Point3D p) {
 		
-		double dis_x = leftUp.distance3D(RightUp);
-		double x_1pxiel2Meter = dis_x/x_lengthMap;
-
-		double ans_x = (p.x()-leftUp.x())/0.000009054;
-		double x = ans_x/x_1pxiel2Meter;
+		double Dx = (p.y()-leftUp.y())/x_length;
+		double Dy = (p.x()-leftUp.x())/y_length;
 		
-		double dis_y = leftUp.distance3D(leftDown);
-		double y_1pixle2Meter = dis_y/y_lengthMap;
-
-		double ans_y = (p.y()+leftUp.y()/0.000012019);
-		double y = ans_y/y_1pixle2Meter;
-		
-		return new Point3D(x,y,p.z());
+	return new Point3D(Dx,Dy);
 			
 	}
 	
-	public double distancePixels(Point3D p1, Point3D p2, int x_lengthMap ,int y_lengthMap) {
+	public double distancePixels(Point3D p1, Point3D p2) {
 		
-		Point3D ansX =  Pixel2GPS(p1.x(),p1.y(), x_lengthMap, y_lengthMap);
-		Point3D ansY =  Pixel2GPS(p2.x(),p2.y(), x_lengthMap, y_lengthMap);
+		Point3D ansX =  Pixel2GPS(p1.x(),p1.y());
+		Point3D ansY =  Pixel2GPS(p2.x(),p2.y());
 		
 		double result = ansX.distance3D(ansY);
 		

@@ -280,12 +280,12 @@ public class MyFarme extends JFrame implements MouseListener
 		double y_temp=arg.getY();
 		y_temp=y_temp/getHeight();
 		Point3D point_return=new Point3D(x_temp, y_temp, 0);
-		Point3D covertedfromPixel = theMap.Pixel2GPS(x_temp, y_temp, getWidth(),getHeight());
-
+		Point3D covertedfromPixel = theMap.Pixel2GPS(x_temp, y_temp);
 
 		if (isGamer==(1))
 		{	
 			Fruits.add(new Furit(point_return,1));
+
 			System.out.println("Fruit "+covertedfromPixel.toString());
 
 			repaint();

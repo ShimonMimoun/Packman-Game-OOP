@@ -39,24 +39,24 @@ public class Game {
 		sb.append(',');
 		sb.append(this.myFruits.size());
 		sb.append('\n');
-		
-//		for (int i = 0; i < myPackmens.size(); i++) {
-//			theMap.Pixel2GPS(x, y, x_lengthMap, y_lengthMap)
-//			myPackmens.get(i).
-//			
-//		}
+
+		for (int i = 0; i < myPackmens.size(); i++) {
+			myPackmens.get(i).packLocation = theMap.Pixel2GPS(myPackmens.get(i).x(), myPackmens.get(i).y());
+		}
+		for (int i = 0; i < myFruits.size(); i++) {
+			myFruits.get(i).FuritPoint = theMap.Pixel2GPS(myFruits.get(i).x(), myFruits.get(i).y());
+		}
 
 		for (int i = 0; i < this.myPackmens.size(); i++) {
-		
-			sb.append("Packman");
+			sb.append("P");
 			sb.append(',');
 			sb.append(i);
 			sb.append(',');
-			sb.append(this.myPackmens.get(i).x());
+			sb.append(myPackmens.get(i).packLocation.x());
 			sb.append(',');
-			sb.append(this.myPackmens.get(i).y());
+			sb.append(myPackmens.get(i).packLocation.y());
 			sb.append(',');
-			sb.append(this.myPackmens.get(i).z());
+			sb.append(myPackmens.get(i).packLocation.z());
 			sb.append(',');
 			sb.append(this.myPackmens.get(i).getSpeed());
 			sb.append(',');
@@ -64,15 +64,15 @@ public class Game {
 			sb.append('\n');
 		}
 		for (int i = 0; i < myFruits.size(); i++) {
-			sb.append("Fruit");
+			sb.append("F");
 			sb.append(',');
 			sb.append(i);
 			sb.append(',');
-			sb.append(this.myFruits.get(i).x());
+			sb.append(myFruits.get(i).FuritPoint.x());
 			sb.append(',');
-			sb.append(this.myFruits.get(i).y());
+			sb.append(myFruits.get(i).FuritPoint.y());
 			sb.append(',');
-			sb.append(this.myFruits.get(i).z());
+			sb.append(myFruits.get(i).FuritPoint.z());
 			sb.append(',');	
 			sb.append(this.myFruits.get(i).getWeight());
 			sb.append('\n');
@@ -93,26 +93,21 @@ public class Game {
 		for (int i = 1; i < s.size(); i++) {
 			String[] row = s.get(i);
 
-			if(row[0].equals("Packman")) {
+			if(row[0].equals("P")) {
 				Point3D p = new Point3D(row[2],row[3],row[4]);
+				p = theMap.GPS2Pixel(p);
 				double speed = Double.parseDouble(row[5]);
 				int radius = Integer.parseInt(row[6]);
 				myPackmens.add(new Packman(p, speed, radius));	
 			}
-			if(row[0].equals("Fruit")) {
+			if(row[0].equals("F")) {
 				Point3D p = new Point3D(row[2],row[3],row[4]);
+				p = theMap.GPS2Pixel(p);
 				int Weight = Integer.parseInt(row[5]);
 				myFruits.add(new Furit(p, Weight));
 			}
 		}
 
-		//		for (int j = 0; j < myPackmens.size(); j++) {
-		//			System.out.println(myPackmens.get(j).toString());
-		//		}
-		//		for (int i = 0; i < myFruits.size(); i++) {
-		//			System.out.println(myFruits.get(i).toString());
-		//
-		//		}
 
 	}
 }

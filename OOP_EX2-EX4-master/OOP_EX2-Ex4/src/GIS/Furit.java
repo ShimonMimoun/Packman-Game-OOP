@@ -8,7 +8,7 @@ public class Furit extends Point3D {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Point3D FuritPoint;
+	 Point3D FuritPoint;
 	int Weight;
 
 	public Furit(Point3D p, int Weight) {
