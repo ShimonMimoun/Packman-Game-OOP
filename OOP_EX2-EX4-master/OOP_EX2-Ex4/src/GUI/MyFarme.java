@@ -170,6 +170,7 @@ public class MyFarme extends JFrame implements MouseListener
 					Packmans = myGame.myPackmens;
 					Fruits = myGame.myFruits;
 					isGamer = 2;
+					new MyFarme();
 					repaint();
 
 					} catch (IOException e1) {
@@ -298,7 +299,7 @@ public class MyFarme extends JFrame implements MouseListener
 			Fruits.add(new Furit(point_return,1));
 			x = arg.getX();
 			y = arg.getY();
-			System.out.println("Fruit: Point("+covertedfromPixel.x()+","+covertedfromPixel.y()+")");
+			System.out.println("fruit"+point_return.toString());
 			repaint();
 
 		}else if (isGamer==(-1))
@@ -306,7 +307,7 @@ public class MyFarme extends JFrame implements MouseListener
 			Packmans.add(new Packman(point_return, 1, 1));
 			x = arg.getX();
 			y = arg.getY();
-			System.out.println("Packman: Point("+covertedfromPixel.x()+","+covertedfromPixel.y()+")");
+			System.out.println("Packman"+point_return.toString());
 
 			repaint();
 		}

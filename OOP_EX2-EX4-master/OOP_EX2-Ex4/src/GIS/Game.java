@@ -47,9 +47,9 @@ public class Game {
 			sb.append(',');
 			sb.append(i);
 			sb.append(',');
-			sb.append(this.myPackmens.get(i).y());
-			sb.append(',');
 			sb.append(this.myPackmens.get(i).x());
+			sb.append(',');
+			sb.append(this.myPackmens.get(i).y());
 			sb.append(',');
 			sb.append(this.myPackmens.get(i).z());
 			sb.append(',');
@@ -63,9 +63,9 @@ public class Game {
 			sb.append(',');
 			sb.append(i);
 			sb.append(',');
-			sb.append(this.myFruits.get(i).y());
-			sb.append(',');
 			sb.append(this.myFruits.get(i).x());
+			sb.append(',');
+			sb.append(this.myFruits.get(i).y());
 			sb.append(',');
 			sb.append(this.myFruits.get(i).z());
 			sb.append(',');	
@@ -100,13 +100,13 @@ public class Game {
 				myFruits.add(new Furit(p, Weight));
 			}
 		}
-//		for (int j = 0; j < myPackmens.size(); j++) {
-//			System.out.println(myPackmens.get(j).toString());
-//		}
-//		for (int i = 0; i < myFruits.size(); i++) {
-//			System.out.println(myFruits.get(i).toString());
-//
-//		}
+		//		for (int j = 0; j < myPackmens.size(); j++) {
+		//			System.out.println(myPackmens.get(j).toString());
+		//		}
+		//		for (int i = 0; i < myFruits.size(); i++) {
+		//			System.out.println(myFruits.get(i).toString());
+		//
+		//		}
 	}
 }
 
