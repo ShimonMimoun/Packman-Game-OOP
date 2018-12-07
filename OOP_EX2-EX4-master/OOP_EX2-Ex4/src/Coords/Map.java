@@ -21,7 +21,7 @@ public class Map {
 		
 		Point3D ans_in_Gps = new Point3D(ans_y,ans_x);
 		
-		
+//		
 //		double dis_x = leftUp.distance3D(RightUp);
 //		double x_1pxiel2Meter = dis_x/x_lengthMap;
 //		
