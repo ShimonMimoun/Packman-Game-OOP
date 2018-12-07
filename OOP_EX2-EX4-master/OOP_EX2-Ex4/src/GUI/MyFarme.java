@@ -55,9 +55,9 @@ public class MyFarme extends JFrame implements MouseListener
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
-		
+
 		MenuBar menuBarOption = new MenuBar();
-		
+
 		Menu OptionMenu = new Menu("File"); 
 		menuBarOption.add(OptionMenu);
 		MenuItem runItem = new MenuItem("Run");
@@ -67,8 +67,8 @@ public class MyFarme extends JFrame implements MouseListener
 		MenuItem exit = new MenuItem("Exit");
 		OptionMenu.add(exit);
 
-		
-		
+
+
 		Menu AddMenu = new Menu("Add"); 
 		menuBarOption.add(AddMenu);
 		MenuItem Packman_Item = new MenuItem("Packman");
@@ -76,12 +76,12 @@ public class MyFarme extends JFrame implements MouseListener
 		AddMenu.add(Packman_Item);
 		AddMenu.add(Furit_item);
 
-		
+
 		Menu Add_import=new Menu ("Import");
 		MenuItem Csv_read = new MenuItem("Import Csv ");
 		Add_import.add(Csv_read);
-		
-		
+
+
 		menuBarOption.add(Add_import);
 		Menu Add_export=new Menu ("Export");
 		menuBarOption.add(Add_export);
@@ -89,23 +89,29 @@ public class MyFarme extends JFrame implements MouseListener
 		MenuItem Csv_writing_kml = new MenuItem(" Kml ");
 		Add_export.add(Csv_writing_csv);
 		Add_export.add(Csv_writing_kml);
-		
-		
+
+
 		this.setMenuBar(menuBarOption);
-	
-		
 
 
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
+		//Turn on the buttons
+
+		runItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
+
+
+
 		reload_item.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -122,7 +128,7 @@ public class MyFarme extends JFrame implements MouseListener
 		});
 
 
-	
+
 
 		exit.addActionListener(new ActionListener() {
 			@Override
@@ -130,13 +136,6 @@ public class MyFarme extends JFrame implements MouseListener
 				dispose();
 			}
 		});
-
-		
-	
-
-		
-
-		// menu item functions. //
 
 		Furit_item.addActionListener(new ActionListener() {
 			@Override
@@ -168,39 +167,63 @@ public class MyFarme extends JFrame implements MouseListener
 				}
 			}
 		});
-		
-		
-		
-		
-		
+
+
+
+
+
 		Csv_writing_csv.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
 				JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 				jfc.setDialogTitle("Export to Csv File");
 				jfc.setAcceptAllFileFilterUsed(false);
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("csv","CSV");
 				jfc.addChoosableFileFilter(filter);
-				
-				 int returnValue = jfc.showSaveDialog(null);
+
+				int returnValue = jfc.showSaveDialog(null);
 
 				if (returnValue == JFileChooser.APPROVE_OPTION) {
 					File selectedFile = jfc.getSelectedFile();
 					System.out.println(selectedFile.getAbsolutePath());
 				}
 
-				
+
 			}
-			
+
 		});
 		
-		
-		
-		
-		
-		
-		
+
+		Csv_writing_kml.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+				jfc.setDialogTitle("Export to KML File");
+				jfc.setAcceptAllFileFilterUsed(false);
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("kml","KML");
+				jfc.addChoosableFileFilter(filter);
+
+				int returnValue = jfc.showSaveDialog(null);
+
+				if (returnValue == JFileChooser.APPROVE_OPTION) {
+					File selectedFile = jfc.getSelectedFile();
+					System.out.println(selectedFile.getAbsolutePath());
+				}
+
+
+			}
+
+		});
+
+
+
+
+
+
+
+
 	}
 
 
