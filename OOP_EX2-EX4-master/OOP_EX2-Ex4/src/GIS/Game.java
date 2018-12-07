@@ -7,10 +7,9 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import File_format.CsvFileHelper;
 import File_format.csv2kml;
 import Geom.Point3D;
-
+import Coords.Map;
 public class Game {
 
 	public  ArrayList<Packman> myPackmens = new ArrayList<>();
@@ -22,8 +21,6 @@ public class Game {
 		this.myFruits = f;
 		this.path = path;
 	}
-
-
 
 
 
@@ -43,6 +40,7 @@ public class Game {
 		sb.append('\n');
 
 		for (int i = 0; i < this.myPackmens.size(); i++) {
+		
 			sb.append("Packman");
 			sb.append(',');
 			sb.append(i);

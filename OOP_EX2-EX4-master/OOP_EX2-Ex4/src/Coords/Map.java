@@ -16,8 +16,8 @@ public class Map {
 		double x_length = RightUp.y()-leftUp.y();
 		double y_length = leftDown.x()-leftUp.x();
 		
-		double lon = x * (x_length/x_lengthMap)+leftUp.y();
-		double lat = y* (y_length/y_lengthMap)+RightUp.x();
+		double lon = x * (x_length)+leftUp.y();
+		double lat = y* (y_length)+RightUp.x();
 		
 		Point3D ans_in_Gps = new Point3D(lon,lat);
 		
