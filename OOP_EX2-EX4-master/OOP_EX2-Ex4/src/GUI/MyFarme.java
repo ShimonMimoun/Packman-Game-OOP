@@ -50,11 +50,9 @@ public class MyFarme extends JFrame implements MouseListener
 	}
 
 	private void initGUI() {
-		try {
-			myImage = ImageIO.read(new File("Ariel1.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}	
+
+
+		try {	myImage = ImageIO.read(new File("Ariel1.png")); } catch (IOException e) { e.printStackTrace();	}	
 
 		MenuBar menuBarOption = new MenuBar();
 
@@ -66,6 +64,7 @@ public class MyFarme extends JFrame implements MouseListener
 		OptionMenu.add(reload_item);
 		MenuItem exit = new MenuItem("Exit");
 		OptionMenu.add(exit);
+
 
 
 
@@ -92,9 +91,6 @@ public class MyFarme extends JFrame implements MouseListener
 
 
 		this.setMenuBar(menuBarOption);
-
-
-
 
 
 
@@ -193,7 +189,7 @@ public class MyFarme extends JFrame implements MouseListener
 			}
 
 		});
-		
+
 
 		Csv_writing_kml.addActionListener(new ActionListener() {
 			@Override
