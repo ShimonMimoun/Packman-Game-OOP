@@ -286,14 +286,14 @@ public class MyFarme extends JFrame implements MouseListener
 		if (isGamer==(1))
 		{	
 			Fruits.add(new Furit(point_return,1));
-			System.out.println("fruit"+covertedfromPixel.toString());
+			System.out.println("Fruit "+covertedfromPixel.toString());
 
 			repaint();
 
 		}else if (isGamer==(-1))
 		{
 			Packmans.add(new Packman(point_return, 1, 1));
-			System.out.println("Packman"+covertedfromPixel.toString());
+			System.out.println("Packman "+covertedfromPixel.toString());
 
 			repaint();
 		}
