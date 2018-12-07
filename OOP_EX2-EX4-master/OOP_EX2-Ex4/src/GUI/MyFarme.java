@@ -138,10 +138,10 @@ public class MyFarme extends JFrame implements MouseListener
 		repaint();
 	}
 
-	public void mouseClicked (MouseEvent arg0) {
+	public void mouseClicked1 (MouseEvent arg0) {
 		x = arg0.getX();
 		y = arg0.getY();  
-                paintElement();
+
 
 		repaint();
 	}	
