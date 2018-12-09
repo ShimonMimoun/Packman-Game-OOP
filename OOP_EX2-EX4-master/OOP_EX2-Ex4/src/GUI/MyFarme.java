@@ -21,6 +21,9 @@ import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
+import com.sun.javafx.tk.Toolkit;
+
+import Algorithm.ShortestPathAlgo;
 import Coords.Map;
 import File_format.CsvFileHelper;
 import File_format.csv2kml;
@@ -104,6 +107,10 @@ public class MyFarme extends JFrame implements MouseListener
 		runItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Game g = new Game(Packmans, Fruits, "Desktop/");
+				
+				ShortestPathAlgo algo = new ShortestPathAlgo(g);
+				algo.algoSinglePackman(Packmans.get(0));
 
 			}
 		});
@@ -241,15 +248,18 @@ public class MyFarme extends JFrame implements MouseListener
 
 		Image scaledImage = myImage.getScaledInstance(this.getWidth(),this.getHeight(),myImage.SCALE_SMOOTH);
 		g.drawImage(scaledImage, 0, 0, null);
-
+		int  x_temp_fruits = 0;
+		int  y_temp_fruits =0 ;
+		int  x_temp_Packmans = 0;
+		int  y_temp_Packmans = 0;
 		
 			if (isGamer!=0)
 			{
 				for (int i=0; i<Fruits.size(); i++) 
 				{
 					int r_fruits = 10;
-					int  x_temp_fruits=(int)(Fruits.get(i).x()*getWidth());
-					int  y_temp_fruits=(int)(Fruits.get(i).y()*getHeight());	
+					x_temp_fruits=(int)(Fruits.get(i).x()*getWidth());
+					y_temp_fruits=(int)(Fruits.get(i).y()*getHeight());	
 					
 
 					g.setColor(Color.red);
@@ -259,13 +269,16 @@ public class MyFarme extends JFrame implements MouseListener
 				{
 
 					int r_Packmans= 20;
-					int  x_temp_Packmans=(int)(Packmans.get(j).x()*getWidth());
-					int  y_temp_Packmans=(int)(Packmans.get(j).y()*getHeight());	
-
+					x_temp_Packmans=(int)(Packmans.get(j).x()*getWidth());
+					y_temp_Packmans=(int)(Packmans.get(j).y()*getHeight());	
 					g.setColor(Color.yellow);
 					g.fillOval(x_temp_Packmans, y_temp_Packmans, r_Packmans, r_Packmans);
+
 				}
+
 			}
+			//g.drawLine(x_temp_Packmans, y_temp_Packmans, x_temp_fruits, y_temp_fruits);
+
 		
 	}
 	

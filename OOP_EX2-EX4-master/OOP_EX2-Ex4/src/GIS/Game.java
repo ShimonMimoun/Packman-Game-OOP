@@ -14,20 +14,20 @@ public class Game {
 
 	public  ArrayList<Packman> myPackmens = new ArrayList<>();
 	public  ArrayList<Furit> myFruits = new ArrayList<>();
-	public 	String path;
+	public 	String filedirectory;
 	public Map theMap = new Map();
 
-	public Game(ArrayList<Packman> p , ArrayList<Furit> f, String path) {
+	public Game(ArrayList<Packman> p , ArrayList<Furit> f, String filedirectory) {
 		this.myPackmens = p;
 		this.myFruits = f;
-		this.path = path;
+		this.filedirectory = filedirectory;
 	}
 
 
 
 	public  void save2Csv() throws FileNotFoundException {
 
-		PrintWriter pw = new PrintWriter(new File(path+".csv"));
+		PrintWriter pw = new PrintWriter(new File(filedirectory+".csv"));
 		StringBuilder sb = new StringBuilder();
 		String[] heders = {"Type","id"	,"Lat"	,"Lon"	,"Alt"	,"Speed/Weight"	,"Radius"};
 
@@ -87,8 +87,7 @@ public class Game {
 
 
 	public void Csvread() throws IOException{		
-		//File file = CsvFileHelper.getResource(path);
-		List<String[]> s = csv2kml.readFile2(path);
+		List<String[]> s = csv2kml.readFile2(filedirectory);
 
 		for (int i = 1; i < s.size(); i++) {
 			String[] row = s.get(i);

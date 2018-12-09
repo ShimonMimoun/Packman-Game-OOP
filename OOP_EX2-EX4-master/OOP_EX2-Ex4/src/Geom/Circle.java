@@ -7,6 +7,7 @@ package Geom;
 public class Circle implements Geom_element {
 	private Point3D _cen;
 	private double _radius;
+	
 	public Circle(Point3D cen, double rad) {
 		this.set_cen(new Point3D(cen));
 		this.set_radius(rad);
@@ -20,6 +21,17 @@ public class Circle implements Geom_element {
 		double ans = Math.max(0, dr);
 		return ans;
 	}
+	
+	// helping functions //
+	public boolean inRange(Point3D p) {
+		
+		if (this._cen.distance3D(p) <= this._radius) {
+			return true;
+		}
+		return false;
+	}
+	
+	// end of helping functions // 
 
 	@Override
 	public double distance2D(Point3D p) {

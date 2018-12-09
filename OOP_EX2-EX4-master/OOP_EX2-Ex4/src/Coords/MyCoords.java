@@ -39,10 +39,10 @@ public class MyCoords implements coords_converter {
 		
 		Point3D gps0Change = gps0.ConvertToCartesian();
 		Point3D gps1Change = gps1.ConvertToCartesian();
+		
 		return Math.abs(gps0Change.distance3D(gps1Change));
 
-		
-		// TODO Auto-generated method stub
+			// TODO Auto-generated method stub
 	
 	}
 
@@ -52,13 +52,13 @@ public class MyCoords implements coords_converter {
 		Point3D gps0ToMeters = gps0.ConvertToCartesian();
 		Point3D gps1ToMeters = gps1.ConvertToCartesian();
 		
-
 		double m_x = gps1ToMeters.x()-gps0ToMeters.x();
 		double m_y = gps1ToMeters.y()-gps0ToMeters.y();
 		double m_z = gps1ToMeters.z()-gps0ToMeters.z();
+		
+		Point3D ans = new Point3D(m_x,m_y,m_z); 
 
-
-		return new Point3D (m_x,m_y,m_z);
+		return ans.ConvertToGps();
 	}
 
 	@Override
