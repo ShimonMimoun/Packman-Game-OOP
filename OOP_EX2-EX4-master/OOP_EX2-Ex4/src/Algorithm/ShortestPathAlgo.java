@@ -16,7 +16,7 @@ public class ShortestPathAlgo {
 	
 	ArrayList<Furit> fruits = new ArrayList<>();
 	ArrayList<Packman> Packmans = new ArrayList<>();
-	private Distance_Comperator  DistSortbyPackman = new Distance_Comperator();
+	private distance_Comperator  DistSortbyPackman = new distance_Comperator();
 
 	
 	
@@ -35,29 +35,21 @@ public class ShortestPathAlgo {
 	
 	
 	public Path algoSinglePackman(Packman packman){
-		
+		ArrayList<Double> tempDistance = new ArrayList<>();
 		Path p = new Path();
 		Iterator<Furit> furitIter = this.Furit_iteretor();
-//		Map theMap = new Map();
 		
 		
 		while(furitIter.hasNext()) {
-
-			ArrayList<Double> tempDistance = new ArrayList<>();
 			
 			Furit temp = furitIter.next();
-//			temp = (Furit) theMap.Pixel2GPS(temp.x(), temp.y());
-//			packman = (Packman) theMap.Pixel2GPS(packman.x(), packman.y());
-//			
-			tempDistance.add(packman.distance3D(temp));
-			
-			
-			System.out.println(furitIter.next().toString()+"the dis is: "+packman.distance3D(temp));
-			tempDistance.sort(DistSortbyPackman);
-			
-			System.out.println(tempDistance.toString());
+
+//			tempDistance.add(packman.distance3D(temp));
+						
 		}
-		
+		System.out.println("Before sort :"+tempDistance.toString());
+		tempDistance.sort(DistSortbyPackman);
+		System.out.println("After sort :"+tempDistance.toString());
 
 		
 		return p;

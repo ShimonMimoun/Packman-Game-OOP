@@ -9,15 +9,17 @@ public class Map {
 	Point3D RightUp = new Point3D(32.105770 , 35.211588);
 	Point3D leftDown = new Point3D(32.101899, 35.202469);
 	Point3D RightDown = new Point3D(32.101899, 35.211588);
-	double x_length = RightUp.y()-leftUp.y();
-	double y_length = leftDown.x()-leftUp.x();
+	double x_length = this.RightUp.y()-this.leftUp.y();
+	double y_length = this.leftDown.x()-this.leftUp.x();
+	
+	
 
 	
 	public  Point3D Pixel2GPS(double Dx , double Dy) {
 		
 		
 		double lon_x = Dx * x_length+leftUp.y();
-		double lat_y = Dy* y_length+RightUp.x();
+		double lat_y = Dy * y_length+RightUp.x();
 		
 		Point3D ans_in_Gps = new Point3D(lat_y,lon_x);
 
