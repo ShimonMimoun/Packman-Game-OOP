@@ -121,10 +121,7 @@ public class MyFarme extends JFrame implements MouseListener
 		runItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Game g = new Game(Packmans, Fruits, "Desktop/");
-				
-				ShortestPathAlgo algo = new ShortestPathAlgo(g);
-				algo.algoSinglePackman(Packmans.get(0));
+				//algo.algoSinglePackman(Packmans.get(0));
 
 			}
 		});

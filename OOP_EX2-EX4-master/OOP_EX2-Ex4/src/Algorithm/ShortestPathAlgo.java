@@ -34,27 +34,18 @@ public class ShortestPathAlgo {
 	}
 	
 	
-	public Path algoSinglePackman(Packman packman){
-		ArrayList<Double> tempDistance = new ArrayList<>();
-		Path p = new Path();
-		Iterator<Furit> furitIter = this.Furit_iteretor();
-		
-		
-		while(furitIter.hasNext()) {
-			
-			Furit temp = furitIter.next();
-
-//			tempDistance.add(packman.distance3D(temp));
-						
-		}
-		System.out.println("Before sort :"+tempDistance.toString());
-		tempDistance.sort(DistSortbyPackman);
-		System.out.println("After sort :"+tempDistance.toString());
-
-		
-		return p;
-	}
+	public Path algoSinglePackman(Packman packman, ArrayList<Furit> myfurit){
 	
+		Path p = new Path();
+		
+
+		return p;
+			
+		}
+//		System.out.println("Before sort :"+tempDistance.toString());
+//		tempDistance.sort(DistSortbyPackman);
+//		System.out.println("After sort :"+tempDistance.toString());
+
 	
 	public Iterator<Furit> Furit_iteretor() {
 		return this.fruits.iterator();

@@ -13,6 +13,10 @@ public class Map {
 	double y_length = this.leftDown.x()-this.leftUp.x();
 	
 	
+//	public Map() {
+//
+//	}
+	
 
 	
 	public  Point3D Pixel2GPS(double Dx , double Dy) {
@@ -46,5 +50,6 @@ public class Map {
 		return result;
 
 	}
+	
 
 }
