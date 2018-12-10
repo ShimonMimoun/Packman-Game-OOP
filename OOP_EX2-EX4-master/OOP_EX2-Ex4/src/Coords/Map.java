@@ -11,13 +11,19 @@ public class Map {
 	Point3D RightDown = new Point3D(32.101899, 35.211588);
 	double x_length = this.RightUp.y()-this.leftUp.y();
 	double y_length = this.leftDown.x()-this.leftUp.x();
+	String diractroyMap = "Ariel1.png";
 	
 	
-//	public Map() {
-//
-//	}
-	
+	public Map() {
+		// set map 
 
+	}
+	
+	// getting // 
+	
+	public String getMapDiractory() {
+		return this.diractroyMap;
+	}
 	
 	public  Point3D Pixel2GPS(double Dx , double Dy) {
 		

@@ -14,20 +14,30 @@ public class Game {
 
 	public  ArrayList<Packman> myPackmens = new ArrayList<>();
 	public  ArrayList<Furit> myFruits = new ArrayList<>();
-	public 	String filedirectory;
+	public 	String file_directory = "/Desktop/";
 	public Map theMap = new Map();
-
-	public Game(ArrayList<Packman> p , ArrayList<Furit> f, String filedirectory) {
+	
+	
+	
+	
+	
+	public Game(ArrayList<Packman> p , ArrayList<Furit> f) {
 		this.myPackmens = p;
 		this.myFruits = f;
-		this.filedirectory = filedirectory;
+	}
+	
+	public String getDiractroy() {
+		return this.file_directory;
+	}
+	public void setfile_directory(String file_directory) {
+		this.file_directory = file_directory;
 	}
 
 
 
 	public  void save2Csv() throws FileNotFoundException {
 
-		PrintWriter pw = new PrintWriter(new File(filedirectory+".csv"));
+		PrintWriter pw = new PrintWriter(new File(getDiractroy()+".csv"));
 		StringBuilder sb = new StringBuilder();
 		String[] heders = {"Type","id"	,"Lat"	,"Lon"	,"Alt"	,"Speed/Weight"	,"Radius"};
 
@@ -87,7 +97,7 @@ public class Game {
 
 
 	public void Csvread() throws IOException{		
-		List<String[]> s = csv2kml.readFile2(filedirectory);
+		List<String[]> s = csv2kml.readFile2(getDiractroy());
 
 		for (int i = 1; i < s.size(); i++) {
 			String[] row = s.get(i);

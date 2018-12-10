@@ -11,7 +11,6 @@ public class Packman extends Point3D{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	Circle packCircle;
 	int radius;
 	Point3D packLocation;
 	double Orientation;
@@ -25,6 +24,10 @@ public class Packman extends Point3D{
 		this.radius = radius;
 		
 	}
+	
+	public void setPackLocation(Point3D p) {
+		this.packLocation = p;
+	}
 	public int getradius() {
 		return this.radius;
 	}
@@ -34,6 +37,7 @@ public class Packman extends Point3D{
 	public double getSpeed() {
 		return this.speed;
 	}
+	
 	@Override
 	public String toString() {
 		return "Packman ["+packLocation.toString()+" Radius= "+radius+"speed=" + speed + "]";

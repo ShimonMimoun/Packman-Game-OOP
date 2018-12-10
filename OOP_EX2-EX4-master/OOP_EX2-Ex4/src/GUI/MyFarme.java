@@ -30,6 +30,7 @@ import File_format.csv2kml;
 import GIS.Furit;
 import GIS.Game;
 import GIS.Packman;
+import GIS.Path;
 import Geom.Point3D;
 
 
@@ -45,6 +46,7 @@ public class MyFarme extends JFrame implements MouseListener
 	public BufferedImage myImage;
 	public BufferedImage packimage;
 	public BufferedImage furitimage;
+	public Path CurrentPath;
 	double radius = 1;
 	int speed = 1;
 
@@ -121,7 +123,16 @@ public class MyFarme extends JFrame implements MouseListener
 		runItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//algo.algoSinglePackman(Packmans.get(0));
+				ShortestPathAlgo algo = new ShortestPathAlgo(new Game(Packmans,Fruits));
+				if(Packmans.size() == 1) {
+					CurrentPath = algo.algoSinglePackman();
+					for (int i = 0; i < CurrentPath.size(); i++) {
+					Point3D p	= theMap.Pixel2GPS(CurrentPath.get(i).x(),CurrentPath.get(i).y());
+						System.out.println(p.x()+","+p.y());
+
+					}
+					System.out.println("the time is:" +CurrentPath.getTheTime());
+				}
 
 			}
 		});
@@ -179,7 +190,8 @@ public class MyFarme extends JFrame implements MouseListener
 				int returnValue = fileChooser.showOpenDialog(null);
 				if (returnValue == JFileChooser.APPROVE_OPTION) {
 					System.out.println(fileChooser.getSelectedFile().getPath());
-					Game myGame = new Game(Packmans,Fruits, fileChooser.getSelectedFile().getPath());
+					Game myGame = new Game(Packmans,Fruits);
+					myGame.setfile_directory(fileChooser.getSelectedFile().getPath());
 					try {
 					myGame.Csvread();
 					Packmans = myGame.myPackmens;
@@ -215,7 +227,8 @@ public class MyFarme extends JFrame implements MouseListener
 				if (returnValue == JFileChooser.APPROVE_OPTION) {
 					File selectedFile = jfc.getSelectedFile();
 					System.out.println(selectedFile.getAbsolutePath());
-					Game myGame = new Game(Packmans,Fruits, selectedFile.getAbsolutePath());
+					Game myGame = new Game(Packmans,Fruits);
+					myGame.setfile_directory(selectedFile.getAbsolutePath());
 					try {
 						myGame.save2Csv();
 					} catch (FileNotFoundException e1) {

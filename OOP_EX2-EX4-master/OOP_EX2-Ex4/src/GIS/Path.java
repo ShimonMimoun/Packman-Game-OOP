@@ -6,18 +6,19 @@ import Geom.Point3D;
 
 public class Path extends ArrayList<Furit>{
 
-
-/**
-	 * 
-	 */
+	public double totalTimePath = 0;
 	private static final long serialVersionUID = 1L;
 
 
 //	ArrayList<Furit> thePath = new ArrayList<>();
 		
 	
-	public Path() {
-		
+	public double getTheTime() {
+		return this.totalTimePath;
+	}
+	
+	public void setTheTotalTime(double total) {
+		this.totalTimePath = total;
 	}
 
 
