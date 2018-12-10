@@ -57,7 +57,6 @@ public class ShortestPathAlgo {
 
 		
 		TheFastTime = CalTime(myPackmans.get(0),myFurits.get(0));
-	
 		
 		for (int i = 0; i < myFurits.size(); i++) {
 			
