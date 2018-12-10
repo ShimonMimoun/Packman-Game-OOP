@@ -31,9 +31,10 @@ public class ShortestPathAlgo {
 	public Path algoSinglePackman(){
 		Path temp = new Path();
 		ArrayList<Furit> Tempfruits = this.fruits;
-
-		Path resultPath = calFastDisOnePack(Packmans.get(0), Tempfruits,temp);
-		resultPath.setTheTotalTime(getTimePathPerPackman(Packmans.get(0), resultPath));
+		
+		Packman tempPackman = new Packman(Packmans.get(0).getPoint(), Packmans.get(0).getSpeed(),  Packmans.get(0).getradius());
+		Path resultPath = calFastDisOnePack(tempPackman, Tempfruits,temp);
+		resultPath.setTheTotalTime(getTimePathPerPackman(tempPackman, resultPath));
 
 		return resultPath;
 
@@ -122,7 +123,7 @@ public class ShortestPathAlgo {
 
 
 	public Path calFastDisOnePack (Packman packman, ArrayList<Furit> myFurits, Path myPackPath) {
-
+		
 		if (myFurits.isEmpty()) {
 			return myPackPath;
 		}
@@ -186,8 +187,10 @@ public class ShortestPathAlgo {
 		MyCoords m = new MyCoords();
 		Geom.Point3D pack = themap.Pixel2GPS(p.getPoint().x(), p.getPoint().y());
 		Geom.Point3D furit = themap.Pixel2GPS(f.getFuritPoint().x(), f.getFuritPoint().y());
-				
+			System.out.println("the dis is:"+m.distance3d(pack, furit));	
 		if (m.distance3d(pack, furit) < p.getradius()) {
+			System.out.println("the dis is:???"+m.distance3d(pack, furit));	
+
 			return 0;
 		}
 		else {	

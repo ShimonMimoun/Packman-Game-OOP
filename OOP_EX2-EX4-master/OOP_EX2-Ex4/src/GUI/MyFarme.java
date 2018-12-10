@@ -294,7 +294,7 @@ public class MyFarme extends JFrame implements MouseListener
 			}
 			for (int j=0; j<Packmans.size(); j++) 
 			{
-
+				System.out.println("currtent packman place: "+Packmans.get(j).toString());
 				x_temp_Packmans=(int)(Packmans.get(j).getPoint().x()*getWidth());
 				y_temp_Packmans=(int)(Packmans.get(j).getPoint().y()*getHeight());	
 
@@ -303,7 +303,7 @@ public class MyFarme extends JFrame implements MouseListener
 
 
 			}
-//testqdqjk
+
 		}
 		if(test==true) {
 			ShortestPathAlgo algo = new ShortestPathAlgo(new Game(Packmans,Fruits));
