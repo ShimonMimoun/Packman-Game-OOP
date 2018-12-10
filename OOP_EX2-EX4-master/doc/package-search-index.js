@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"Coords"},{"l":"File_format"},{"l":"Geom"},{"l":"GIS"},{"l":"GUI"},{"l":"Tests"},{"l":"Threads"}]
