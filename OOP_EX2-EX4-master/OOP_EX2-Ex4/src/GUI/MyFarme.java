@@ -133,6 +133,8 @@ public class MyFarme extends JFrame implements MouseListener
 					}
 					System.out.println("the time is:" +CurrentPathForOnePackman.getTheTime());
 				}
+				
+		
 			
 			}
 		});

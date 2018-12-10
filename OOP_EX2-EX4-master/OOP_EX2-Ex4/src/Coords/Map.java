@@ -13,13 +13,13 @@ public class Map {
 	double y_length = this.leftDown.x()-this.leftUp.x();
 	String diractroyMap = "Ariel1.png";
 	
+//	
+//	public Map() {
+//	
+//
+//	}
 	
-	public Map() {
-		// set map 
-
-	}
-	
-	// getting // qdqsd
+	// getting // 
 	
 	public String getMapDiractory() {
 		return this.diractroyMap;
