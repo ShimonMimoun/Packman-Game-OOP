@@ -327,7 +327,7 @@ public class MyFarme extends JFrame implements MouseListener
 
 	}
 
-//test
+
 
 	public void mouseClicked(MouseEvent arg) {
 
