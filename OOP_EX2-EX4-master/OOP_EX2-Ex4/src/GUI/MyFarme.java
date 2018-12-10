@@ -124,11 +124,16 @@ public class MyFarme extends JFrame implements MouseListener
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
+
 				test=true;
 				repaint();
 
+					}
 
-			}
+				
+				
+		
+
 		});
 
 
