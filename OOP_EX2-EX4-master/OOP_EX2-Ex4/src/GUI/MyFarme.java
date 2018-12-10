@@ -298,7 +298,7 @@ public class MyFarme extends JFrame implements MouseListener
 
 
 			}
-//testqdq
+//testqdqjk
 		}
 		if(test==true) {
 			ShortestPathAlgo algo = new ShortestPathAlgo(new Game(Packmans,Fruits));
