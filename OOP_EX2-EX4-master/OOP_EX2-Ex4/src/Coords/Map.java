@@ -19,7 +19,7 @@ public class Map {
 
 	}
 	
-	// getting // 
+	// getting // qdqsd
 	
 	public String getMapDiractory() {
 		return this.diractroyMap;
