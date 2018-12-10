@@ -40,20 +40,20 @@ public class MyFarme extends JFrame implements MouseListener
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	
+
+
 	public Map theMap = new Map();
 	public BufferedImage myImage;
 	public BufferedImage packimage;
 	public BufferedImage furitimage;
-	public Path CurrentPathForOnePackman;
+
 	double radius = 1;
 	int speed = 1;
 
 	public ArrayList<Furit>Fruits=new ArrayList<>();
 	public ArrayList<Packman>Packmans=new ArrayList<>();
 	private int isGamer=0;// if is Gamer==1 --> Fruit :::: if is Gamer == -1 --> Packman 
-
+	private boolean test=false;
 
 
 
@@ -123,17 +123,11 @@ public class MyFarme extends JFrame implements MouseListener
 		runItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ShortestPathAlgo algo = new ShortestPathAlgo(new Game(Packmans,Fruits));
-				if(Packmans.size() == 1) {
-					CurrentPathForOnePackman = algo.algoSinglePackman();
-					for (int i = 0; i < CurrentPathForOnePackman.size(); i++) {
-					Point3D p	= theMap.Pixel2GPS(CurrentPathForOnePackman.get(i).getFuritPoint().x(),CurrentPathForOnePackman.get(i).getFuritPoint().y());
-						System.out.println(p.x()+","+p.y());
 
-					}
-					System.out.println("the time is:" +CurrentPathForOnePackman.getTheTime());
-				}
-			
+				test=true;
+				repaint();
+
+
 			}
 		});
 
@@ -142,7 +136,7 @@ public class MyFarme extends JFrame implements MouseListener
 		reload_item.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
 
 				theMap = new Map();
 				Fruits=new ArrayList<>();
@@ -193,17 +187,17 @@ public class MyFarme extends JFrame implements MouseListener
 					Game myGame = new Game(Packmans,Fruits);
 					myGame.setfile_directory(fileChooser.getSelectedFile().getPath());
 					try {
-					myGame.Csvread();
-					Packmans = myGame.myPackmens;
-					Fruits = myGame.myFruits;
-					isGamer = 2;
-			
-					repaint();
+						myGame.Csvread();
+						Packmans = myGame.myPackmens;
+						Fruits = myGame.myFruits;
+						isGamer = 2;
+
+						repaint();
 
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
-		
+
 				}
 			}
 		});
@@ -277,39 +271,63 @@ public class MyFarme extends JFrame implements MouseListener
 		int  y_temp_fruits =0 ;
 		int  x_temp_Packmans = 0;
 		int  y_temp_Packmans = 0;
-		
-			if (isGamer!=0)
+
+
+
+		if (isGamer!=0)
+		{
+			for (int i=0; i<Fruits.size(); i++) 
 			{
-				for (int i=0; i<Fruits.size(); i++) 
-				{
-					x_temp_fruits=(int)(Fruits.get(i).getFuritPoint().x()*getWidth());
-					y_temp_fruits=(int)(Fruits.get(i).getFuritPoint().y()*getHeight());	
-					
+				x_temp_fruits=(int)(Fruits.get(i).getFuritPoint().x()*getWidth());
+				y_temp_fruits=(int)(Fruits.get(i).getFuritPoint().y()*getHeight());	
 
-					g.setColor(Color.red);
-					g.drawImage(furitimage, x_temp_fruits, y_temp_fruits,30, 30, null);
 
-					//g.fillOval(x_temp_fruits ,y_temp_fruits, r_fruits, r_fruits);
-				}
-				for (int j=0; j<Packmans.size(); j++) 
-				{
+				g.setColor(Color.red);
+				g.drawImage(furitimage, x_temp_fruits-5, y_temp_fruits-6,30, 30, null);
 
-					x_temp_Packmans=(int)(Packmans.get(j).getPoint().x()*getWidth());
-					y_temp_Packmans=(int)(Packmans.get(j).getPoint().y()*getHeight());	
-					//g.setColor(Color.yellow);
-					g.drawImage(packimage, x_temp_Packmans, y_temp_Packmans,30, 30, null);
-
-					//g.fillOval(x_temp_Packmans, y_temp_Packmans, r_Packmans, r_Packmans);
-
-				}
 
 			}
-			//g.drawLine(x_temp_Packmans, y_temp_Packmans, x_temp_fruits, y_temp_fruits);
+			for (int j=0; j<Packmans.size(); j++) 
+			{
+
+				x_temp_Packmans=(int)(Packmans.get(j).getPoint().x()*getWidth());
+				y_temp_Packmans=(int)(Packmans.get(j).getPoint().y()*getHeight());	
+
+				g.drawImage(packimage, x_temp_Packmans-6, y_temp_Packmans-7,30, 30, null);
+
+
+
+			}
+
+		}
+		if(test==true) {
+			ShortestPathAlgo algo = new ShortestPathAlgo(new Game(Packmans,Fruits));
+			if(Packmans.size() == 1) {
+				Fruits = algo.algoSinglePackman();
+				g.setColor(Color.MAGENTA);
+				g.drawLine((int)(Fruits.get(0).getFuritPoint().x()*getWidth()), (int)(Fruits.get(0).getFuritPoint().y()*getHeight()),(int)(Packmans.get(0).getPoint().x()*getWidth()),(int)(Packmans.get(0).getPoint().y()*getHeight()));
+
+				for (int i = 1; i < Fruits.size(); i++) {
+					g.setColor(Color.MAGENTA);
+					g.drawLine((int)(Fruits.get(i).getFuritPoint().x()*getWidth()), (int)(Fruits.get(i).getFuritPoint().y()*getHeight()),(int)(Fruits.get(i-1).getFuritPoint().x()*getWidth()), (int)(Fruits.get(i-1).getFuritPoint().y()*getHeight()));
+				}
+				System.out.println("the time is:" +algo.algoSinglePackman().getTheTime());
+			
 
 		
-	}
-	
+				x_temp_Packmans=(int)(Fruits.get(Fruits.size()-1).getFuritPoint().x()*getWidth());
+				y_temp_Packmans=(int)(Fruits.get(Fruits.size()-1).getFuritPoint().y()*getHeight());	
+				
+				g.drawImage(packimage, x_temp_Packmans-6, y_temp_Packmans-7,30, 30, null);
 
+
+			}
+		}
+
+
+	}
+
+//test
 
 	public void mouseClicked(MouseEvent arg) {
 
