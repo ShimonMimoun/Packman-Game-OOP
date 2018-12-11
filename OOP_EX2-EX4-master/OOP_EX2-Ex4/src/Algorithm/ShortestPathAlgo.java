@@ -23,8 +23,8 @@ public class ShortestPathAlgo {
 
 	public ShortestPathAlgo(Game theGame) {	
 
-		this.fruits = theGame.myFruits;
-		this.Packmans = theGame.myPackmens;
+		this.fruits = theGame.Fruits_arr;
+		this.Packmans = theGame.Packman_arr;
 	}
 
 

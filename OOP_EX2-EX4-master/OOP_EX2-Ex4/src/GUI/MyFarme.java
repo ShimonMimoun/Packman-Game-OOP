@@ -22,6 +22,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
 import com.sun.javafx.tk.Toolkit;
+import com.sun.xml.internal.bind.v2.runtime.reflect.Lister.Pack;
 
 import Algorithm.ShortestPathAlgo;
 import Coords.Map;
@@ -50,9 +51,11 @@ public class MyFarme extends JFrame implements MouseListener
 	double radius = 1;
 	int speed = 1;
 
-	private Game Packman_start;
-	private ArrayList<Fruit>Fruits=new ArrayList<>();
-	private ArrayList<Packman>Packmans=new ArrayList<>();
+	public  ArrayList<Packman> Packman_arr = new ArrayList<>();
+	public  ArrayList<Fruit> Fruits_arr = new ArrayList<>();
+	private Game Packman_start=new Game(Packman_arr, Fruits_arr);
+	//	private ArrayList<Fruit>Fruits=new ArrayList<>();
+	//	private ArrayList<Packman>Packmans=new ArrayList<>();
 	private int isGamer=0;// if is Gamer==1 --> Fruit :::: if is Gamer == -1 --> Packman 
 	private boolean Start_game=false;
 
@@ -63,6 +66,7 @@ public class MyFarme extends JFrame implements MouseListener
 	{
 		initGUI();		
 		this.addMouseListener(this); 
+
 	}
 
 	private void initGUI() {
@@ -70,7 +74,7 @@ public class MyFarme extends JFrame implements MouseListener
 
 		try {	myImage = ImageIO.read(new File("Pictures&Icones/Ariel1.png")); } catch (IOException e) { e.printStackTrace();	}	
 		try {	packimage = ImageIO.read(new File("Pictures&Icones/packman.jpg")); } catch (IOException e) { e.printStackTrace();	}
-		try {	Fruitimage = ImageIO.read(new File("Pictures&Icones/Fruit.png")); } catch (IOException e) { e.printStackTrace();	}
+		try {	Fruitimage = ImageIO.read(new File("Pictures&Icones/furit.png")); } catch (IOException e) { e.printStackTrace();	}
 
 
 
@@ -141,9 +145,9 @@ public class MyFarme extends JFrame implements MouseListener
 
 
 				theMap = new Map();
-				Fruits=new ArrayList<>();
-				Packmans=new ArrayList<>();
+				Packman_start=new Game(null, null);
 				isGamer=0;
+				Start_game=false;
 				new MyFarme();
 				repaint();
 			}
@@ -186,12 +190,12 @@ public class MyFarme extends JFrame implements MouseListener
 				int returnValue = fileChooser.showOpenDialog(null);
 				if (returnValue == JFileChooser.APPROVE_OPTION) {
 					System.out.println(fileChooser.getSelectedFile().getPath());
-					Game myGame = new Game(Packmans,Fruits);
+					Game myGame = new Game(Packman_start.Packman_arr,Packman_start.Fruits_arr);
 					myGame.setfile_directory(fileChooser.getSelectedFile().getPath());
 					try {
 						myGame.Csvread();
-						Packmans = myGame.myPackmens;
-						Fruits = myGame.myFruits;
+						Packman_start.Packman_arr = myGame.Packman_arr;
+						Packman_start.Fruits_arr = myGame.Fruits_arr;
 						isGamer = 2;
 
 						repaint();
@@ -223,10 +227,10 @@ public class MyFarme extends JFrame implements MouseListener
 				if (returnValue == JFileChooser.APPROVE_OPTION) {
 					File selectedFile = jfc.getSelectedFile();
 					System.out.println(selectedFile.getAbsolutePath());
-					Game myGame = new Game(Packmans,Fruits);
-					myGame.setfile_directory(selectedFile.getAbsolutePath());
+
+					Packman_start.setfile_directory(selectedFile.getAbsolutePath());
 					try {
-						myGame.save2Csv();
+						Packman_start.save2Csv();
 					} catch (FileNotFoundException e1) {
 						e1.printStackTrace();
 					}
@@ -278,10 +282,10 @@ public class MyFarme extends JFrame implements MouseListener
 
 		if (isGamer!=0)
 		{
-			for (int i=0; i<Fruits.size(); i++) 
+			for (int i=0; i<Packman_start.Fruits_arr.size(); i++) 
 			{
-				x_temp_fruits=(int)(Fruits.get(i).getFruitPoint().x()*getWidth());
-				y_temp_fruits=(int)(Fruits.get(i).getFruitPoint().y()*getHeight());	
+				x_temp_fruits=(int)(Packman_start.Fruits_arr.get(i).getFruitPoint().x()*getWidth());
+				y_temp_fruits=(int)(Packman_start.Fruits_arr.get(i).getFruitPoint().y()*getHeight());	
 
 
 				g.setColor(Color.red);
@@ -289,11 +293,11 @@ public class MyFarme extends JFrame implements MouseListener
 
 
 			}
-			for (int j=0; j<Packmans.size(); j++) 
+			for (int j=0; j<Packman_start.Packman_arr.size(); j++) 
 			{
 
-				x_temp_Packmans=(int)(Packmans.get(j).getPoint().x()*getWidth());
-				y_temp_Packmans=(int)(Packmans.get(j).getPoint().y()*getHeight());	
+				x_temp_Packmans=(int)(Packman_start.Packman_arr.get(j).getPoint().x()*getWidth());
+				y_temp_Packmans=(int)(Packman_start.Packman_arr.get(j).getPoint().y()*getHeight());	
 
 				g.drawImage(packimage, x_temp_Packmans-6, y_temp_Packmans-7,30, 30, null);
 
@@ -304,50 +308,50 @@ public class MyFarme extends JFrame implements MouseListener
 		}
 		if(Start_game==true) {
 
-			ShortestPathAlgo algo = new ShortestPathAlgo(new Game(Packmans,Fruits));
-			if(Packmans.size() == 1) {
+			ShortestPathAlgo algo = new ShortestPathAlgo(Packman_start);
+			if(Packman_start.Packman_arr.size()== 1) {
 
-				Fruits = algo.algoSinglePackman();
+				Packman_start.Fruits_arr = algo.algoSinglePackman();
 				g.setColor(Color.MAGENTA);
-				g.drawLine((int)(Fruits.get(0).getFruitPoint().x()*getWidth()),
-						(int)(Fruits.get(0).getFruitPoint().y()*getHeight()),
-						(int)(Packmans.get(0).getPoint().x()*getWidth()),
-						(int)(Packmans.get(0).getPoint().y()*getHeight()));
+				g.drawLine((int)(Packman_start.Fruits_arr.get(0).getFruitPoint().x()*getWidth()),
+						(int)(Packman_start.Fruits_arr.get(0).getFruitPoint().y()*getHeight()),
+						(int)(Packman_start.Packman_arr.get(0).getPoint().x()*getWidth()),
+						(int)(Packman_start.Packman_arr.get(0).getPoint().y()*getHeight()));
 
-				for (int i = 1; i < Fruits.size(); i++) {
+				for (int i = 1; i < Packman_start.Fruits_arr.size(); i++) {
 					g.setColor(Color.MAGENTA);
-					g.drawLine((int)(Fruits.get(i).getFruitPoint().x()*getWidth()), 
-							(int)(Fruits.get(i).getFruitPoint().y()*getHeight()),
-							(int)(Fruits.get(i-1).getFruitPoint().x()*getWidth()), 
-							(int)(Fruits.get(i-1).getFruitPoint().y()*getHeight()));
+					g.drawLine((int)(Packman_start.Fruits_arr.get(i).getFruitPoint().x()*getWidth()), 
+							(int)(Packman_start.Fruits_arr.get(i).getFruitPoint().y()*getHeight()),
+							(int)(Packman_start.Fruits_arr.get(i-1).getFruitPoint().x()*getWidth()), 
+							(int)(Packman_start.Fruits_arr.get(i-1).getFruitPoint().y()*getHeight()));
 				}
 				System.out.println("the time is:" +algo.algoSinglePackman().getTheTime());
 
 
 
-				x_temp_Packmans=(int)(Fruits.get(Fruits.size()-1).getFruitPoint().x()*getWidth());
-				y_temp_Packmans=(int)(Fruits.get(Fruits.size()-1).getFruitPoint().y()*getHeight());	
+				x_temp_Packmans=(int)(Packman_start.Fruits_arr.
+						get(Packman_start.Fruits_arr.size()-1).getFruitPoint().x()*getWidth());
+				y_temp_Packmans=(int)(Packman_start.Fruits_arr.
+						get(Packman_start.Fruits_arr.size()-1).getFruitPoint().y()*getHeight());	
 
 				g.drawImage(packimage, x_temp_Packmans-6, y_temp_Packmans-7,30, 30, null);
 
 			}
-			if (Packmans.size()>1)
+			if (Packman_start.Packman_arr.size()>1)
 			{
 
 				ArrayList<Packman> myPackmens = new ArrayList<>();
-				myPackmens =algo.algoMultiPackmans(Fruits, Packmans);
-
+				myPackmens =algo.algoMultiPackmans(Packman_start.Fruits_arr, Packman_start.Packman_arr);
 
 
 				for (int i = 0; i <myPackmens.size(); i++) {
-					
+				if(myPackmens.get(i).getPath().size()!=0 ) {
 						g.setColor(Color.GREEN);
 						g.drawLine((int)(myPackmens.get(i).getPath().get(0).getFruitPoint().x()*getWidth()), 
 								(int)(myPackmens.get(i).getPath().get(0).getFruitPoint().y()*getHeight()),
 								(int)(myPackmens.get(i).getPoint().x()*getWidth()),
 								(int)(myPackmens.get(i).getPoint().y()*getHeight()));
-					
-
+				}
 					for (int j = 1; j < myPackmens.get(i).getPath().size(); j++) {
 
 						g.setColor(Color.GREEN);
@@ -365,12 +369,6 @@ public class MyFarme extends JFrame implements MouseListener
 			}
 			//			System.out.println("the time is:" +algo.algoSinglePackman().getTheTime());
 
-
-
-			//				x_temp_Packmans=(int)(Fruits.get(Fruits.size()-1).getFruitPoint().x()*getWidth());
-			//				y_temp_Packmans=(int)(Fruits.get(Fruits.size()-1).getFruitPoint().y()*getHeight());	
-			//
-			//				g.drawImage(packimage, x_temp_Packmans-6, y_temp_Packmans-7,30, 30, null);
 
 
 		}
@@ -392,7 +390,7 @@ public class MyFarme extends JFrame implements MouseListener
 
 		if (isGamer==(1))
 		{	
-			Fruits.add(new Fruit(point_return,1));
+			Packman_start.Fruits_arr.add(new Fruit(point_return,1));
 
 			System.out.println("Fruit "+covertedfromPixel.toString());
 
@@ -400,7 +398,7 @@ public class MyFarme extends JFrame implements MouseListener
 
 		}else if (isGamer==(-1))
 		{
-			Packmans.add(new Packman(point_return, radius, speed));
+			Packman_start.Packman_arr.add(new Packman(point_return, radius, speed));
 			System.out.println("Packman "+covertedfromPixel.toString());
 
 			repaint();
