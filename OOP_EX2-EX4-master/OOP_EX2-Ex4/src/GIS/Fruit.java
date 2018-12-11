@@ -2,7 +2,7 @@ package GIS;
 
 import Geom.Point3D;
 
-public class Furit {
+public class Fruit {
 
 	/**
 	 * 
@@ -11,7 +11,7 @@ public class Furit {
 	Point3D FuritPoint;
 	int Weight;
 
-	public Furit(Point3D p, int Weight) {
+	public Fruit(Point3D p, int Weight) {
 		
 		this.FuritPoint = p;
 		this.Weight = Weight;
@@ -22,7 +22,7 @@ public class Furit {
 		return Weight;
 	}
 
-	public Point3D getFuritPoint() {
+	public Point3D getFruitPoint() {
 		return FuritPoint;
 	}
 

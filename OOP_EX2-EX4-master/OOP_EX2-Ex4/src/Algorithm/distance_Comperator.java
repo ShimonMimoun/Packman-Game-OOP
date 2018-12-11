@@ -2,7 +2,7 @@ package Algorithm;
 
 import java.util.Comparator;
 
-import GIS.Furit;
+import GIS.Fruit;
 import GIS.Packman;
 
 public class distance_Comperator implements Comparator<Double> {

@@ -13,7 +13,7 @@ import Coords.Map;
 public class Game {
 
 	public  ArrayList<Packman> myPackmens = new ArrayList<>();
-	public  ArrayList<Furit> myFruits = new ArrayList<>();
+	public  ArrayList<Fruit> myFruits = new ArrayList<>();
 	public 	String file_directory = "/Desktop/";
 	public Map theMap = new Map();
 	
@@ -21,7 +21,7 @@ public class Game {
 	
 	
 	
-	public Game(ArrayList<Packman> p , ArrayList<Furit> f) {
+	public Game(ArrayList<Packman> p , ArrayList<Fruit> f) {
 		this.myPackmens = p;
 		this.myFruits = f;
 	}
@@ -54,7 +54,7 @@ public class Game {
 			myPackmens.get(i).packLocation = theMap.Pixel2GPS(myPackmens.get(i).getPoint().x(), myPackmens.get(i).getPoint().y());
 		}
 		for (int i = 0; i < myFruits.size(); i++) {
-			myFruits.get(i).FuritPoint = theMap.Pixel2GPS(myFruits.get(i).getFuritPoint().x(), myFruits.get(i).getFuritPoint().y());
+			myFruits.get(i).FuritPoint = theMap.Pixel2GPS(myFruits.get(i).getFruitPoint().x(), myFruits.get(i).getFruitPoint().y());
 		}
 
 		for (int i = 0; i < this.myPackmens.size(); i++) {
@@ -113,7 +113,7 @@ public class Game {
 				Point3D p = new Point3D(row[2],row[3],row[4]);
 				p = theMap.GPS2Pixel(p);
 				int Weight = Integer.parseInt(row[5]);
-				myFruits.add(new Furit(p, Weight));
+				myFruits.add(new Fruit(p, Weight));
 			}
 		}
 
