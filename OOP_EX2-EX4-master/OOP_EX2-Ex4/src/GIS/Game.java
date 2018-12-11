@@ -14,7 +14,7 @@ public class Game {
 
 	public  ArrayList<Packman> Packman_arr = new ArrayList<>();
 	public  ArrayList<Fruit> Fruits_arr = new ArrayList<>();
-	public 	String file_directory = "/Desktop/";
+	public 	String file_directory;
 	public Map theMap = new Map();
 	
 	

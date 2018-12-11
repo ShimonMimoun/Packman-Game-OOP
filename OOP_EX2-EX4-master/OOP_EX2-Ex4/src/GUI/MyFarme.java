@@ -53,7 +53,7 @@ public class MyFarme extends JFrame implements MouseListener
 
 	public  ArrayList<Packman> Packman_arr = new ArrayList<>();
 	public  ArrayList<Fruit> Fruits_arr = new ArrayList<>();
-	private Game Packman_start=new Game(Packman_arr, Fruits_arr);
+	private Game myGame=new Game(Packman_arr, Fruits_arr);
 	//	private ArrayList<Fruit>Fruits=new ArrayList<>();
 	//	private ArrayList<Packman>Packmans=new ArrayList<>();
 	private int isGamer=0;// if is Gamer==1 --> Fruit :::: if is Gamer == -1 --> Packman 
@@ -145,7 +145,11 @@ public class MyFarme extends JFrame implements MouseListener
 
 
 				theMap = new Map();
-				Packman_start=new Game(null, null);
+				ArrayList<Packman> Packman_arr = new ArrayList<>();
+				ArrayList<Fruit> Fruits_arr = new ArrayList<>();
+				myGame=new Game(null,null);
+				myGame.Packman_arr = Packman_arr;
+				myGame.Fruits_arr =Fruits_arr;
 				isGamer=0;
 				Start_game=false;
 				new MyFarme();
@@ -190,12 +194,12 @@ public class MyFarme extends JFrame implements MouseListener
 				int returnValue = fileChooser.showOpenDialog(null);
 				if (returnValue == JFileChooser.APPROVE_OPTION) {
 					System.out.println(fileChooser.getSelectedFile().getPath());
-					Game myGame = new Game(Packman_start.Packman_arr,Packman_start.Fruits_arr);
-					myGame.setfile_directory(fileChooser.getSelectedFile().getPath());
+					Game theGame = new Game(myGame.Packman_arr,myGame.Fruits_arr);
+					theGame.setfile_directory(fileChooser.getSelectedFile().getPath());
 					try {
-						myGame.Csvread();
-						Packman_start.Packman_arr = myGame.Packman_arr;
-						Packman_start.Fruits_arr = myGame.Fruits_arr;
+						theGame.Csvread();
+						myGame.Packman_arr = theGame.Packman_arr;
+						myGame.Fruits_arr = theGame.Fruits_arr;
 						isGamer = 2;
 
 						repaint();
@@ -228,9 +232,9 @@ public class MyFarme extends JFrame implements MouseListener
 					File selectedFile = jfc.getSelectedFile();
 					System.out.println(selectedFile.getAbsolutePath());
 
-					Packman_start.setfile_directory(selectedFile.getAbsolutePath());
+					myGame.setfile_directory(selectedFile.getAbsolutePath());
 					try {
-						Packman_start.save2Csv();
+						myGame.save2Csv();
 					} catch (FileNotFoundException e1) {
 						e1.printStackTrace();
 					}
@@ -282,10 +286,10 @@ public class MyFarme extends JFrame implements MouseListener
 
 		if (isGamer!=0)
 		{
-			for (int i=0; i<Packman_start.Fruits_arr.size(); i++) 
+			for (int i=0; i<myGame.Fruits_arr.size(); i++) 
 			{
-				x_temp_fruits=(int)(Packman_start.Fruits_arr.get(i).getFruitPoint().x()*getWidth());
-				y_temp_fruits=(int)(Packman_start.Fruits_arr.get(i).getFruitPoint().y()*getHeight());	
+				x_temp_fruits=(int)(myGame.Fruits_arr.get(i).getFruitPoint().x()*getWidth());
+				y_temp_fruits=(int)(myGame.Fruits_arr.get(i).getFruitPoint().y()*getHeight());	
 
 
 				g.setColor(Color.red);
@@ -293,11 +297,11 @@ public class MyFarme extends JFrame implements MouseListener
 
 
 			}
-			for (int j=0; j<Packman_start.Packman_arr.size(); j++) 
+			for (int j=0; j<myGame.Packman_arr.size(); j++) 
 			{
 
-				x_temp_Packmans=(int)(Packman_start.Packman_arr.get(j).getPoint().x()*getWidth());
-				y_temp_Packmans=(int)(Packman_start.Packman_arr.get(j).getPoint().y()*getHeight());	
+				x_temp_Packmans=(int)(myGame.Packman_arr.get(j).getPoint().x()*getWidth());
+				y_temp_Packmans=(int)(myGame.Packman_arr.get(j).getPoint().y()*getHeight());	
 
 				g.drawImage(packimage, x_temp_Packmans-6, y_temp_Packmans-7,30, 30, null);
 
@@ -307,57 +311,62 @@ public class MyFarme extends JFrame implements MouseListener
 		}
 			if(Start_game==true) {
 
-				ShortestPathAlgo algo = new ShortestPathAlgo(Packman_start);
-				if(Packman_start.Packman_arr.size()== 1) {
-
-					Packman_start.Fruits_arr = algo.algoSinglePackman();
+				ShortestPathAlgo algo = new ShortestPathAlgo(myGame);
+				if(myGame.Packman_arr.size()== 1) {
+					Path p = algo.algoSinglePackman();
+					myGame.Fruits_arr = p.TheCurrentPath();
 					g.setColor(Color.MAGENTA);
-					g.drawLine((int)(Packman_start.Fruits_arr.get(0).getFruitPoint().x()*getWidth()),
-							(int)(Packman_start.Fruits_arr.get(0).getFruitPoint().y()*getHeight()),
-							(int)(Packman_start.Packman_arr.get(0).getPoint().x()*getWidth()),
-							(int)(Packman_start.Packman_arr.get(0).getPoint().y()*getHeight()));
+					g.drawLine((int)(myGame.Fruits_arr.get(0).getFruitPoint().x()*getWidth()),
+							(int)(myGame.Fruits_arr.get(0).getFruitPoint().y()*getHeight()),
+							(int)(myGame.Packman_arr.get(0).getPoint().x()*getWidth()),
+							(int)(myGame.Packman_arr.get(0).getPoint().y()*getHeight()));
 
-					for (int i = 1; i < Packman_start.Fruits_arr.size(); i++) {
+					for (int i = 1; i < myGame.Fruits_arr.size(); i++) {
 						g.setColor(Color.MAGENTA);
-						g.drawLine((int)(Packman_start.Fruits_arr.get(i).getFruitPoint().x()*getWidth()), 
-								(int)(Packman_start.Fruits_arr.get(i).getFruitPoint().y()*getHeight()),
-								(int)(Packman_start.Fruits_arr.get(i-1).getFruitPoint().x()*getWidth()), 
-								(int)(Packman_start.Fruits_arr.get(i-1).getFruitPoint().y()*getHeight()));
+						g.drawLine((int)(myGame.Fruits_arr.get(i).getFruitPoint().x()*getWidth()), 
+								(int)(myGame.Fruits_arr.get(i).getFruitPoint().y()*getHeight()),
+								(int)(myGame.Fruits_arr.get(i-1).getFruitPoint().x()*getWidth()), 
+								(int)(myGame.Fruits_arr.get(i-1).getFruitPoint().y()*getHeight()));
 					}
 					System.out.println("the time is:" +algo.algoSinglePackman().getTheTime());
 
 
 
-					x_temp_Packmans=(int)(Packman_start.Fruits_arr.
-							get(Packman_start.Fruits_arr.size()-1).getFruitPoint().x()*getWidth());
-					y_temp_Packmans=(int)(Packman_start.Fruits_arr.
-							get(Packman_start.Fruits_arr.size()-1).getFruitPoint().y()*getHeight());	
+					x_temp_Packmans=(int)(myGame.Fruits_arr.
+							get(myGame.Fruits_arr.size()-1).getFruitPoint().x()*getWidth());
+					y_temp_Packmans=(int)(myGame.Fruits_arr.
+							get(myGame.Fruits_arr.size()-1).getFruitPoint().y()*getHeight());	
 
 					g.drawImage(packimage, x_temp_Packmans-6, y_temp_Packmans-7,30, 30, null);
 
 				}
-				if (Packman_start.Packman_arr.size()>1)
+				if (myGame.Packman_arr.size()>1)
 				{
 
 					ArrayList<Packman> myPackmens = new ArrayList<>();
-					myPackmens =algo.algoMultiPackmans();
+					myPackmens = algo.algoMultiPackmans();
+					
+					for (int i = 0; i < myPackmens.size(); i++) {
+						
+						System.out.println(myPackmens.get(i).getPath().TheCurrentPath().toString());
+					}
 
 
 					for (int i = 0; i <myPackmens.size(); i++) {
-						if(myPackmens.get(i).getPath().size()!=0 ) {
+						if(myPackmens.get(i).getPath().TheCurrentPath().size() !=0 ) {
 							g.setColor(Color.GREEN);
-							g.drawLine((int)(myPackmens.get(i).getPath().get(0).getFruitPoint().x()*getWidth()), 
-									(int)(myPackmens.get(i).getPath().get(0).getFruitPoint().y()*getHeight()),
+							g.drawLine((int)(myPackmens.get(i).getPath().TheCurrentPath().get(0).getFruitPoint().x()*getWidth()), 
+									(int)(myPackmens.get(i).getPath().TheCurrentPath().get(0).getFruitPoint().y()*getHeight()),
 									(int)(myPackmens.get(i).getPoint().x()*getWidth()),
 									(int)(myPackmens.get(i).getPoint().y()*getHeight()));
 						}
-						for (int j = 1; j < myPackmens.get(i).getPath().size(); j++) {
+						for (int j = 1; j < myPackmens.get(i).getPath().TheCurrentPath().size(); j++) {
 
 							g.setColor(Color.GREEN);
-							g.drawLine((int)(myPackmens.get(i).getPath().get(j).getFruitPoint().x()*getWidth()), 
-									(int)(myPackmens.get(i).getPath().get(j).getFruitPoint().y()*getHeight()),
-									(int)(myPackmens.get(i).getPath().get(j-1).getFruitPoint().x()*getWidth()), 
-									(int)(myPackmens.get(i).getPath().get(j-1).getFruitPoint().y()*getHeight()));
+							g.drawLine((int)(myPackmens.get(i).getPath().TheCurrentPath().get(j).getFruitPoint().x()*getWidth()), 
+									(int)(myPackmens.get(i).getPath().TheCurrentPath().get(j).getFruitPoint().y()*getHeight()),
+									(int)(myPackmens.get(i).getPath().TheCurrentPath().get(j-1).getFruitPoint().x()*getWidth()), 
+									(int)(myPackmens.get(i).getPath().TheCurrentPath().get(j-1).getFruitPoint().y()*getHeight()));
 
 						}
 					}
@@ -388,7 +397,7 @@ public class MyFarme extends JFrame implements MouseListener
 
 				if (isGamer==(1))
 				{	
-					Packman_start.Fruits_arr.add(new Fruit(point_return,1));
+					myGame.Fruits_arr.add(new Fruit(point_return,1));
 
 					System.out.println("Fruit "+covertedfromPixel.toString());
 
@@ -396,7 +405,7 @@ public class MyFarme extends JFrame implements MouseListener
 
 				}else if (isGamer==(-1))
 				{
-					Packman_start.Packman_arr.add(new Packman(point_return, radius, speed));
+					myGame.Packman_arr.add(new Packman(point_return, radius, speed));
 					System.out.println("Packman "+covertedfromPixel.toString());
 
 					repaint();
