@@ -44,6 +44,7 @@ public class MyFarme extends JFrame implements MouseListener
 
 
 	public Map theMap = new Map();
+
 	public BufferedImage myImage;
 	public BufferedImage packimage;
 	public BufferedImage Fruitimage;
@@ -72,7 +73,7 @@ public class MyFarme extends JFrame implements MouseListener
 	private void initGUI() {
 
 
-		try {	myImage = ImageIO.read(new File("Pictures&Icones/Ariel1.png")); } catch (IOException e) { e.printStackTrace();	}	
+		try {	myImage = ImageIO.read(new File(theMap.getMapDiractory())); } catch (IOException e) { e.printStackTrace();	}	
 		try {	packimage = ImageIO.read(new File("Pictures&Icones/packman.jpg")); } catch (IOException e) { e.printStackTrace();	}
 		try {	Fruitimage = ImageIO.read(new File("Pictures&Icones/furit.png")); } catch (IOException e) { e.printStackTrace();	}
 
@@ -323,12 +324,12 @@ public class MyFarme extends JFrame implements MouseListener
 
 					for (int i = 1; i < myGame.Fruits_arr.size(); i++) {
 						g.setColor(Color.MAGENTA);
+
 						g.drawLine((int)(myGame.Fruits_arr.get(i).getFruitPoint().x()*getWidth()), 
 								(int)(myGame.Fruits_arr.get(i).getFruitPoint().y()*getHeight()),
 								(int)(myGame.Fruits_arr.get(i-1).getFruitPoint().x()*getWidth()), 
 								(int)(myGame.Fruits_arr.get(i-1).getFruitPoint().y()*getHeight()));
 					}
-					System.out.println("the time is:" +algo.algoSinglePackman().getTheTime());
 
 
 
@@ -346,14 +347,9 @@ public class MyFarme extends JFrame implements MouseListener
 					ArrayList<Packman> myPackmens = new ArrayList<>();
 					myPackmens = algo.algoMultiPackmans();
 					
-					for (int i = 0; i < myPackmens.size(); i++) {
-						
-						System.out.println(myPackmens.get(i).getPath().TheCurrentPath().toString());
-					}
-
 
 					for (int i = 0; i <myPackmens.size(); i++) {
-						if(myPackmens.get(i).getPath().TheCurrentPath().size() !=0 ) {
+						if(!myPackmens.get(i).getPath().TheCurrentPath().isEmpty() ) {
 							g.setColor(Color.GREEN);
 							g.drawLine((int)(myPackmens.get(i).getPath().TheCurrentPath().get(0).getFruitPoint().x()*getWidth()), 
 									(int)(myPackmens.get(i).getPath().TheCurrentPath().get(0).getFruitPoint().y()*getHeight()),
@@ -370,8 +366,6 @@ public class MyFarme extends JFrame implements MouseListener
 
 						}
 					}
-
-					System.out.println("the time is:" +algo.algoSinglePackman().getTheTime());
 
 
 
