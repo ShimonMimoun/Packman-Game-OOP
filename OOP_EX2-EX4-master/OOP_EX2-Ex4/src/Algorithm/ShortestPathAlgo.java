@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 import Coords.Map;
 import Coords.MyCoords;
-import GIS.Furit;
+import GIS.Fruit;
 import GIS.Game;
 import GIS.Packman;
 import GIS.Path;
@@ -15,7 +15,7 @@ import javafx.geometry.Point3D;
 
 public class ShortestPathAlgo {
 
-	ArrayList<Furit> fruits = new ArrayList<>();
+	ArrayList<Fruit> fruits = new ArrayList<>();
 	ArrayList<Packman> Packmans = new ArrayList<>();
 	Map themap = new Map();
 
@@ -23,16 +23,18 @@ public class ShortestPathAlgo {
 
 	public ShortestPathAlgo(Game theGame) {	
 
-		this.fruits = theGame.myFruits;
-		this.Packmans = theGame.myPackmens;
+		this.fruits = theGame.Fruits_arr;
+		this.Packmans = theGame.Packman_arr;
 	}
 
 
 	public Path algoSinglePackman(){
 		Path temp = new Path();
-		ArrayList<Furit> Tempfruits = this.fruits;
+		ArrayList<Fruit> Tempfruits = this.fruits;
 		
-		Packman tempPackman = new Packman(Packmans.get(0).getPoint(), Packmans.get(0).getSpeed(),  Packmans.get(0).getradius());
+		Packman tempPackman = new Packman(Packmans.get(0).getPoint(), 
+				Packmans.get(0).getSpeed(),  Packmans.get(0).getradius());
+		
 		Path resultPath = calFastDisOnePack(tempPackman, Tempfruits,temp);
 		resultPath.setTheTotalTime(getTimePathPerPackman(tempPackman, resultPath));
 
@@ -43,9 +45,10 @@ public class ShortestPathAlgo {
 
 	
 	public ArrayList<Packman> algoMultiPackmans (){
-		ArrayList<Furit> myFurits = this.fruits;
+		ArrayList<Fruit> myFurits = this.fruits;
 		ArrayList<Packman> myPackmans = this.Packmans;
 		
+
 		
 		double TheFastTime = CalTime(myPackmans.get(0),myFurits.get(0));
 		Packman TheCloserPackman = myPackmans.get(0); 
@@ -58,7 +61,7 @@ public class ShortestPathAlgo {
 			for (int j = 0; j < myPackmans.size(); j++) {
 				
 				double temp = CalTime(myPackmans.get(j),myFurits.get(i));
-				
+	
 				if (temp < TheFastTime) {
 					TheFastTime = temp;
 					TheCloserPackman = myPackmans.get(j);
@@ -94,6 +97,7 @@ public class ShortestPathAlgo {
 	
 
 
+
 //	public double theFastTime2Furit (Packman packman ,ArrayList<Furit> myFurits) {
 //		
 //		double theFast = CalTime(packman, myFurits.get(0));
@@ -115,15 +119,16 @@ public class ShortestPathAlgo {
 
 
 
-	public Path calFastDisOnePack (Packman packman, ArrayList<Furit> myFurits, Path myPackPath) {
+
+	public Path calFastDisOnePack (Packman packman, ArrayList<Fruit> myFurits, Path myPackPath) {
 		
 		if (myFurits.isEmpty()) {
 			return myPackPath;
 		}
 
-		Furit theCloserTemp = TheCloserFurit(packman,myFurits); // the closer furit to packman 
+		Fruit theCloserTemp = TheCloserFurit(packman,myFurits); // the closer furit to packman 
 		myPackPath.add(theCloserTemp); 
-		packman.setPackLocation(theCloserTemp.getFuritPoint());
+		packman.setPackLocation(theCloserTemp.getFruitPoint());
 		myFurits.remove(getIndexFurit(theCloserTemp, myFurits));
 
 
@@ -132,10 +137,10 @@ public class ShortestPathAlgo {
 
 	}
 	// return the most cloers furit to the packman
-	public Furit TheCloserFurit(Packman packman,ArrayList<Furit> myFurits) {
+	public Fruit TheCloserFurit(Packman packman,ArrayList<Fruit> myFurits) {
 
 		double FastTime = CalTime(packman,myFurits.get(0));
-		Furit theMostCloser = myFurits.get(0);
+		Fruit theMostCloser = myFurits.get(0);
 		double tempTime = 0;
 
 		for (int i = 1; i < myFurits.size(); i++) {
@@ -151,7 +156,7 @@ public class ShortestPathAlgo {
 	}
 
 	//return the index of the furit.
-	public int getIndexFurit(Furit furit , ArrayList<Furit> myFurits) {
+	public int getIndexFurit(Fruit furit , ArrayList<Fruit> myFurits) {
 
 		for (int i = 0; i < myFurits.size(); i++) {
 
@@ -177,11 +182,10 @@ public class ShortestPathAlgo {
 
 	// helping functions //
 
-	public double CalTime(Packman p , Furit f) {
+	public double CalTime(Packman p , Fruit f) {
 		MyCoords m = new MyCoords();
 		Geom.Point3D pack = themap.Pixel2GPS(p.getPoint().x(), p.getPoint().y());
-		Geom.Point3D furit = themap.Pixel2GPS(f.getFuritPoint().x(), f.getFuritPoint().y());
-		
+		Geom.Point3D furit = themap.Pixel2GPS(f.getFruitPoint().x(), f.getFruitPoint().y());
 			System.out.println("the dis is:"+m.distance3d(pack, furit));	
 		if (m.distance3d(pack, furit) < p.getradius()) {
 
@@ -195,7 +199,7 @@ public class ShortestPathAlgo {
 
 
 
-	public Iterator<Furit> Furit_iteretor() {
+	public Iterator<Fruit> Furit_iteretor() {
 		return this.fruits.iterator();
 	}
 
