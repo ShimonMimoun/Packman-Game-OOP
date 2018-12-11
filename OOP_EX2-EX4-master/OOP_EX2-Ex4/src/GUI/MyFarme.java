@@ -50,11 +50,12 @@ public class MyFarme extends JFrame implements MouseListener
 	double radius = 1;
 	int speed = 1;
 
-	public ArrayList<Furit>Fruits=new ArrayList<>();
-	public ArrayList<Packman>Packmans=new ArrayList<>();
+	private ArrayList<Furit>Fruits=new ArrayList<>();
+	private ArrayList<Packman>Packmans=new ArrayList<>();
 	private int isGamer=0;// if is Gamer==1 --> Fruit :::: if is Gamer == -1 --> Packman 
-	private boolean test=false;
+	private boolean Start_game=false;
 
+	Path TheCloserPackman;
 
 
 	public MyFarme() 
@@ -124,10 +125,10 @@ public class MyFarme extends JFrame implements MouseListener
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				test=true;
+				Start_game=true;
 				repaint();
 
-					}
+			}
 
 		});
 
@@ -298,34 +299,80 @@ public class MyFarme extends JFrame implements MouseListener
 
 
 			}
-//testqdqjk
+
 		}
-		if(test==true) {
+		if(Start_game==true) {
+
 			ShortestPathAlgo algo = new ShortestPathAlgo(new Game(Packmans,Fruits));
 			if(Packmans.size() == 1) {
+
 				Fruits = algo.algoSinglePackman();
 				g.setColor(Color.MAGENTA);
-				g.drawLine((int)(Fruits.get(0).getFuritPoint().x()*getWidth()), (int)(Fruits.get(0).getFuritPoint().y()*getHeight()),(int)(Packmans.get(0).getPoint().x()*getWidth()),(int)(Packmans.get(0).getPoint().y()*getHeight()));
+				g.drawLine((int)(Fruits.get(0).getFuritPoint().x()*getWidth()),
+						(int)(Fruits.get(0).getFuritPoint().y()*getHeight()),
+						(int)(Packmans.get(0).getPoint().x()*getWidth()),
+						(int)(Packmans.get(0).getPoint().y()*getHeight()));
 
 				for (int i = 1; i < Fruits.size(); i++) {
 					g.setColor(Color.MAGENTA);
-					g.drawLine((int)(Fruits.get(i).getFuritPoint().x()*getWidth()), (int)(Fruits.get(i).getFuritPoint().y()*getHeight()),(int)(Fruits.get(i-1).getFuritPoint().x()*getWidth()), (int)(Fruits.get(i-1).getFuritPoint().y()*getHeight()));
+					g.drawLine((int)(Fruits.get(i).getFuritPoint().x()*getWidth()), 
+							(int)(Fruits.get(i).getFuritPoint().y()*getHeight()),
+							(int)(Fruits.get(i-1).getFuritPoint().x()*getWidth()), 
+							(int)(Fruits.get(i-1).getFuritPoint().y()*getHeight()));
 				}
 				System.out.println("the time is:" +algo.algoSinglePackman().getTheTime());
-			
 
-		
+
+
 				x_temp_Packmans=(int)(Fruits.get(Fruits.size()-1).getFuritPoint().x()*getWidth());
 				y_temp_Packmans=(int)(Fruits.get(Fruits.size()-1).getFuritPoint().y()*getHeight());	
-				
+
 				g.drawImage(packimage, x_temp_Packmans-6, y_temp_Packmans-7,30, 30, null);
+
+			}
+			if (Packmans.size()>1)
+			{
+
+				ArrayList<Packman> myPackmens = new ArrayList<>();
+				myPackmens =algo.algoMultiPackmans(Fruits, Packmans);
+
+				for (int i = 0; i <myPackmens.size(); i++) {
+					if(myPackmens.get(i).getPath().size()!=0)
+					{
+						g.setColor(Color.orange);
+						g.drawLine((int)(myPackmens.get(i).getPath().get(i).getFuritPoint().x()*getWidth()), 
+								(int)(myPackmens.get(i).getPath().get(i).getFuritPoint().y()*getHeight()),
+								(int)(myPackmens.get(i).getPoint().x()*getWidth()),
+								(int)(myPackmens.get(i).getPoint().y()*getHeight()));
+					}
+
+					for (int j = 1; j < myPackmens.get(i).getPath().size(); j++) {
+						g.setColor(Color.orange);
+						g.drawLine((int)(myPackmens.get(i).getPath().get(j).getFuritPoint().x()*getWidth()), 
+								(int)(myPackmens.get(i).getPath().get(j).getFuritPoint().y()*getHeight()),
+								(int)(myPackmens.get(i).getPath().get(j-1).getFuritPoint().x()*getWidth()), 
+								(int)(myPackmens.get(i).getPath().get(j-1).getFuritPoint().y()*getHeight()));
+
+					}
+				}
+
+
 
 
 			}
+			//			System.out.println("the time is:" +algo.algoSinglePackman().getTheTime());
+
+
+
+			//				x_temp_Packmans=(int)(Fruits.get(Fruits.size()-1).getFuritPoint().x()*getWidth());
+			//				y_temp_Packmans=(int)(Fruits.get(Fruits.size()-1).getFuritPoint().y()*getHeight());	
+			//
+			//				g.drawImage(packimage, x_temp_Packmans-6, y_temp_Packmans-7,30, 30, null);
+
+
 		}
-
-
 	}
+
 
 
 

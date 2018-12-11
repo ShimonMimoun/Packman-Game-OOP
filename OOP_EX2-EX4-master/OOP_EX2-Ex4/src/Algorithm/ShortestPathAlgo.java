@@ -32,7 +32,9 @@ public class ShortestPathAlgo {
 		Path temp = new Path();
 		ArrayList<Furit> Tempfruits = this.fruits;
 		
-		Packman tempPackman = new Packman(Packmans.get(0).getPoint(), Packmans.get(0).getSpeed(),  Packmans.get(0).getradius());
+		Packman tempPackman = new Packman(Packmans.get(0).getPoint(), 
+				Packmans.get(0).getSpeed(),  Packmans.get(0).getradius());
+		
 		Path resultPath = calFastDisOnePack(tempPackman, Tempfruits,temp);
 		resultPath.setTheTotalTime(getTimePathPerPackman(tempPackman, resultPath));
 
@@ -51,7 +53,7 @@ public class ShortestPathAlgo {
 //
 //	}
 	
-	public ArrayList<Packman> algoMultiPackmans (ArrayList<Furit> myFurits ,ArrayList<Packman> myPackmans, Path CurrentPath){
+	public ArrayList<Packman> algoMultiPackmans (ArrayList<Furit> myFurits ,ArrayList<Packman> myPackmans){
 		
 		double TheFastTime = CalTime(myPackmans.get(0),myFurits.get(0));
 		Packman TheCloserPackman = myPackmans.get(0); 
@@ -64,7 +66,7 @@ public class ShortestPathAlgo {
 			for (int j = 0; j < myPackmans.size(); j++) {
 				
 				double temp = CalTime(myPackmans.get(j),myFurits.get(i));
-				
+	
 				if (temp < TheFastTime) {
 					TheFastTime = temp;
 					TheCloserPackman = myPackmans.get(j);
