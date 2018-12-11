@@ -336,18 +336,20 @@ public class MyFarme extends JFrame implements MouseListener
 				ArrayList<Packman> myPackmens = new ArrayList<>();
 				myPackmens =algo.algoMultiPackmans(Fruits, Packmans);
 
+
+
 				for (int i = 0; i <myPackmens.size(); i++) {
-					if(myPackmens.get(i).getPath().size()!=0)
-					{
-						g.setColor(Color.orange);
-						g.drawLine((int)(myPackmens.get(i).getPath().get(i).getFuritPoint().x()*getWidth()), 
-								(int)(myPackmens.get(i).getPath().get(i).getFuritPoint().y()*getHeight()),
+					
+						g.setColor(Color.GREEN);
+						g.drawLine((int)(myPackmens.get(i).getPath().get(0).getFuritPoint().x()*getWidth()), 
+								(int)(myPackmens.get(i).getPath().get(0).getFuritPoint().y()*getHeight()),
 								(int)(myPackmens.get(i).getPoint().x()*getWidth()),
 								(int)(myPackmens.get(i).getPoint().y()*getHeight()));
-					}
+					
 
 					for (int j = 1; j < myPackmens.get(i).getPath().size(); j++) {
-						g.setColor(Color.orange);
+
+						g.setColor(Color.GREEN);
 						g.drawLine((int)(myPackmens.get(i).getPath().get(j).getFuritPoint().x()*getWidth()), 
 								(int)(myPackmens.get(i).getPath().get(j).getFuritPoint().y()*getHeight()),
 								(int)(myPackmens.get(i).getPath().get(j-1).getFuritPoint().x()*getWidth()), 
