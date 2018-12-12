@@ -34,10 +34,10 @@ public class ShortestPathAlgo {
 
 		Packman tempPackman = new Packman(Packmans.get(0).getPoint(),Packmans.get(0).getSpeed(),Packmans.get(0).getradius());
 
-		Path resultPath = calFastDisOnePack(tempPackman, Tempfruits);
-		resultPath.setTheTotalTime(getTimePathPerPackman(tempPackman));
+		Packmans.get(0).getPath().setPath(calFastDisOnePack(tempPackman, Tempfruits).TheCurrentPath());
+		Packmans.get(0).getPath().setTheTotalTime(getTimePathPerPackman(Packmans.get(0)));
 		
-		return resultPath;
+		return Packmans.get(0).getPath();
 
 	}
 
@@ -52,17 +52,20 @@ public class ShortestPathAlgo {
 		for (int i = 0; i < myPackmens.size(); i++) {
 			Packman p = new Packman(myPackmens.get(i).getPoint(),myPackmens.get(i).getSpeed(), myPackmens.get(i).getradius());
 			ans.add(p);
+			System.out.println("ans "+i+" "+ans.get(i).getPoint());
 		}
 		myPackmens = Algomulti(myPackmens,myFurits);
 	
 		for (int i = 0; i < myPackmens.size(); i++) {
-
 			myPackmens.get(i).setPackLocation(ans.get(i).getPoint());	
+			System.out.println("and now ans "+i+" "+ans.get(i).getPoint());
+			System.out.println("pack now "+i+" "+myPackmens.get(i).getPoint());
+
 		}
 		double sum = 0;
 		
 		for (int i = 0; i < myPackmens.size(); i++) {
-			sum = sum +myPackmens.get(i).getPath().getTheTime();
+			sum = sum +getTimePathPerPackman(myPackmens.get(i));
 		}
 		System.out.println("the Total time is: "+sum);
 		return myPackmens;
@@ -106,7 +109,7 @@ public class ShortestPathAlgo {
 
 
 
-public double FastSpeedToFriut(Packman packman ,ArrayList<Fruit> myFurits ) {
+ double FastSpeedToFriut(Packman packman ,ArrayList<Fruit> myFurits ) {
 
 	double fastTime = CalTime(packman, myFurits.get(0));
 	double tempTime = 0;
@@ -177,10 +180,12 @@ public double getTimePathPerPackman(Packman packman) {
 	double totalTime = 0;
 
 	for (int i = 0; i < packman.getPath().TheCurrentPath().size(); i++) {
-		totalTime += CalTime(packman,packman.getPath().TheCurrentPath().get(i));
+		totalTime = totalTime+  CalTime(packman,packman.getPath().TheCurrentPath().get(i));
 
 	}
 	packman.getPath().setTheTotalTime(totalTime);
+
+	
 	return totalTime;
 }
 
@@ -188,15 +193,15 @@ public double getTimePathPerPackman(Packman packman) {
 // helping functions //
 
 public double CalTime(Packman p , Fruit f) {
-	MyCoords m = new MyCoords();
-	Geom.Point3D pack = themap.Pixel2GPS(p.getPoint().x(), p.getPoint().y());
-	Geom.Point3D furit = themap.Pixel2GPS(f.getFruitPoint().x(), f.getFruitPoint().y());
-	if (m.distance3d(pack, furit) < p.getradius()) {
-
+	
+	
+	if (themap.distancePixels(p.getPoint(), f.getFruitPoint()) < p.getradius()) {
+		
+		
 		return 0;
 	}
 	else {	
-		return (m.distance3d(pack, furit)-p.getradius())/p.getSpeed();
+		return (themap.distancePixels(p.getPoint(), f.getFruitPoint())-p.getradius())/p.getSpeed();
 
 	}
 }

@@ -25,6 +25,9 @@ public class Packman {
 		packmanPath = new Path();
 		
 	}
+	public Packman(Packman p) {
+		this(p.packLocation,p.speed,p.radius);
+	}
 	
 	public void setPackLocation(Point3D p) {
 		this.packLocation = p;

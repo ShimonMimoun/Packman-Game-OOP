@@ -68,9 +68,8 @@ public class Map {
 		
 		Point3D ansX =  Pixel2GPS(p1.x(),p1.y());
 		Point3D ansY =  Pixel2GPS(p2.x(),p2.y());
-		
-		double result = ansX.distance3D(ansY);
-		
+		MyCoords m = new MyCoords();
+		double result = m.distance3d(ansX, ansY);
 		return result;
 
 	}

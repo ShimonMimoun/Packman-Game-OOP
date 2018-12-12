@@ -55,8 +55,6 @@ public class MyFarme extends JFrame implements MouseListener
 	public  ArrayList<Packman> Packman_arr = new ArrayList<>();
 	public  ArrayList<Fruit> Fruits_arr = new ArrayList<>();
 	private Game myGame=new Game(Packman_arr, Fruits_arr);
-	//	private ArrayList<Fruit>Fruits=new ArrayList<>();
-	//	private ArrayList<Packman>Packmans=new ArrayList<>();
 	private int isGamer=0;// if is Gamer==1 --> Fruit :::: if is Gamer == -1 --> Packman 
 	private boolean Start_game=false;
 
@@ -119,11 +117,6 @@ public class MyFarme extends JFrame implements MouseListener
 
 
 		this.setMenuBar(menuBarOption);
-
-
-
-
-
 
 		//Turn on the buttons
 
@@ -314,6 +307,7 @@ public class MyFarme extends JFrame implements MouseListener
 
 				ShortestPathAlgo algo = new ShortestPathAlgo(myGame);
 				if(myGame.Packman_arr.size()== 1) {
+					
 					Path p = algo.algoSinglePackman();
 					myGame.Fruits_arr = p.TheCurrentPath();
 					g.setColor(Color.MAGENTA);
@@ -330,7 +324,7 @@ public class MyFarme extends JFrame implements MouseListener
 								(int)(myGame.Fruits_arr.get(i-1).getFruitPoint().x()*getWidth()), 
 								(int)(myGame.Fruits_arr.get(i-1).getFruitPoint().y()*getHeight()));
 					}
-
+					System.out.println("The Total Time is:"+p.getTheTime());
 
 
 					x_temp_Packmans=(int)(myGame.Fruits_arr.
@@ -347,6 +341,12 @@ public class MyFarme extends JFrame implements MouseListener
 					ArrayList<Packman> myPackmens = new ArrayList<>();
 					myPackmens = algo.algoMultiPackmans();
 					
+					System.out.println("**********");
+
+					for (int i = 0; i < myPackmens.size(); i++) {
+						System.out.println(myPackmens.get(i).getPath().TheCurrentPath().toString());
+					}
+					
 
 					for (int i = 0; i <myPackmens.size(); i++) {
 						if(!myPackmens.get(i).getPath().TheCurrentPath().isEmpty() ) {
@@ -355,6 +355,7 @@ public class MyFarme extends JFrame implements MouseListener
 									(int)(myPackmens.get(i).getPath().TheCurrentPath().get(0).getFruitPoint().y()*getHeight()),
 									(int)(myPackmens.get(i).getPoint().x()*getWidth()),
 									(int)(myPackmens.get(i).getPoint().y()*getHeight()));
+							
 						}
 						for (int j = 1; j < myPackmens.get(i).getPath().TheCurrentPath().size(); j++) {
 

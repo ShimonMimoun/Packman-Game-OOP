@@ -16,6 +16,9 @@ public class Fruit {
 		this.FuritPoint = p;
 		this.Weight = Weight;
 	}
+	public Fruit(Fruit f) {
+		this(f.FuritPoint, f.Weight);
+	}
 
 
 	public int getWeight() {
