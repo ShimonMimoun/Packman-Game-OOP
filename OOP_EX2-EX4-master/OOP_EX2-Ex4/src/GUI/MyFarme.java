@@ -24,13 +24,9 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
-import com.sun.javafx.tk.Toolkit;
-import com.sun.xml.internal.bind.v2.runtime.reflect.Lister.Pack;
 
 import Algorithm.ShortestPathAlgo;
 import Coords.Map;
-import File_format.CsvFileHelper;
-import File_format.csv2kml;
 import GIS.Fruit;
 import GIS.Game;
 import GIS.Packman;
@@ -357,6 +353,15 @@ public class MyFarme extends JFrame implements MouseListener
 					File selectedFile = jfc.getSelectedFile();
 					System.out.println(selectedFile.getAbsolutePath());
 
+
+					myGame.setfile_directory(selectedFile.getAbsolutePath());
+					try {
+						myGame.save_to_kml();
+					} catch (FileNotFoundException e1) {
+						e1.printStackTrace();
+					}
+					
+					
 				}
 
 
@@ -371,7 +376,7 @@ public class MyFarme extends JFrame implements MouseListener
 	{
 
 		Image scaledImage = myImage.getScaledInstance(this.getWidth(),this.getHeight(),myImage.SCALE_SMOOTH);
-		g.drawImage(scaledImage, 8,60, getWidth()-17, getHeight()-70,null);
+		g.drawImage(scaledImage, 8,50, getWidth()-17, getHeight()-60,null);
 
 		int  x_temp_fruits = 0;
 		int  y_temp_fruits =0 ;
