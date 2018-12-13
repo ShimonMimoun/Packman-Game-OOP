@@ -1,6 +1,8 @@
 package GUI;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Menu;
 import java.awt.MenuBar;
@@ -43,7 +45,7 @@ public class MyFarme extends JFrame implements MouseListener
 	 */
 	private static final long serialVersionUID = 1L;
 
-
+	MenuBar menuBarOption = new MenuBar();
 	public Map theMap = new Map();
 
 	public BufferedImage myImage;
@@ -78,7 +80,7 @@ public class MyFarme extends JFrame implements MouseListener
 
 
 
-		MenuBar menuBarOption = new MenuBar();
+
 
 		Menu OptionMenu = new Menu("File"); 
 		menuBarOption.add(OptionMenu);
@@ -134,18 +136,18 @@ public class MyFarme extends JFrame implements MouseListener
 		Add_export.add(Csv_writing_csv);
 		Add_export.add(Csv_writing_kml);
 
-
 		this.setMenuBar(menuBarOption);
+
 
 		//Turn on the buttons
 
 		runItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				if(myGame.Packman_arr.size() >0 && myGame.Fruits_arr.size() > 0 ) {
 				Start_game=true;
 				repaint();
-
+				}
 			}
 
 		});
@@ -272,16 +274,6 @@ public class MyFarme extends JFrame implements MouseListener
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		Csv_read.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -301,6 +293,7 @@ public class MyFarme extends JFrame implements MouseListener
 						theGame.Csvread();
 						myGame.Packman_arr = theGame.Packman_arr;
 						myGame.Fruits_arr = theGame.Fruits_arr;
+						myGame.file_directory = theGame.file_directory;
 						isGamer = 2;
 
 						repaint();
@@ -378,7 +371,8 @@ public class MyFarme extends JFrame implements MouseListener
 	{
 
 		Image scaledImage = myImage.getScaledInstance(this.getWidth(),this.getHeight(),myImage.SCALE_SMOOTH);
-		g.drawImage(scaledImage, 0, 0, null);
+		g.drawImage(scaledImage, 8,60, getWidth()-17, getHeight()-70,null);
+
 		int  x_temp_fruits = 0;
 		int  y_temp_fruits =0 ;
 		int  x_temp_Packmans = 0;
@@ -413,10 +407,14 @@ public class MyFarme extends JFrame implements MouseListener
 		}
 		if(Start_game==true) {
 
+			Graphics2D g2 = (Graphics2D)g;
+
+			g2.setStroke(new BasicStroke(3));
+			
 			ShortestPathAlgo algo = new ShortestPathAlgo(myGame);
 			if(myGame.Packman_arr.size()== 1) {
 
-				Path p = algo.algoSinglePackman();
+				Path p = algo.algoSinglePackman(myGame.Packman_arr.get(0));
 				myGame.Fruits_arr = p.TheCurrentPath();
 				g.setColor(Color.MAGENTA);
 				g.drawLine((int)(myGame.Fruits_arr.get(0).getFruitPoint().x()*getWidth()),

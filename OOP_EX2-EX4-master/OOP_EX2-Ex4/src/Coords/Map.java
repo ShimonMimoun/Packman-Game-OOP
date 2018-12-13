@@ -47,10 +47,9 @@ public class Map {
 		
 		
 		double lon_x = Dx * x_length+leftUp.y();
-		double lat_y = Dy * y_length+RightDown.x();
+		double lat_y = Dy * y_length+leftUp.x(); // or RightdDown.x()
 		
 		Point3D ans_in_Gps = new Point3D(lat_y,lon_x);
-
 		
 		return ans_in_Gps;
 	}
@@ -65,7 +64,6 @@ public class Map {
 	}
 	
 	public double distancePixels(Point3D p1, Point3D p2) {
-		
 		Point3D ansX =  Pixel2GPS(p1.x(),p1.y());
 		Point3D ansY =  Pixel2GPS(p2.x(),p2.y());
 		MyCoords m = new MyCoords();
