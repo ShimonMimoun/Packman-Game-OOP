@@ -225,6 +225,7 @@ public class MyFarme extends JFrame implements MouseListener
 				if (returnValue == JFileChooser.APPROVE_OPTION) {
 					File selectedFile = jfc.getSelectedFile();
 					System.out.println(selectedFile.getAbsolutePath());
+					
 
 					myGame.setfile_directory(selectedFile.getAbsolutePath());
 					try {
@@ -341,12 +342,7 @@ public class MyFarme extends JFrame implements MouseListener
 					ArrayList<Packman> myPackmens = new ArrayList<>();
 					myPackmens = algo.algoMultiPackmans();
 					
-					System.out.println("**********");
 
-					for (int i = 0; i < myPackmens.size(); i++) {
-						System.out.println(myPackmens.get(i).getPath().TheCurrentPath().toString());
-					}
-					
 
 					for (int i = 0; i <myPackmens.size(); i++) {
 						if(!myPackmens.get(i).getPath().TheCurrentPath().isEmpty() ) {
@@ -376,8 +372,6 @@ public class MyFarme extends JFrame implements MouseListener
 			}
 		}
 		
-	
-
 
 			public void mouseClicked(MouseEvent arg) {
 

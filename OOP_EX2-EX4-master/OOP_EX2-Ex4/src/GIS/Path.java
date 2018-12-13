@@ -36,24 +36,28 @@ public class Path{
 	}
 	
 	public double CalTime2Points(Packman p , Fruit f) {
-		MyCoords m = new MyCoords();
-		if (m.distance3d(p.getPoint(), f.getFruitPoint()) < p.getradius()) {
+		if (theMap.distancePixels(p.getPoint(), f.getFruitPoint()) < p.getradius()) {
+			
 			
 			return 0;
 		}
 		else {	
-			return (m.distance3d(p.getPoint(), f.getFruitPoint())-p.getradius())/p.getSpeed();
+			return (theMap.distancePixels(p.getPoint(), f.getFruitPoint())-p.getradius())/p.getSpeed();
 
 		}
 	}
-	public double CalPathTime(Packman p) {
+	public double CalPathTime(Packman packman) {
 		
 		double totalTime = 0;
-		for (int i = 0; i < p.getPath().TheCurrentPath().size(); i++) {
-			totalTime = totalTime+ CalTime2Points(p,p.getPath().TheCurrentPath().get(i));
+
+		Packman temp = new Packman(packman);
+		for (int i = 0; i < packman.getPath().TheCurrentPath().size(); i++) {
+			totalTime = totalTime+  CalTime2Points(packman,packman.getPath().TheCurrentPath().get(i));
+			packman.setPackLocation(packman.getPath().TheCurrentPath().get(i).getFruitPoint());
+
 		}
-		
-		setTheTotalTime(totalTime);
+		packman.getPath().setTheTotalTime(totalTime);
+		packman.setPackLocation(temp.getPoint());
 		
 		return totalTime;
 	}

@@ -55,6 +55,7 @@ public class Game {
 		}
 		for (int i = 0; i < Fruits_arr.size(); i++) {
 			Fruits_arr.get(i).FuritPoint = theMap.Pixel2GPS(Fruits_arr.get(i).getFruitPoint().x(), Fruits_arr.get(i).getFruitPoint().y());
+
 		}
 
 		for (int i = 0; i < this.Packman_arr.size(); i++) {
@@ -105,6 +106,7 @@ public class Game {
 			if(row[0].equals("P")) {
 				Point3D p = new Point3D(row[2],row[3],row[4]);
 				p = theMap.GPS2Pixel(p);
+
 				double speed = Double.parseDouble(row[5]);
 				int radius = Integer.parseInt(row[6]);
 				Packman_arr.add(new Packman(p, speed, radius));	
