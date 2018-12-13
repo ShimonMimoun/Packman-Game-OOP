@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
@@ -93,13 +94,31 @@ public class MyFarme extends JFrame implements MouseListener
 
 		Menu AddMenu = new Menu("Add"); 
 		menuBarOption.add(AddMenu);
+		
 		MenuItem Packman_Item = new MenuItem("Packman");
-		MenuItem Fruit_item = new MenuItem("Fruit");
-		MenuItem setraduis = new MenuItem("Set Radius");
-
+		MenuItem Fruit_item = new MenuItem("Fruit");		
 		AddMenu.add(Packman_Item);
 		AddMenu.add(Fruit_item);
-		AddMenu.add(setraduis);
+
+		Menu SetMenu = new Menu("Set"); 
+		
+		MenuItem setraduisAll = new MenuItem("Radius All");
+		MenuItem setradius2Pack = new MenuItem("Radius To Packman");
+		MenuItem setSpeedAll = new MenuItem("Speed All");
+		MenuItem setSpeed2Pack = new MenuItem("Speed To Packman");
+		MenuItem setWeightAll= new MenuItem("Weight All");
+		MenuItem setWeight2Friut= new MenuItem("Weight to Friut");
+
+
+		SetMenu.add(setraduisAll);
+		SetMenu.add(setradius2Pack);
+		SetMenu.add(setSpeedAll);
+		SetMenu.add(setSpeed2Pack);
+		SetMenu.add(setWeightAll);
+		SetMenu.add(setWeight2Friut);
+
+		
+		menuBarOption.add(SetMenu);
 
 
 		Menu Add_import=new Menu ("Import");
@@ -175,6 +194,94 @@ public class MyFarme extends JFrame implements MouseListener
 
 			}
 		});
+		
+		setraduisAll.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (myGame.Packman_arr.size() > 0) {
+				String radius= JOptionPane.showInputDialog("Please input the Radius for all the Packmans: ");
+				double input_radius = Double.parseDouble(radius);
+				for (int i = 0; i < myGame.Packman_arr.size(); i++) {
+					myGame.Packman_arr.get(i).setRadius(input_radius);
+				}
+				} else {
+					JOptionPane.showMessageDialog(null,"EROR: There is no Packmans in the Game");
+
+				}
+
+			}
+		});
+		setradius2Pack.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(myGame.Packman_arr.size() > 0) {
+					String i = JOptionPane.showInputDialog("Please input which packman you want to change (starting from 0)");
+					int numberPack = Integer.parseInt(i);
+					if(numberPack > myGame.Packman_arr.size()) {
+						JOptionPane.showMessageDialog(null,"EROR: Cant find this Packman");
+
+					}else {
+						String radius= JOptionPane.showInputDialog("Please input the Radius for this Packman: ");
+						double input_radius = Double.parseDouble(radius);
+						myGame.Packman_arr.get(numberPack).setRadius(input_radius);	
+					}
+				}else {
+					JOptionPane.showMessageDialog(null,"EROR: There is no Packmans in the Game");
+
+				}
+			}
+		});
+		
+		
+		setSpeed2Pack.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(myGame.Packman_arr.size() > 0) {
+					String i = JOptionPane.showInputDialog("Please input which packman you want to change (starting from 0)");
+					int numberPack = Integer.parseInt(i);
+					if(numberPack > myGame.Packman_arr.size()) {
+						JOptionPane.showMessageDialog(null,"EROR: Cant find this Packman");
+
+					}else {
+						String Speed= JOptionPane.showInputDialog("Please input the Speed for this Packman: ");
+						double input_Speed = Double.parseDouble(Speed);
+						myGame.Packman_arr.get(numberPack).setSpeed(input_Speed);	
+					}
+				}else {
+					JOptionPane.showMessageDialog(null,"EROR: There is no Packmans in the Game");
+
+				}
+			}
+		});
+		setSpeedAll.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (myGame.Packman_arr.size() > 0) {
+				String speed= JOptionPane.showInputDialog("Please input the Speed for all the Packmans: ");
+				double input_speed = Double.parseDouble(speed);
+				for (int i = 0; i < myGame.Packman_arr.size(); i++) {
+					myGame.Packman_arr.get(i).setSpeed(input_speed);
+				}
+				} else {
+					JOptionPane.showMessageDialog(null,"EROR: There is no Packmans in the Game");
+
+				}
+
+			}
+		});
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		Csv_read.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -225,7 +332,7 @@ public class MyFarme extends JFrame implements MouseListener
 				if (returnValue == JFileChooser.APPROVE_OPTION) {
 					File selectedFile = jfc.getSelectedFile();
 					System.out.println(selectedFile.getAbsolutePath());
-					
+
 
 					myGame.setfile_directory(selectedFile.getAbsolutePath());
 					try {
@@ -304,128 +411,128 @@ public class MyFarme extends JFrame implements MouseListener
 
 			}
 		}
-			if(Start_game==true) {
+		if(Start_game==true) {
 
-				ShortestPathAlgo algo = new ShortestPathAlgo(myGame);
-				if(myGame.Packman_arr.size()== 1) {
-					
-					Path p = algo.algoSinglePackman();
-					myGame.Fruits_arr = p.TheCurrentPath();
+			ShortestPathAlgo algo = new ShortestPathAlgo(myGame);
+			if(myGame.Packman_arr.size()== 1) {
+
+				Path p = algo.algoSinglePackman();
+				myGame.Fruits_arr = p.TheCurrentPath();
+				g.setColor(Color.MAGENTA);
+				g.drawLine((int)(myGame.Fruits_arr.get(0).getFruitPoint().x()*getWidth()),
+						(int)(myGame.Fruits_arr.get(0).getFruitPoint().y()*getHeight()),
+						(int)(myGame.Packman_arr.get(0).getPoint().x()*getWidth()),
+						(int)(myGame.Packman_arr.get(0).getPoint().y()*getHeight()));
+
+				for (int i = 1; i < myGame.Fruits_arr.size(); i++) {
 					g.setColor(Color.MAGENTA);
-					g.drawLine((int)(myGame.Fruits_arr.get(0).getFruitPoint().x()*getWidth()),
-							(int)(myGame.Fruits_arr.get(0).getFruitPoint().y()*getHeight()),
-							(int)(myGame.Packman_arr.get(0).getPoint().x()*getWidth()),
-							(int)(myGame.Packman_arr.get(0).getPoint().y()*getHeight()));
 
-					for (int i = 1; i < myGame.Fruits_arr.size(); i++) {
-						g.setColor(Color.MAGENTA);
+					g.drawLine((int)(myGame.Fruits_arr.get(i).getFruitPoint().x()*getWidth()), 
+							(int)(myGame.Fruits_arr.get(i).getFruitPoint().y()*getHeight()),
+							(int)(myGame.Fruits_arr.get(i-1).getFruitPoint().x()*getWidth()), 
+							(int)(myGame.Fruits_arr.get(i-1).getFruitPoint().y()*getHeight()));
+				}
+				System.out.println("The Total Time is:"+p.getTheTime());
 
-						g.drawLine((int)(myGame.Fruits_arr.get(i).getFruitPoint().x()*getWidth()), 
-								(int)(myGame.Fruits_arr.get(i).getFruitPoint().y()*getHeight()),
-								(int)(myGame.Fruits_arr.get(i-1).getFruitPoint().x()*getWidth()), 
-								(int)(myGame.Fruits_arr.get(i-1).getFruitPoint().y()*getHeight()));
+
+				x_temp_Packmans=(int)(myGame.Fruits_arr.
+						get(myGame.Fruits_arr.size()-1).getFruitPoint().x()*getWidth());
+				y_temp_Packmans=(int)(myGame.Fruits_arr.
+						get(myGame.Fruits_arr.size()-1).getFruitPoint().y()*getHeight());	
+
+				g.drawImage(packimage, x_temp_Packmans-6, y_temp_Packmans-7,30, 30, null);
+
+			}
+			if (myGame.Packman_arr.size()>1)
+			{
+
+				ArrayList<Packman> myPackmens = new ArrayList<>();
+				myPackmens = algo.algoMultiPackmans();
+
+
+
+				for (int i = 0; i <myPackmens.size(); i++) {
+					if(!myPackmens.get(i).getPath().TheCurrentPath().isEmpty() ) {
+						g.setColor(Color.GREEN);
+						g.drawLine((int)(myPackmens.get(i).getPath().TheCurrentPath().get(0).getFruitPoint().x()*getWidth()), 
+								(int)(myPackmens.get(i).getPath().TheCurrentPath().get(0).getFruitPoint().y()*getHeight()),
+								(int)(myPackmens.get(i).getPoint().x()*getWidth()),
+								(int)(myPackmens.get(i).getPoint().y()*getHeight()));
+
 					}
-					System.out.println("The Total Time is:"+p.getTheTime());
+					for (int j = 1; j < myPackmens.get(i).getPath().TheCurrentPath().size(); j++) {
 
+						g.setColor(Color.GREEN);
+						g.drawLine((int)(myPackmens.get(i).getPath().TheCurrentPath().get(j).getFruitPoint().x()*getWidth()), 
+								(int)(myPackmens.get(i).getPath().TheCurrentPath().get(j).getFruitPoint().y()*getHeight()),
+								(int)(myPackmens.get(i).getPath().TheCurrentPath().get(j-1).getFruitPoint().x()*getWidth()), 
+								(int)(myPackmens.get(i).getPath().TheCurrentPath().get(j-1).getFruitPoint().y()*getHeight()));
 
-					x_temp_Packmans=(int)(myGame.Fruits_arr.
-							get(myGame.Fruits_arr.size()-1).getFruitPoint().x()*getWidth());
-					y_temp_Packmans=(int)(myGame.Fruits_arr.
-							get(myGame.Fruits_arr.size()-1).getFruitPoint().y()*getHeight());	
-
-					g.drawImage(packimage, x_temp_Packmans-6, y_temp_Packmans-7,30, 30, null);
-
-				}
-				if (myGame.Packman_arr.size()>1)
-				{
-
-					ArrayList<Packman> myPackmens = new ArrayList<>();
-					myPackmens = algo.algoMultiPackmans();
-					
-
-
-					for (int i = 0; i <myPackmens.size(); i++) {
-						if(!myPackmens.get(i).getPath().TheCurrentPath().isEmpty() ) {
-							g.setColor(Color.GREEN);
-							g.drawLine((int)(myPackmens.get(i).getPath().TheCurrentPath().get(0).getFruitPoint().x()*getWidth()), 
-									(int)(myPackmens.get(i).getPath().TheCurrentPath().get(0).getFruitPoint().y()*getHeight()),
-									(int)(myPackmens.get(i).getPoint().x()*getWidth()),
-									(int)(myPackmens.get(i).getPoint().y()*getHeight()));
-							
-						}
-						for (int j = 1; j < myPackmens.get(i).getPath().TheCurrentPath().size(); j++) {
-
-							g.setColor(Color.GREEN);
-							g.drawLine((int)(myPackmens.get(i).getPath().TheCurrentPath().get(j).getFruitPoint().x()*getWidth()), 
-									(int)(myPackmens.get(i).getPath().TheCurrentPath().get(j).getFruitPoint().y()*getHeight()),
-									(int)(myPackmens.get(i).getPath().TheCurrentPath().get(j-1).getFruitPoint().x()*getWidth()), 
-									(int)(myPackmens.get(i).getPath().TheCurrentPath().get(j-1).getFruitPoint().y()*getHeight()));
-
-						}
 					}
-
-
-
-
 				}
 
-			}
-		}
-		
-
-			public void mouseClicked(MouseEvent arg) {
-
-				double x_temp=arg.getX();
-				x_temp=x_temp/getWidth();
 
 
-				double y_temp=arg.getY();
-				y_temp=y_temp/getHeight();
-				Point3D point_return=new Point3D(x_temp, y_temp, 0);
-				Point3D covertedfromPixel = theMap.Pixel2GPS(x_temp, y_temp);
-
-				if (isGamer==(1))
-				{	
-					myGame.Fruits_arr.add(new Fruit(point_return,1));
-
-					System.out.println("Fruit "+covertedfromPixel.toString());
-
-					repaint();
-
-				}else if (isGamer==(-1))
-				{
-					myGame.Packman_arr.add(new Packman(point_return, radius, speed));
-					System.out.println("Packman "+covertedfromPixel.toString());
-
-					repaint();
-				}
 
 			}
-
-
-
-			public void mouseExited(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				// TODO Auto-generated method stub		
-
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
 
 		}
+	}
+
+
+	public void mouseClicked(MouseEvent arg) {
+
+		double x_temp=arg.getX();
+		x_temp=x_temp/getWidth();
+
+
+		double y_temp=arg.getY();
+		y_temp=y_temp/getHeight();
+		Point3D point_return=new Point3D(x_temp, y_temp, 0);
+		Point3D covertedfromPixel = theMap.Pixel2GPS(x_temp, y_temp);
+
+		if (isGamer==(1))
+		{	
+			myGame.Fruits_arr.add(new Fruit(point_return,1));
+
+			System.out.println("Fruit "+covertedfromPixel.toString());
+
+			repaint();
+
+		}else if (isGamer==(-1))
+		{
+			myGame.Packman_arr.add(new Packman(point_return, radius, speed));
+			System.out.println("Packman "+covertedfromPixel.toString());
+
+			repaint();
+		}
+
+	}
+
+
+
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub		
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+
+}

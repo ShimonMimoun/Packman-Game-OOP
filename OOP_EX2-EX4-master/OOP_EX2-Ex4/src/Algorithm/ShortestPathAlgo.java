@@ -74,12 +74,17 @@ public class ShortestPathAlgo {
 		for (int i = 0; i < myPackmens.size(); i++) {
 			myPackmens.get(i).setPackLocation(ans.get(i).getPoint());	
 		}
-		double sum = 0;
-		
-		for (int i = 0; i < myPackmens.size(); i++) {
-			sum = sum +myPath.CalPathTime(myPackmens.get(i));
+		double longestTime = myPath.CalPathTime(myPackmens.get(0));
+		double temp = 0;
+		System.out.println(longestTime);
+		for (int i = 1; i < myPackmens.size(); i++) {
+			temp = myPath.CalPathTime(myPackmens.get(i));
+			System.out.println(temp);
+			if (temp > longestTime) {
+				longestTime = temp;
+			}
 		}
-		System.out.println("the Total time is: "+sum);
+		System.out.println("the Total time is: "+longestTime);
 		return myPackmens;
 	}
 

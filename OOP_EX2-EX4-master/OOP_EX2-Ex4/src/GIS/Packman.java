@@ -11,14 +11,14 @@ public class Packman {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	int radius;
+	double radius;
 	Point3D packLocation;
 	double Orientation;
 	double speed;
 	Path packmanPath;
 	
 	
-	public Packman(Point3D point , double speed, int radius) {
+	public Packman(Point3D point , double speed, double radius) {
 		this.packLocation = point;
 		this.speed  = speed;
 		this.radius = radius;
@@ -32,7 +32,13 @@ public class Packman {
 	public void setPackLocation(Point3D p) {
 		this.packLocation = p;
 	}
-	public int getradius() {
+	public void setRadius(double rad) {
+		this.radius = rad;
+	}
+	public void setSpeed(double speed) {
+		this.speed = speed;
+	}
+	public double getradius() {
 		return this.radius;
 	}
 	public double getOrientation() {

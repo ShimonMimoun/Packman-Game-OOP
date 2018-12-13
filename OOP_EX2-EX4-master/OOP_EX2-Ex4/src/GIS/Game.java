@@ -108,7 +108,7 @@ public class Game {
 				p = theMap.GPS2Pixel(p);
 
 				double speed = Double.parseDouble(row[5]);
-				int radius = Integer.parseInt(row[6]);
+				double radius = Double.parseDouble(row[6]);
 				Packman_arr.add(new Packman(p, speed, radius));	
 			}
 			if(row[0].equals("F")) {
