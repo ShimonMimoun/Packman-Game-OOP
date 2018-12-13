@@ -1,17 +1,15 @@
 package Algorithm;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
+
 
 import Coords.Map;
-import Coords.MyCoords;
+
 import GIS.Fruit;
 import GIS.Game;
 import GIS.Packman;
 import GIS.Path;
-import Geom.Circle;
-import javafx.geometry.Point3D;
+
 
 public class ShortestPathAlgo {
 
@@ -24,7 +22,11 @@ public class ShortestPathAlgo {
 
 	public ShortestPathAlgo(Game theGame) {	
 
-		this.fruits = theGame.Fruits_arr;
+		
+		ArrayList<Fruit> clone = new ArrayList<Fruit>(theGame.Fruits_arr.size());  for (Fruit item : theGame.Fruits_arr) clone.add(item);
+		this.fruits = clone;
+		
+		
 		this.Packmans = theGame.Packman_arr;
 	}
 
