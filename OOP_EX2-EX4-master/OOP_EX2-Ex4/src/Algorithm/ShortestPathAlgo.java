@@ -87,24 +87,21 @@ public class ShortestPathAlgo {
 		}
 		SortPathByDis.sort(calDis);
 		double temp;
-		int j = 0;
-		while (!SortPathByDis.isEmpty()) {
+		
+		for (int i = 0; i < SortPathByDis.size(); i++) {
 			
-			temp = themap.distancePixels(packman.getPoint(), myFurits.get(j).getFruitPoint());
-			
-			for (int i = 0; i < myFurits.size(); i++) {
-				if(temp == SortPathByDis.get(i)){
+			for (int j = 0; j < myFurits.size(); j++) {
+				temp = themap.distancePixels(packman.getPoint(), myFurits.get(j).getFruitPoint());
+
+				if(temp == SortPathByDis.get(i)) {
 					ans.TheCurrentPath().add(myFurits.get(j));
-					SortPathByDis.remove(i);
-					j++;
 					break;
-				}	
+				}
+				
 				
 			}
-			
 		}
-
-
+					
 		return ans;
 	}
 

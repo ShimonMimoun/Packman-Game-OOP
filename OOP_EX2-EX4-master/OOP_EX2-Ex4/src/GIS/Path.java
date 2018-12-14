@@ -49,13 +49,16 @@ public class Path{
 	public double CalPathTime(Packman packman) {
 		
 		double totalTime = 0;
-
+		double cal = 0;
 		Packman temp = new Packman(packman);
 		for (int i = 0; i < packman.getPath().TheCurrentPath().size(); i++) {
-			totalTime = totalTime+  CalTime2Points(packman,packman.getPath().TheCurrentPath().get(i));
+			cal = CalTime2Points(packman,packman.getPath().TheCurrentPath().get(i));
+			System.out.println("dis "+i+" "+cal);
+			totalTime = totalTime+cal;
 			packman.setPackLocation(packman.getPath().TheCurrentPath().get(i).getFruitPoint());
 
 		}
+		System.out.println("total "+totalTime);
 		packman.getPath().setTheTotalTime(totalTime);
 		packman.setPackLocation(temp.getPoint());
 		
