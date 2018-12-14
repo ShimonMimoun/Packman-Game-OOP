@@ -24,13 +24,9 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
-import com.sun.javafx.tk.Toolkit;
-import com.sun.xml.internal.bind.v2.runtime.reflect.Lister.Pack;
 
 import Algorithm.ShortestPathAlgo;
 import Coords.Map;
-import File_format.CsvFileHelper;
-import File_format.csv2kml;
 import GIS.Fruit;
 import GIS.Game;
 import GIS.Packman;
@@ -51,6 +47,8 @@ public class MyFarme extends JFrame implements MouseListener
 	public BufferedImage myImage;
 	public BufferedImage packimage;
 	public BufferedImage Fruitimage;
+	public BufferedImage DEED_Fruit;
+	public BufferedImage DEED_Pack;
 
 	double radius = 1;
 	int speed = 1;
@@ -77,7 +75,8 @@ public class MyFarme extends JFrame implements MouseListener
 		try {	myImage = ImageIO.read(new File(theMap.getMapDiractory())); } catch (IOException e) { e.printStackTrace();	}	
 		try {	packimage = ImageIO.read(new File("Pictures&Icones/packman.jpg")); } catch (IOException e) { e.printStackTrace();	}
 		try {	Fruitimage = ImageIO.read(new File("Pictures&Icones/furit.png")); } catch (IOException e) { e.printStackTrace();	}
-
+		try {	DEED_Fruit = ImageIO.read(new File("Pictures&Icones/DEED_Fruit.png")); } catch (IOException e) { e.printStackTrace();	}
+		try {	DEED_Pack = ImageIO.read(new File("Pictures&Icones/DEED_Pack.png")); } catch (IOException e) { e.printStackTrace();	}
 
 
 
@@ -96,14 +95,14 @@ public class MyFarme extends JFrame implements MouseListener
 
 		Menu AddMenu = new Menu("Add"); 
 		menuBarOption.add(AddMenu);
-		
+
 		MenuItem Packman_Item = new MenuItem("Packman");
 		MenuItem Fruit_item = new MenuItem("Fruit");		
 		AddMenu.add(Packman_Item);
 		AddMenu.add(Fruit_item);
 
 		Menu SetMenu = new Menu("Set"); 
-		
+
 		MenuItem setraduisAll = new MenuItem("Radius All");
 		MenuItem setradius2Pack = new MenuItem("Radius To Packman");
 		MenuItem setSpeedAll = new MenuItem("Speed All");
@@ -119,7 +118,7 @@ public class MyFarme extends JFrame implements MouseListener
 		SetMenu.add(setWeightAll);
 		SetMenu.add(setWeight2Friut);
 
-		
+
 		menuBarOption.add(SetMenu);
 
 
@@ -145,8 +144,8 @@ public class MyFarme extends JFrame implements MouseListener
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(myGame.Packman_arr.size() >0 && myGame.Fruits_arr.size() > 0 ) {
-				Start_game=true;
-				repaint();
+					Start_game=true;
+					repaint();
 				}
 			}
 
@@ -196,16 +195,16 @@ public class MyFarme extends JFrame implements MouseListener
 
 			}
 		});
-		
+
 		setraduisAll.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (myGame.Packman_arr.size() > 0) {
-				String radius= JOptionPane.showInputDialog("Please input the Radius for all the Packmans: ");
-				double input_radius = Double.parseDouble(radius);
-				for (int i = 0; i < myGame.Packman_arr.size(); i++) {
-					myGame.Packman_arr.get(i).setRadius(input_radius);
-				}
+					String radius= JOptionPane.showInputDialog("Please input the Radius for all the Packmans: ");
+					double input_radius = Double.parseDouble(radius);
+					for (int i = 0; i < myGame.Packman_arr.size(); i++) {
+						myGame.Packman_arr.get(i).setRadius(input_radius);
+					}
 				} else {
 					JOptionPane.showMessageDialog(null,"EROR: There is no Packmans in the Game");
 
@@ -233,8 +232,8 @@ public class MyFarme extends JFrame implements MouseListener
 				}
 			}
 		});
-		
-		
+
+
 		setSpeed2Pack.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -259,11 +258,11 @@ public class MyFarme extends JFrame implements MouseListener
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (myGame.Packman_arr.size() > 0) {
-				String speed= JOptionPane.showInputDialog("Please input the Speed for all the Packmans: ");
-				double input_speed = Double.parseDouble(speed);
-				for (int i = 0; i < myGame.Packman_arr.size(); i++) {
-					myGame.Packman_arr.get(i).setSpeed(input_speed);
-				}
+					String speed= JOptionPane.showInputDialog("Please input the Speed for all the Packmans: ");
+					double input_speed = Double.parseDouble(speed);
+					for (int i = 0; i < myGame.Packman_arr.size(); i++) {
+						myGame.Packman_arr.get(i).setSpeed(input_speed);
+					}
 				} else {
 					JOptionPane.showMessageDialog(null,"EROR: There is no Packmans in the Game");
 
@@ -271,9 +270,9 @@ public class MyFarme extends JFrame implements MouseListener
 
 			}
 		});
-		
-		
-		
+
+
+
 		Csv_read.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -357,6 +356,15 @@ public class MyFarme extends JFrame implements MouseListener
 					File selectedFile = jfc.getSelectedFile();
 					System.out.println(selectedFile.getAbsolutePath());
 
+
+					myGame.setfile_directory(selectedFile.getAbsolutePath());
+					try {
+						myGame.save_to_kml();
+					} catch (FileNotFoundException e1) {
+						e1.printStackTrace();
+					}
+
+
 				}
 
 
@@ -371,7 +379,7 @@ public class MyFarme extends JFrame implements MouseListener
 	{
 
 		Image scaledImage = myImage.getScaledInstance(this.getWidth(),this.getHeight(),myImage.SCALE_SMOOTH);
-		g.drawImage(scaledImage, 8,60, getWidth()-17, getHeight()-70,null);
+		g.drawImage(scaledImage, 8,50, getWidth()-17, getHeight()-60,null);
 
 		int  x_temp_fruits = 0;
 		int  y_temp_fruits =0 ;
@@ -387,8 +395,6 @@ public class MyFarme extends JFrame implements MouseListener
 				x_temp_fruits=(int)(myGame.Fruits_arr.get(i).getFruitPoint().x()*getWidth());
 				y_temp_fruits=(int)(myGame.Fruits_arr.get(i).getFruitPoint().y()*getHeight());	
 
-
-				g.setColor(Color.red);
 				g.drawImage(Fruitimage, x_temp_fruits-5, y_temp_fruits-6,30, 30, null);
 
 
@@ -405,42 +411,64 @@ public class MyFarme extends JFrame implements MouseListener
 
 			}
 		}
+
+
+
+
+
 		if(Start_game==true) {
 
 			Graphics2D g2 = (Graphics2D)g;
 
 			g2.setStroke(new BasicStroke(3));
-			
+
 			ShortestPathAlgo algo = new ShortestPathAlgo(myGame);
+
+
 			if(myGame.Packman_arr.size()== 1) {
 
 				Path p = algo.algoSinglePackman(myGame.Packman_arr.get(0));
 				myGame.Fruits_arr = p.TheCurrentPath();
-				g.setColor(Color.MAGENTA);
+
+				g.setColor(Color.orange);
 				g.drawLine((int)(myGame.Fruits_arr.get(0).getFruitPoint().x()*getWidth()),
 						(int)(myGame.Fruits_arr.get(0).getFruitPoint().y()*getHeight()),
 						(int)(myGame.Packman_arr.get(0).getPoint().x()*getWidth()),
 						(int)(myGame.Packman_arr.get(0).getPoint().y()*getHeight()));
 
-				for (int i = 1; i < myGame.Fruits_arr.size(); i++) {
-					g.setColor(Color.MAGENTA);
-
+				for (int i = 1; i < myGame.Fruits_arr.size(); i++) 
+				{
+					g.setColor(Color.orange);
 					g.drawLine((int)(myGame.Fruits_arr.get(i).getFruitPoint().x()*getWidth()), 
 							(int)(myGame.Fruits_arr.get(i).getFruitPoint().y()*getHeight()),
 							(int)(myGame.Fruits_arr.get(i-1).getFruitPoint().x()*getWidth()), 
 							(int)(myGame.Fruits_arr.get(i-1).getFruitPoint().y()*getHeight()));
+
+
+					x_temp_fruits=(int)(myGame.Fruits_arr.get(i-1).getFruitPoint().x()*getWidth());
+					y_temp_fruits=(int)(myGame.Fruits_arr.get(i-1).getFruitPoint().y()*getHeight());	
+
+					g.drawImage(DEED_Fruit, x_temp_fruits-5, y_temp_fruits-6,30, 30, null);
+
 				}
+
 				System.out.println("The Total Time is:"+p.getTheTime());
-
-
-				x_temp_Packmans=(int)(myGame.Fruits_arr.
-						get(myGame.Fruits_arr.size()-1).getFruitPoint().x()*getWidth());
-				y_temp_Packmans=(int)(myGame.Fruits_arr.
-						get(myGame.Fruits_arr.size()-1).getFruitPoint().y()*getHeight());	
+			
+// Deed PAckman Frist
+				x_temp_Packmans=(int)(myGame.Packman_arr.get(0).getPoint().x()*getWidth());
+				y_temp_Packmans=(int)(myGame.Packman_arr.get(0).getPoint().y()*getHeight());
+				g.drawImage(DEED_Pack, x_temp_Packmans-6, y_temp_Packmans-7,35, 35, null);
+				
+				
+				// Replace a  New PAckman in the arrival 
+				x_temp_Packmans=(int)(myGame.Fruits_arr.get(myGame.Fruits_arr.size()-1).getFruitPoint().x()*getWidth());
+				y_temp_Packmans=(int)(myGame.Fruits_arr.get(myGame.Fruits_arr.size()-1).getFruitPoint().y()*getHeight());	
 
 				g.drawImage(packimage, x_temp_Packmans-6, y_temp_Packmans-7,30, 30, null);
 
 			}
+
+
 			if (myGame.Packman_arr.size()>1)
 			{
 
@@ -452,6 +480,8 @@ public class MyFarme extends JFrame implements MouseListener
 				for (int i = 0; i <myPackmens.size(); i++) {
 					if(!myPackmens.get(i).getPath().TheCurrentPath().isEmpty() ) {
 						g.setColor(Color.GREEN);
+
+
 						g.drawLine((int)(myPackmens.get(i).getPath().TheCurrentPath().get(0).getFruitPoint().x()*getWidth()), 
 								(int)(myPackmens.get(i).getPath().TheCurrentPath().get(0).getFruitPoint().y()*getHeight()),
 								(int)(myPackmens.get(i).getPoint().x()*getWidth()),
@@ -466,17 +496,25 @@ public class MyFarme extends JFrame implements MouseListener
 								(int)(myPackmens.get(i).getPath().TheCurrentPath().get(j-1).getFruitPoint().x()*getWidth()), 
 								(int)(myPackmens.get(i).getPath().TheCurrentPath().get(j-1).getFruitPoint().y()*getHeight()));
 
+			
+						
 					}
+					
+					
+			
+					
+					
+					
 				}
-
-
-
-
 			}
 
-		}
-	}
 
+
+
+		}
+
+
+	}
 
 	public void mouseClicked(MouseEvent arg) {
 
