@@ -12,7 +12,7 @@ public class Path{
 	Map theMap = new Map();
 	
 	ArrayList<Fruit> thepath;
-
+	ArrayList<Packman> test;
 
 //	ArrayList<Furit> thePath = new ArrayList<>();
 	
@@ -29,7 +29,10 @@ public class Path{
 	public void setTheTotalTime(double total) {
 		this.totalTimePath = total;
 	}
-
+	
+	public ArrayList<Packman> GetmyTest(){
+		return this.test;
+	}
 
 	public ArrayList<Fruit> TheCurrentPath() {
 		return this.thepath;
@@ -62,6 +65,20 @@ public class Path{
 		return totalTime;
 	}
 
+	
+	public Point3D theNextPoint(Packman p1 , Fruit f1, double t) {
+		
+	double dt = p1.getPath().getTheTime(); // the time from (x1,y1) to (x2,y2) example: 300.
+	
+	double Vx = p1.getPoint().x()/dt+0.05;
+	double Vy = p1.getPoint().y()/dt+0.05;
+	
+	double xt = p1.getPoint().x()+Vx*(f1.getFruitPoint().x()-p1.getPoint().x());
+	double yt= p1.getPoint().y()+Vy*(f1.getFruitPoint().y()-p1.getPoint().y());
+	return new Point3D(xt,yt);
+	
+	}
+	
 
 	
 	public void setPath(ArrayList<Fruit> p) {
