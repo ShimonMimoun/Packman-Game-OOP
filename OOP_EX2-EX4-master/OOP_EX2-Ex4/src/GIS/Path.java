@@ -38,7 +38,6 @@ public class Path{
 	public double CalTime2Points(Packman p , Fruit f) {
 		if (theMap.distancePixels(p.getPoint(), f.getFruitPoint()) < p.getradius()) {
 			
-			
 			return 0;
 		}
 		else {	
@@ -53,18 +52,16 @@ public class Path{
 		Packman temp = new Packman(packman);
 		for (int i = 0; i < packman.getPath().TheCurrentPath().size(); i++) {
 			cal = CalTime2Points(packman,packman.getPath().TheCurrentPath().get(i));
-			System.out.println("dis "+i+" "+cal);
 			totalTime = totalTime+cal;
 			packman.setPackLocation(packman.getPath().TheCurrentPath().get(i).getFruitPoint());
 
 		}
-		System.out.println("total "+totalTime);
 		packman.getPath().setTheTotalTime(totalTime);
 		packman.setPackLocation(temp.getPoint());
-		
+
 		return totalTime;
 	}
-	
+
 
 	
 	public void setPath(ArrayList<Fruit> p) {

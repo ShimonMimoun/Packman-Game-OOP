@@ -407,12 +407,8 @@ public class MyFarme extends JFrame implements MouseListener
 
 				g.drawImage(packimage, x_temp_Packmans-6, y_temp_Packmans-7,30, 30, null);
 
-
-
 			}
 		}
-
-
 
 
 

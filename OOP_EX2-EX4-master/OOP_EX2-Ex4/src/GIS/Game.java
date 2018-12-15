@@ -26,6 +26,7 @@ public class Game {
 	public Game(ArrayList<Packman> p , ArrayList<Fruit> f) {
 		this.Packman_arr = p;
 		this.Fruits_arr = f;
+		
 	}
 
 	public String getDiractroy() {
@@ -34,6 +35,8 @@ public class Game {
 	public void setfile_directory(String file_directory) {
 		this.file_directory = file_directory;
 	}
+	
+
 
 
 

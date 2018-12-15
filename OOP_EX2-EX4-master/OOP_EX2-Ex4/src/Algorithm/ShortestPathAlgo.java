@@ -40,18 +40,21 @@ public class ShortestPathAlgo {
 		
 		oriPackman.getPath().setPath(Dis.TheCurrentPath());	
 		double timeFor1 = Dis.CalPathTime(oriPackman);
+		
 		oriPackman.getPath().setPath(p.TheCurrentPath());
 		double timeFor2 = p.CalPathTime(oriPackman);
 
 		
 		if(timeFor1 <= timeFor2) {
-			System.out.println(oriPackman.getPoint());
 			oriPackman.getPath().setPath(Dis.TheCurrentPath());	
 			oriPackman.getPath().setTheTotalTime(timeFor1);
+			System.out.println(oriPackman.getPath().getTheTime());
+
 			return oriPackman.getPath();
 
 		}else {
 			oriPackman.getPath().setTheTotalTime(timeFor2);
+			System.out.println(oriPackman.getPath().getTheTime());
 			return oriPackman.getPath();
 
 		}
@@ -124,11 +127,9 @@ public class ShortestPathAlgo {
 		}
 		double longestTime = myPath.CalPathTime(myPackmens.get(0));
 		double temp = 0;
-//		System.out.println(longestTime);
 		
 		for (int i = 1; i < myPackmens.size(); i++) {
 			temp = myPath.CalPathTime(myPackmens.get(i));
-//			System.out.println(temp);
 			if (temp > longestTime) {
 				longestTime = temp;
 			}
