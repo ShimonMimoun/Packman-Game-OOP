@@ -462,17 +462,18 @@ public class MyFarme extends JFrame implements MouseListener
 
 
 		}
-	}
-	//
-	//
-	//
-	//		if(Start_game==true) {
-	//
-	//			Graphics2D g2 = (Graphics2D)g;
-	//
-	//			g2.setStroke(new BasicStroke(3));
-	//
-	//			ShortestPathAlgo algo = new ShortestPathAlgo(myGame);
+	
+	
+				if(drwaline = true) {
+					
+					Graphics2D g2 = (Graphics2D)g;
+					
+					g2.setStroke(new BasicStroke(3));
+					
+					
+				}
+	}	
+
 	//
 	//
 	//			if(myGame.Packman_arr.size()== 1) {
