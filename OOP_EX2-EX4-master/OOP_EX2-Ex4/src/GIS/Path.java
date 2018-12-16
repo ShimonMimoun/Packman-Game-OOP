@@ -3,7 +3,6 @@ package GIS;
 import java.util.ArrayList;
 
 import Coords.Map;
-import Coords.MyCoords;
 import Geom.Point3D;
 
 public class Path{
@@ -70,11 +69,11 @@ public class Path{
 		
 	double dt = p1.getPath().getTheTime(); // the time from (x1,y1) to (x2,y2) example: 300.
 	
-	double Vx = p1.getPoint().x()/dt;
-	double Vy = p1.getPoint().y()/dt;
+	double Vx = p1.getPoint().x()/dt+0.05;
+	double Vy = p1.getPoint().y()/dt+0.05;
 	
-	double xt = p1.getPoint().x()+Vx*(f1.getFruitPoint().x()-p1.getPoint().x())*t;
-	double yt= p1.getPoint().y()+Vy*(f1.getFruitPoint().y()-p1.getPoint().y())*t;
+	double xt = p1.getPoint().x()+Vx*(f1.getFruitPoint().x()-p1.getPoint().x());
+	double yt= p1.getPoint().y()+Vy*(f1.getFruitPoint().y()-p1.getPoint().y());
 	return new Point3D(xt,yt);
 	
 	}

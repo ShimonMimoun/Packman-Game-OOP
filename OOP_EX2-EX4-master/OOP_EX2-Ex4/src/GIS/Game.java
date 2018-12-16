@@ -205,7 +205,7 @@ public class Game {
 		for (int i = 0; i < my_fruit.size(); i++) 
 		{
 			int temp=0;
-
+			
 			String kmlelement ="<Placemark>\n" +
 					"<name><![CDATA[ FRUIT  "+(i)+"]]></name>\n" +
 					"<description>"+
@@ -219,17 +219,18 @@ public class Game {
 
 						+"]]></description>\n" +
 						"<TimeStamp>\r\n" + 
-						"        <when>>2018-11-14T21:05:0"+(i+1)+"Z</when>\r\n" + 
+						"        <when>2018-11-14T21:05:0"+(i+1)+"Z</when>\r\n" + 
 						"      </TimeStamp>"+
 						"<styleUrl>#Fruit</styleUrl>"+
 						"<Point>\n" +
-						"<coordinates>"+Fruits_arr.get(i).getFruitPoint().y()+","+Fruits_arr.get(i).getFruitPoint().x()+"</coordinates>" +
+						"<coordinates>"+my_fruit.get(i).getFruitPoint().y()+","+my_fruit.get(i).getFruitPoint().x()+"</coordinates>" +
 						"</Point>\n" +
 						"</Placemark>\n";
 
 
 
-			content.add(kmlelement);
+			content.add(kmlelement);			
+
 		
 				String kmlelement2 ="<Placemark>\n" +
 						"<name><![CDATA[ PACKMAN "+temp+"]]></name>\n" +
@@ -250,7 +251,7 @@ public class Game {
 						"      </TimeStamp>"+
 						"<styleUrl>#Packman</styleUrl>"+
 						"<Point>\n" +
-						"<coordinates>"+Fruits_arr.get(i).getFruitPoint().y()+","+Fruits_arr.get(i).getFruitPoint().x()+"</coordinates>" +
+						"<coordinates>"+my_fruit.get(i).getFruitPoint().y()+","+my_fruit.get(i).getFruitPoint().x()+"</coordinates>" +
 						"</Point>\n" +
 						"</Placemark>\n";
 
