@@ -138,7 +138,7 @@ public class ShortestPathAlgo {
 		return myPackmens;
 	}
 
-	public ArrayList<Packman> Algomulti (ArrayList<Packman> myPackmans , ArrayList<Fruit>myFurits) {
+	private ArrayList<Packman> Algomulti (ArrayList<Packman> myPackmans , ArrayList<Fruit>myFurits) {
 		Path myPath = new Path();
 		if(myFurits.isEmpty()) {
 			return myPackmans;
