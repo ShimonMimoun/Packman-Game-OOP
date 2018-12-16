@@ -142,28 +142,71 @@ public class MyFarme extends JFrame implements MouseListener
 
 		runItem.addActionListener(new ActionListener() {
 			@Override
+
 			public void actionPerformed(ActionEvent e) {
 				if(myGame.Packman_arr.size() >0 && myGame.Fruits_arr.size() > 0 ) {
 					Start_game=true;
 
-					double	x1=(int)(myGame.Packman_arr.get(0).getPoint().x()*getWidth());
-					double y1=(int)(myGame.Packman_arr.get(0).getPoint().y()*getHeight());	
 					isGamer=2;
 
-					for (double i = 0; i < 0.0005; i=i+0.00001) {
+					if(myGame.Packman_arr.size() == 1) {
 
-						myGame.Packman_arr.get(0).setPackLocation(new Point3D((x1/getWidth())+i,(y1/getWidth())+i));
-
-
-						repaint();
 
 					}
 
 				}
+
 			}
 
-		});
 
+		});
+		
+		private void  packSmiulation() {
+			Thread thread = new Thread() {
+				@Override
+				public void run(){
+
+					ShortestPathAlgo algo = new ShortestPathAlgo(myGame);
+
+					Path path = algo.algoSinglePackman(myGame.Packman_arr.get(0));
+					myGame.Fruits_arr = path.TheCurrentPath();
+
+
+					double theTime = path.CalTime2Points(myGame.Packman_arr.get(0), myGame.Fruits_arr.get(0)); 
+					myGame.Packman_arr.get(0).getPath().setTheTotalTime(theTime);
+
+					for (int i = 0; i < Fruits_arr.size(); i++) {
+
+						theTime = path.CalTime2Points(myGame.Packman_arr.get(0), myGame.Fruits_arr.get(i)); 
+						myGame.Packman_arr.get(0).getPath().setTheTotalTime(theTime);
+						System.out.println("i is: "+i);
+
+						for (int j = 0; j < theTime; j++) {
+							Point3D ans = path.theNextPoint(myGame.Packman_arr.get(0),myGame.Fruits_arr.get(i) , j);
+							myGame.Packman_arr.get(0).setPackLocation(ans);
+							repaint();
+
+							if(myGame.Packman_arr.get(0).getPath().CalTime2Points(myGame.Packman_arr.get(0), myGame.Fruits_arr.get(i)) <= 0) {
+								continue;
+							}
+							try {
+								sleep(50);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+
+					}
+
+
+
+
+				}
+			};
+			thread.start();
+		}
+	
 
 
 		reload_item.addActionListener(new ActionListener() {
@@ -371,22 +414,10 @@ public class MyFarme extends JFrame implements MouseListener
 
 
 					myGame.setfile_directory(selectedFile.getAbsolutePath());
-					
-					Path path = new Path();
-					
-					double theTime = path.CalTime2Points(myGame.Packman_arr.get(0), myGame.Fruits_arr.get(0)); 
-					myGame.Packman_arr.get(0).getPath().setTheTotalTime(theTime);
-					for (int i = 0; i < myGame.Fruits_arr.size(); i++) {
-						
-						for (int j = 0; j < theTime; j++) {
-						Point3D ans =path.theNextPoint(myGame.Packman_arr.get(0),myGame.Fruits_arr.get(i) , 10);
-						myGame.Packman_arr.get(0).setPackLocation(ans);
-							System.out.println(ans.toString());
-						}
-						
-					}
-					
-					
+
+
+
+
 					try {
 						myGame.save_to_kml();
 					} catch (FileNotFoundException e1) {
@@ -422,21 +453,13 @@ public class MyFarme extends JFrame implements MouseListener
 
 			}
 		}
-		for (int j=0; j<myGame.Packman_arr.size(); j++) 
-		{
-
+		for (int j=0; j<myGame.Packman_arr.size(); j++) {
 
 			x1=(myGame.Packman_arr.get(j).getPoint().x()*getWidth());
 			y1=(myGame.Packman_arr.get(j).getPoint().y()*getHeight());	
 
 			g.drawImage(packimage, (int)x1-6,(int) y1-7,30, 30, null);
 
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 
 		}
 	}
@@ -454,8 +477,8 @@ public class MyFarme extends JFrame implements MouseListener
 	//
 	//			if(myGame.Packman_arr.size()== 1) {
 	//
-	//				Path p = algo.algoSinglePackman(myGame.Packman_arr.get(0));
-	//				myGame.Fruits_arr = p.TheCurrentPath();
+	//					Path p = algo.algoSinglePackman(myGame.Packman_arr.get(0));
+	//					myGame.Fruits_arr = p.TheCurrentPath();
 	//
 	//				Thread thread = new Thread("New Thread") {
 	//					public void run(){
