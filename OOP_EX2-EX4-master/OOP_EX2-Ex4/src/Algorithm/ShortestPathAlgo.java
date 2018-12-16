@@ -10,27 +10,39 @@ import GIS.Game;
 import GIS.Packman;
 import GIS.Path;
 
-
+/**
+ * This class manages our algorithms that know how to find the best way for my Packman
+ * There are several different methods depending on the quantity of packmans and the speed.
+ * Example Algo Details: https://fr.wikipedia.org/wiki/Algorithme_glouton
+ * @author Omer Paz and Shimon Mimoun
+ */
 public class ShortestPathAlgo {
 
-	ArrayList<Fruit> fruits = new ArrayList<>();
-	ArrayList<Packman> Packmans = new ArrayList<>();
-	distance_Comperator calDis = new distance_Comperator();
-	Map themap = new Map();
+	private ArrayList<Fruit> fruits = new ArrayList<>(); // Arraylist of fruit
+	private ArrayList<Packman> Packmans = new ArrayList<>();//Arraylist of Packman 
+	private distance_Comperator calDis = new distance_Comperator();// Call to the Comparator 
+	private Map themap = new Map();// create a Map object
 
 
-
+/**
+ * Contractor of ShortestPathAlgo Who receives Game Object
+ * @param theGame Object Game receiv 
+ */
 	public ShortestPathAlgo(Game theGame) {	
 
 		
 		ArrayList<Fruit> clone = new ArrayList<Fruit>(theGame.Fruits_arr.size());  for (Fruit item : theGame.Fruits_arr) clone.add(item);
-		this.fruits = clone;
-		
-		
+		this.fruits = clone;	//Create a new fruit for not to overwrite Game data later
 		this.Packmans = theGame.Packman_arr;
 	}
 
-
+/**
+ * Algorithm that rolls for only a Pac-Man.
+ * Detail: www.101computing.net/pacman-ghost-algorith
+ * @param oriPackman Receiv Pac_man 
+ * @return Path with the arraylist sort according to my best Path
+ * 
+ */
 	public Path algoSinglePackman(Packman oriPackman){
 		ArrayList<Fruit> Tempfruits = this.fruits;
 
@@ -62,7 +74,12 @@ public class ShortestPathAlgo {
 		
 
 	}
-	
+	/**
+	 * Help function that calculates the closest distance between a packman and fruits
+	 * @param packman Receiv Packman Only
+	 * @param myFurits Arraylist in Fruits 
+	 * @return
+	 */
 	public Path calFastDisOnePack (Packman packman, ArrayList<Fruit> myFurits) {
 
 		if (myFurits.isEmpty()) {
