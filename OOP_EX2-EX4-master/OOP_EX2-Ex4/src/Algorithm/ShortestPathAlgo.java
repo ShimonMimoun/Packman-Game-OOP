@@ -263,7 +263,7 @@ public class ShortestPathAlgo {
 
 /**
  * Calculate the index of the furit.
- * @param furit Receiv Fruit of ArrayList
+ * @param fruit Receiv Fruit of ArrayList
  * @param myFurits ArrayList contain The "fruit"
  * @return Index of Fruit (if no found return -1)
  */

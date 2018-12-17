@@ -59,7 +59,7 @@ public class MyFarme extends JFrame implements MouseListener
 	private int isGamer=0;// if is Gamer==1 --> Fruit :::: if is Gamer == -1 --> Packman 
 	private boolean Start_game=false;
 	public boolean drwaline = false;
-	private ArrayList<Packman> test=new ArrayList<>();
+	public ArrayList<Packman> ArrayTemp=new ArrayList<>();
 	Path TheCloserPackman;
 
 
@@ -85,9 +85,9 @@ public class MyFarme extends JFrame implements MouseListener
 		Menu OptionMenu = new Menu("File"); 
 		menuBarOption.add(OptionMenu);
 		MenuItem runItem = new MenuItem("Run");
-		MenuItem reload_item = new MenuItem("Reload");
+		//MenuItem reload_item = new MenuItem("Reload");
 		OptionMenu.add(runItem);
-		OptionMenu.add(reload_item);
+		//OptionMenu.add(reload_item);
 		MenuItem exit = new MenuItem("Exit");
 		OptionMenu.add(exit);
 
@@ -147,11 +147,11 @@ public class MyFarme extends JFrame implements MouseListener
 			public void actionPerformed(ActionEvent e) {
 				if(myGame.Packman_arr.size() >0 && myGame.Fruits_arr.size() > 0 ) {
 					Start_game=true;
-
+					drwaline = true;
 					isGamer=2;
 						for (int i = 0; i < Packman_arr.size(); i++) {
-							test.add(new Packman(Packman_arr.get(i)));
-							test.get(i).getPath().setPath(Packman_arr.get(i).getPath().TheCurrentPath());
+							ArrayTemp.add(new Packman(Packman_arr.get(i)));
+							ArrayTemp.get(i).getPath().setPath(Packman_arr.get(i).getPath().TheCurrentPath());
 						}
 
 					packSmiulation();
@@ -167,24 +167,24 @@ public class MyFarme extends JFrame implements MouseListener
 
 
 
-		reload_item.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-
-				theMap = new Map();
-				ArrayList<Packman> Packman_arr = new ArrayList<>();
-				ArrayList<Fruit> Fruits_arr = new ArrayList<>();
-				myGame=new Game(null,null);
-				myGame.Packman_arr = Packman_arr;
-				myGame.Fruits_arr =Fruits_arr;
-				test = myGame.Packman_arr;
-				isGamer=0;
-				Start_game=false;
-				new MyFarme();
-				repaint();
-			}
-		});
+//		reload_item.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//
+//
+//				theMap = new Map();
+//				ArrayList<Packman> Packman_arr = new ArrayList<>();
+//				ArrayList<Fruit> Fruits_arr = new ArrayList<>();
+//				myGame=new Game(null,null);
+//				myGame.Packman_arr = Packman_arr;
+//				myGame.Fruits_arr =Fruits_arr;
+//				isGamer=0;
+//				Start_game=false;
+//				drwaline = false;
+//				new MyFarme();
+//				repaint();
+//			}
+//		});
 
 
 
@@ -397,7 +397,6 @@ public class MyFarme extends JFrame implements MouseListener
 		ArrayList<Packman> myPackmens = new ArrayList<>();
 
 		ShortestPathAlgo algo = new ShortestPathAlgo(myGame);
-		drwaline = true;
 		if(myGame.Packman_arr.size() == 1) {
 			myPackmens = myGame.Packman_arr;
 			Path p = algo.algoSinglePackman(myPackmens.get(0));
@@ -492,9 +491,9 @@ public class MyFarme extends JFrame implements MouseListener
 		if(drwaline == true) {
 			
 			
-				for(Packman pack : test) {
+				for(Packman pack : ArrayTemp) {
 					
-					if (test.size()==1)
+					if (ArrayTemp.size()==1)
 					{
 						double x1_ =  pack.getPoint().x();
 						double y1_ =  pack.getPoint().y();
@@ -542,7 +541,6 @@ public class MyFarme extends JFrame implements MouseListener
 					}
 
 				}
-				
 			}
 			
 
