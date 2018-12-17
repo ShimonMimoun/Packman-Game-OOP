@@ -7,7 +7,11 @@ import org.junit.jupiter.api.Test;
 
 import Coords.MyCoords;
 import Geom.Point3D;
-
+/**
+ * Test of My_Coords
+ * @author Mimoun Shimon and Omer Paz
+ *
+ */
 class MyCoordsTest extends MyCoords {
 
 	MyCoords mc;

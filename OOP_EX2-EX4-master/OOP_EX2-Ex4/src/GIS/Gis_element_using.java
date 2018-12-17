@@ -1,7 +1,5 @@
 package GIS;
 
-import java.util.Collection;
-
 import Coords.MyCoords;
 import Geom.Geom_element;
 import Geom.Point3D;

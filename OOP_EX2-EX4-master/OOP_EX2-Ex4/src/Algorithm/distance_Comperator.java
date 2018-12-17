@@ -2,9 +2,6 @@ package Algorithm;
 
 import java.util.Comparator;
 
-import GIS.Fruit;
-import GIS.Packman;
-
 
 /**
  * This class aims to implement Construction in order to create a constractor according to our usefulness

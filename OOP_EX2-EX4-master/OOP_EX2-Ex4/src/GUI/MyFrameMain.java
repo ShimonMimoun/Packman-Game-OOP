@@ -2,7 +2,10 @@ package GUI;
 
 import javax.swing.JFrame;
 
-
+/**
+ * Main function that launches my GUI program
+ * @author Mimoun Shimon and Omer paz 
+ */
 public class MyFrameMain 
 {
 	public static void main(String[] args)

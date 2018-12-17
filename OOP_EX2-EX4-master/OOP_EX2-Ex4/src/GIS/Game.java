@@ -13,6 +13,14 @@ import Algorithm.ShortestPathAlgo;
 import Coords.Map;
 import File_format.csv2kml;
 import Geom.Point3D;
+
+/**
+ * This class represents the function that manages the games (pacmans, fruits ..)
+ * It has many features.
+ * @author Mimoun Shimon and Omer Paz
+ *
+ */
+
 public class Game {
 
 	public  ArrayList<Packman> Packman_arr = new ArrayList<>();
@@ -22,17 +30,28 @@ public class Game {
 
 
 
-
+/**
+ * Constractor
+ * @param p Receiv Packman
+ * @param f Receiv Fruit
+ */
 
 	public Game(ArrayList<Packman> p , ArrayList<Fruit> f) {
 		this.Packman_arr = p;
 		this.Fruits_arr = f;
 
 	}
-
+/**
+ * Getter Method
+ * @return  a Directory of file
+ */
 	public String getDiractroy() {
 		return this.file_directory;
 	}
+	/**
+	 * Setter Method
+	 * @param file_directory  Receiv a new file directory
+	 */
 	public void setfile_directory(String file_directory) {
 		this.file_directory = file_directory;
 	}

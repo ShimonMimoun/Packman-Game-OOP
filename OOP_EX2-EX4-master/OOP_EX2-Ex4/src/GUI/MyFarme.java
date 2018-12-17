@@ -33,7 +33,13 @@ import GIS.Packman;
 import GIS.Path;
 import Geom.Point3D;
 
-
+/**
+ * This Class manages the graphical representation of the entire program.
+ * the class is an implements of MouseListener is an extents of JFrame.
+ * More: http://www.ntu.edu.sg/home/ehchua/programming/java/j4a_gui.html
+ * @author Mimoun Shimon and Omer Paz
+ *
+ */
 public class MyFarme extends JFrame implements MouseListener
 {
 	/**
@@ -57,7 +63,7 @@ public class MyFarme extends JFrame implements MouseListener
 	public  ArrayList<Fruit> Fruits_arr = new ArrayList<>();
 	private Game myGame=new Game(Packman_arr, Fruits_arr);
 	private int isGamer=0;// if is Gamer==1 --> Fruit :::: if is Gamer == -1 --> Packman 
-	private boolean Start_game=false;
+	public boolean Start_game=false;
 	public boolean drwaline = false;
 	private ArrayList<Packman> test=new ArrayList<>();
 	Path TheCloserPackman;
@@ -392,7 +398,6 @@ public class MyFarme extends JFrame implements MouseListener
 		});
 
 	}
-
 	private void  packSmiulation() {
 		ArrayList<Packman> myPackmens = new ArrayList<>();
 
@@ -552,7 +557,7 @@ public class MyFarme extends JFrame implements MouseListener
 
 
 
-
+	@Override
 	public void mouseClicked(MouseEvent arg) {
 
 		double x_temp=arg.getX();
@@ -584,7 +589,7 @@ public class MyFarme extends JFrame implements MouseListener
 	}
 
 
-
+	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
