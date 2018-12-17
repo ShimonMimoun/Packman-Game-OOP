@@ -78,7 +78,7 @@ public class ShortestPathAlgo {
 	 * Help function that calculates the closest distance between a packman and fruits
 	 * @param packman Receiv Packman Only
 	 * @param myFurits Arraylist in Fruits 
-	 * @return
+	 * @return the Path the most suitable
 	 */
 	public Path calFastDisOnePack (Packman packman, ArrayList<Fruit> myFurits) {
 
