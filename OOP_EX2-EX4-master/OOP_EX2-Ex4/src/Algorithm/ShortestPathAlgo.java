@@ -94,7 +94,7 @@ public class ShortestPathAlgo {
 		return calFastDisOnePack(packman,myFurits);
 
 
-	}
+	}d
 	
 	public Path disAlgo(Packman packman, ArrayList<Fruit> myFurits) {
 		
