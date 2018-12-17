@@ -2,6 +2,12 @@ package Coords;
 
 import Geom.Point3D;
 
+
+/**
+ * This Class contains the Main function, which aims to test the functions of Mycoords
+ * @author Mimoun Shimon and Omer Paz 
+ *
+ */
 public class test {
 
 
