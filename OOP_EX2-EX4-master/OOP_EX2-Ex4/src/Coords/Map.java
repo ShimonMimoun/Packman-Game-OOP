@@ -10,7 +10,7 @@ import Geom.Point3D;
  */
 public class Map {
 	
-									 //y		//x
+									
 	private Point3D leftUp;
 	private Point3D RightDown;
 	private double x_length;

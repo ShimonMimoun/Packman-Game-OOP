@@ -1,6 +1,12 @@
 package Geom;
 
 import java.io.Serializable;
+/**
+ * This class represents a Point3D and any methods it may need as a Point
+ * more:https://docs.oracle.com/cd/E17802_01/j2se/javase/technologies/desktop/java3d/forDevelopers/J3D_1_3_API/j3dapi/javax/vecmath/Point3d.html
+ * @author Mimoun Shimon and Omer Paz
+ *
+ */
 public class Point3D implements Geom_element, Serializable 
 {
 	/**
@@ -9,25 +15,50 @@ public class Point3D implements Geom_element, Serializable
 	private static final long serialVersionUID = 1L;
 	private double _x,_y,_z;
 	public static final int RADUIS_EARTH = 6371000;
-
+	
+	/**
+	 * Constractor in 3 coordinates
+	 * @param x the X Point
+	 * @param y the Y Point
+	 * @param z the Z Point
+	 */
 	public Point3D(double x,double y,double z) 
 	{
 		_x=x;
 		_y=y;
 		_z=z;
 	}
+	/**
+	 * Constractor 
+	 * @param lat Latitude GPS
+	 * @param lon Longitude GPS
+	 * @param AltitudeMeters Altitude GPS
+	 */
 	public Point3D(String lat , String lon , String AltitudeMeters) {
 		String_2_Point3D(lat, lon ,AltitudeMeters);
 	}
 
+	/**
+	 * Copy Constractor
+	 * @param p receiv Point3D
+	 */
 	public Point3D(Point3D p) 
 	{
 		_x=p.x();
 		_y=p.y();
 		_z=p.z();
 	}
+	/**
+	 * Constractor in 2 coordinates
+	 * @param x The X Point
+	 * @param y The Y Point
+	 */
 	public Point3D(double x,double y) 
 	{this(x,y,0);}
+	/**
+	 * Constractor in String
+	 * @param s Receiv String Points
+	 */
 	public Point3D(String s) {
 		String[] a = s.split(",");
 		_x = Double.parseDouble(a[0]);
@@ -38,29 +69,77 @@ public class Point3D implements Geom_element, Serializable
 	////////////////////////////       methods        /////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 
-
+	/**
+	 * Return Values of x 
+	 * @return The value of X
+	 */
 	public double x() {return _x;}
+	/**
+	 * Return Values of Y
+	 * @return The value of Y
+	 */
 	public double y() {return _y;}
+	/**
+	 * Return Values of Z 
+	 * @return The value of Z
+	 */
 	public double z() {return _z;}
+	/**
+	 * Return Values of x in Casting to int
+	 * @return The value of X
+	 */
 	public int ix() {return (int)_x;}
+	/**
+	 * Return Values of Y in Casting to int
+	 * @return The value of Y
+	 */
 	public int iy() {return (int)_y;}
+	/**
+	 * Return Values of Z in Casting to int
+	 * @return The value of Z
+	 */
 	public int iz() {return (int)_z;}
-
+/**
+ * Methode add Point 
+ * @param p Point 3D to add
+ */
 	public void add(Point3D p) { add(p._x,p._y,p._z);}
+	/**
+	 * Methode add X,Y,Z
+	 * @param dx the x Point
+	 * @param dy the y Point
+	 * @param dz the z Point
+	 */
 	public void add(double dx, double dy, double dz) {
 		_x+=dx;_y+=dy;_z+=dz;
 	}
+	/**
+	 * Methode add X,Y
+	 * @param x the x Point
+	 * @param y the y Point
+	 */
 	public void add(double x, double y){this.add(x,y,0);}
-
+/**
+ * Methode toString To Print the Object 
+ * for Example Point3D test: test.toString --> "100,500,30"
+ */
 	public String toString() 
 	{
 		return ""+_x+","+_y+","+_z;
 	}
+	
 	public double distance2D(Point3D p2) { 
 		return this.distance3D(p2.x(), p2.y(), this.z());
 	}
 	public double distance3D(Point3D p2) {
 		return this.distance3D(p2.x(), p2.y(), p2.z());}
+	/**
+	 * Distance between Two Point3D in 3 Coordinates
+	 * @param x the X Point
+ 	 * @param y the Y Point
+	 * @param z the Z Point
+	 * @return
+	 */
 	public double distance3D(double x, double y , double z)
 	{
 		double dx = _x-x;
@@ -69,20 +148,42 @@ public class Point3D implements Geom_element, Serializable
 		double t = dx*dx+dy*dy+dz*dz;
 		return Math.sqrt(t);
 	}
-
+/**
+ * Check in Two Point3D are equal (3 Coordinates)
+ * @param p2 Point 3D to be compared
+ * @return True if equals, False if no equal
+ */
 	public boolean equals(Point3D p2)
 	{
 		return ( (_x==p2._x) && (_y==p2._y) && (_z==p2._z) );
 	}
+	/**
+	 * Check in Distance Between two Point3D are bigger distance
+	 * @param p2  Point 3D to be compared
+	 * @param dist distance to compare
+	 * @return True if equal , false if no equal 
+	 */
 	public boolean close2equals(Point3D p2, double dist)
 	{
 		return ( this.distance3D(p2)< dist );
 	}
+	/**
+	 * Check in Two Point3D are equal (2 Coordinates)
+	 * @param p2 Point 3D to be compared
+	 * @return True if equals, False if no equal
+	 */
 	public boolean equalsXY (Point3D p)
 	{return p._x == _x && p._y == _y;}
 
+	/**
+	 * Export to File the Point3D (2 Coordinates)
+	 * @return A file ready
+	 */
 	public String toFile()  {return _x+","+_y+","+_z;}
-
+	/**
+	 * Export to File the Point3D (3 Coordinates)
+	 * @return A file ready
+	 */
 	public String toFile1()  {return "Point3D "+_x+" "+_y+" "+_z;}
 
 	////////////////////////////////////////////////////////////////////////////////////////
@@ -110,23 +211,11 @@ public class Point3D implements Geom_element, Serializable
 	}
 
 
-	/** pointLineTest <br>
-	test the following location of a point regards a line segment - all in 2D projection.<br><br>
-
-	ONSEGMENT:  �����a----+----b������                              <br> <br>
-
-	           +       +        +                              <br>
-	LEFT:	 �����a---------b������                              <br> <br>
-
-
-	RIGHT:	 �����a---------b������                              <br>
-    		   +      +        +                              <br> <br>
-
-	INFRONTOFA:  ��+��a---------b������                              <br>
-        BEHINDB:  �����a---------b����+�                              <br>
-	ERROR: a==b || a==null || b == null;                               <br>
-	 */
-
+/**
+ * Return A Line betwenn two Point3D
+ * @param a First Point
+ * @param b second Point
+ */
 	public int pointLineTest(Point3D a, Point3D b) {
 
 		if(a== null || b==null || a.equalsXY(b)) return ERROR;
@@ -238,6 +327,10 @@ public class Point3D implements Geom_element, Serializable
 
 	}
 	/// Convert Functions \\\
+	/**
+	 * Convert Point3D Cartesien to Gps
+	 * @return Point GPS
+	 */
 	public Point3D ConvertToGps() {		
 
 		double x=Math.asin(_z/RADUIS_EARTH)*180/Math.PI;
@@ -246,7 +339,10 @@ public class Point3D implements Geom_element, Serializable
 		return new Point3D (x,y,r);
 		
 	}
-
+/**
+ * Convert Point3D Gps To Cartesian 
+ * @return Point Cartesian
+ */
 	public Point3D ConvertToCartesian() {
 
 
@@ -257,7 +353,12 @@ public class Point3D implements Geom_element, Serializable
 
 		return new Point3D(Gps_x,Gps_y,Gps_z);
 	}
-	
+	/**
+	 * Casting String to Points 
+	 * @param lat Point String Latitude
+	 * @param lon Point String Lontitude
+	 * @param AltitudeMeters Point String Altitude 
+	 */
 	public void String_2_Point3D(String lat , String lon , String AltitudeMeters) {
 
 		_x = Double.parseDouble(lat);
