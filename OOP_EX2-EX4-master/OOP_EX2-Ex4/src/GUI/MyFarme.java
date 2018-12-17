@@ -401,6 +401,7 @@ public class MyFarme extends JFrame implements MouseListener
 		if(myGame.Packman_arr.size() == 1) {
 			myPackmens = myGame.Packman_arr;
 			Path p = algo.algoSinglePackman(myPackmens.get(0));
+			Fruits_arr=p.TheCurrentPath();
 			myPackmens.get(0).getPath().setPath(p.TheCurrentPath());
 			myPackmens.get(0).getPath().setTheTotalTime(p.getTheTime());
 		}
@@ -491,29 +492,54 @@ public class MyFarme extends JFrame implements MouseListener
 		if(drwaline == true) {
 			
 			
-				for(Packman pack : Packman_arr) {
-
-					double x1_ =  test.get(0).getPoint().x();
-					double y1_ =  test.get(0).getPoint().x();
-					double x2_ =  pack.getPath().TheCurrentPath().get(0).getFruitPoint().x();
-					double y2_ =  pack.getPath().TheCurrentPath().get(0).getFruitPoint().y();
-
-					g.setColor(Color.orange);
-					g.drawLine((int)(x1_*getWidth()), (int)(y1_*getHeight()),(int)(x2_*getWidth()), (int)(y2_*getHeight()));
-
+				for(Packman pack : test) {
 					
-					for (int i = 0; i < pack.getPath().TheCurrentPath().size()-1; i++) {
-
-						x1 =  pack.getPath().TheCurrentPath().get(i).getFruitPoint().x();
-						y1 =  pack.getPath().TheCurrentPath().get(i).getFruitPoint().y();
-						x2 =  pack.getPath().TheCurrentPath().get(i+1).getFruitPoint().x();
-						y2 =  pack.getPath().TheCurrentPath().get(i+1).getFruitPoint().y();
+					if (test.size()==1)
+					{
+						double x1_ =  pack.getPoint().x();
+						double y1_ =  pack.getPoint().y();
+						double x2_ =  Fruits_arr.get(0).getFruitPoint().x();
+						double y2_ =  Fruits_arr.get(0).getFruitPoint().y();
 
 						g.setColor(Color.orange);
-						g.drawLine((int)(x1*getWidth()), (int)(y1*getHeight()),(int)(x2*getWidth()), (int)(y2*getHeight()));	
+						g.drawLine((int)(x1_*getWidth()), (int)(y1_*getHeight()),(int)(x2_*getWidth()), (int)(y2_*getHeight()));
 
+						
+						for (int i = 1; i < Fruits_arr.size(); i++) {
+
+							x1 =  Fruits_arr.get(i).getFruitPoint().x();
+							y1 =  Fruits_arr.get(i).getFruitPoint().y();
+							x2 =  Fruits_arr.get(i-1).getFruitPoint().x();
+							y2 =  Fruits_arr.get(i-1).getFruitPoint().y();
+
+							g.setColor(Color.orange);
+							g.drawLine((int)(x1*getWidth()), (int)(y1*getHeight()),(int)(x2*getWidth()), (int)(y2*getHeight()));	
+
+						}
 					}
+					
+					if(pack.getPath().TheCurrentPath().size() != 0) {
+						double x1_ =  pack.getPoint().x();
+						double y1_ =  pack.getPoint().y();
+						double x2_ =  pack.getPath().TheCurrentPath().get(0).getFruitPoint().x();
+						double y2_ =  pack.getPath().TheCurrentPath().get(0).getFruitPoint().y();
 
+						g.setColor(Color.orange);
+						g.drawLine((int)(x1_*getWidth()), (int)(y1_*getHeight()),(int)(x2_*getWidth()), (int)(y2_*getHeight()));
+
+						
+						for (int i = 1; i < pack.getPath().TheCurrentPath().size(); i++) {
+
+							x1 =  pack.getPath().TheCurrentPath().get(i).getFruitPoint().x();
+							y1 =  pack.getPath().TheCurrentPath().get(i).getFruitPoint().y();
+							x2 =  pack.getPath().TheCurrentPath().get(i-1).getFruitPoint().x();
+							y2 =  pack.getPath().TheCurrentPath().get(i-1).getFruitPoint().y();
+
+							g.setColor(Color.orange);
+							g.drawLine((int)(x1*getWidth()), (int)(y1*getHeight()),(int)(x2*getWidth()), (int)(y2*getHeight()));	
+
+						}
+					}
 
 				}
 				
