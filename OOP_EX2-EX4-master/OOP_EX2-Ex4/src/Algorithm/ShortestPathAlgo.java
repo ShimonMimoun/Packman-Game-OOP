@@ -24,39 +24,39 @@ public class ShortestPathAlgo {
 	private Map themap = new Map();// create a Map object
 
 
-/**
- * Contractor of ShortestPathAlgo Who receives Game Object
- * @param theGame Object Game receiv 
- */
+	/**
+	 * Contractor of ShortestPathAlgo Who receives Game Object
+	 * @param theGame Object Game receiv 
+	 */
 	public ShortestPathAlgo(Game theGame) {	
 
-		
+
 		ArrayList<Fruit> clone = new ArrayList<Fruit>(theGame.Fruits_arr.size());  for (Fruit item : theGame.Fruits_arr) clone.add(item);
 		this.fruits = clone;	//Create a new fruit for not to overwrite Game data later
 		this.Packmans = theGame.Packman_arr;
 	}
 
-/**
- * Algorithm that rolls for only a Pac-Man.
- * Detail: www.101computing.net/pacman-ghost-algorith
- * @param oriPackman Receiv Pac_man 
- * @return Path with the arraylist sort according to my best Path
- * 
- */
+	/**
+	 * Algorithm that rolls for only a Pac-Man.
+	 * Detail: www.101computing.net/pacman-ghost-algorith
+	 * @param oriPackman Receiv Pac_man 
+	 * @return Path with the arraylist sort according to my best Path
+	 * 
+	 */
 	public Path algoSinglePackman(Packman oriPackman){
 		ArrayList<Fruit> Tempfruits = this.fruits;
 
 		Packman tempPackman = new Packman(oriPackman.getPoint(),oriPackman.getSpeed(),oriPackman.getradius());
 		Path Dis = disAlgo(tempPackman,Tempfruits);
 		Path p = calFastDisOnePack(tempPackman, Tempfruits);
-		
+
 		oriPackman.getPath().setPath(Dis.TheCurrentPath());	
 		double timeFor1 = Dis.CalPathTime(oriPackman);
-		
+
 		oriPackman.getPath().setPath(p.TheCurrentPath());
 		double timeFor2 = p.CalPathTime(oriPackman);
 
-		
+
 		if(timeFor1 <= timeFor2) {
 			oriPackman.getPath().setPath(Dis.TheCurrentPath());	
 			oriPackman.getPath().setTheTotalTime(timeFor1);
@@ -71,7 +71,7 @@ public class ShortestPathAlgo {
 
 		}
 
-		
+
 
 	}
 	/**
@@ -94,22 +94,27 @@ public class ShortestPathAlgo {
 		return calFastDisOnePack(packman,myFurits);
 
 
-	}d
-	
+	}
+	/**
+	 * Method that calculates the distance between a pacman and each fruit
+	 * @param packman a single Packman on which we will calculate the distance
+	 * @param myFurits Fruit list
+	 * @return Path with distance add
+	 */
 	public Path disAlgo(Packman packman, ArrayList<Fruit> myFurits) {
-		
+
 		ArrayList<Double> SortPathByDis = new ArrayList<>();
 		Path ans = new Path();
-		
+
 		for (int i = 0; i < myFurits.size(); i++) {
 			double temp = themap.distancePixels(packman.getPoint(), myFurits.get(i).getFruitPoint());
 			SortPathByDis.add(temp);
 		}
 		SortPathByDis.sort(calDis);
 		double temp;
-		
+
 		for (int i = 0; i < SortPathByDis.size(); i++) {
-			
+
 			for (int j = 0; j < myFurits.size(); j++) {
 				temp = themap.distancePixels(packman.getPoint(), myFurits.get(j).getFruitPoint());
 
@@ -117,15 +122,22 @@ public class ShortestPathAlgo {
 					ans.TheCurrentPath().add(myFurits.get(j));
 					break;
 				}
-				
-				
+
+
 			}
 		}
-					
+
 		return ans;
 	}
 
-
+	/**
+	 * Algorithm that calculates the course of several pacman and who know how to return:
+	 * what will be the course of each pacman to have the best time 
+	 * Fonction Help
+	 * 
+	 * @return Pacman's ArrayList to which will be added to each Pacman a path of the course he will perform
+	 * 
+	 */
 
 	public ArrayList<Packman> algoMultiPackmans (){
 		Path myPath = new Path();
@@ -138,13 +150,13 @@ public class ShortestPathAlgo {
 			ans.add(p);
 		}
 		myPackmens = Algomulti(myPackmens,myFurits);
-	
+
 		for (int i = 0; i < myPackmens.size(); i++) {
 			myPackmens.get(i).setPackLocation(ans.get(i).getPoint());	
 		}
 		double longestTime = myPath.CalPathTime(myPackmens.get(0));
 		double temp = 0;
-		
+
 		for (int i = 1; i < myPackmens.size(); i++) {
 			temp = myPath.CalPathTime(myPackmens.get(i));
 			if (temp > longestTime) {
@@ -155,16 +167,24 @@ public class ShortestPathAlgo {
 		return myPackmens;
 	}
 
+	/**
+	 * Algorithm that calculates the course of several pacman and who know how to return:
+	 * what will be the course of each pacman to have the best time 
+	 * @param myPackmans Get a Pacmans ArrayList
+	 * @param myFurits Get a Fruits ArrayList
+	 * @return Pacman's ArrayList to which will be added to each Pacman a path of the course he will perform
+	 */
+
 	private ArrayList<Packman> Algomulti (ArrayList<Packman> myPackmans , ArrayList<Fruit>myFurits) {
 		Path myPath = new Path();
 		if(myFurits.isEmpty()) {
 			return myPackmans;
 		}
-		
+
 		Packman thePackman = myPackmans.get(0);
 		Fruit theCloserFurit = TheCloserFurit(myPackmans.get(0),myFurits);
 		double FastTime = myPath.CalTime2Points(myPackmans.get(0),theCloserFurit);
-		
+
 		Packman tempPack;
 		Fruit tempFruit;
 		double tempTime = 0;
@@ -185,63 +205,77 @@ public class ShortestPathAlgo {
 		thePackman.getPath().TheCurrentPath().add(theCloserFurit);
 		thePackman.setPackLocation(theCloserFurit.getFruitPoint());
 		myFurits.remove(getIndexFurit(theCloserFurit, myFurits));
-	
-	return Algomulti(myPackmans ,myFurits);
 
-}
+		return Algomulti(myPackmans ,myFurits);
 
+	}
 
+/**
+ * method that calculates  the fastest point between a pac man and the path
+ * @param packman Receiv Pacman on which we will look for the fastest time
+ * @param myFurits ArrayList of Fruits on which we seek the fastest fruit of the Pac-Man
+ * @return The double time of the fastest route
+ */
 
- double FastSpeedToFriut(Packman packman ,ArrayList<Fruit> myFurits ) {
-	 Path p = new Path();
-	double fastTime = p.CalTime2Points(packman, myFurits.get(0));
-	double tempTime = 0;
+	double FastSpeedToFriut(Packman packman ,ArrayList<Fruit> myFurits ) {
+		Path p = new Path();
+		double fastTime = p.CalTime2Points(packman, myFurits.get(0));
+		double tempTime = 0;
 
-	for (int i = 1; i < myFurits.size(); i++) {
+		for (int i = 1; i < myFurits.size(); i++) {
 
-		tempTime = p.CalTime2Points(packman, myFurits.get(i));
+			tempTime = p.CalTime2Points(packman, myFurits.get(i));
 
-		if(tempTime <fastTime) {
-			fastTime = tempTime;
+			if(tempTime <fastTime) {
+				fastTime = tempTime;
+			}
+
+		}
+		return fastTime;
+
+	}
+/**
+ * Return the most closers furit to the packman
+ * @param packman Receiv Pacman on which we will look for the fastest Fruit
+ * @param myFurits ARraylist Of Fruit on wiche we seek the most closers PAcman
+ * @return a Fruit the most closers of PAcman
+ */
+	public Fruit TheCloserFurit(Packman packman,ArrayList<Fruit> myFurits) {
+		Path p = new Path();
+
+		double FastTime = p.CalTime2Points(packman,myFurits.get(0));
+		Fruit theMostCloser = myFurits.get(0);
+		double tempTime = 0;
+
+		for (int i = 1; i < myFurits.size(); i++) {
+			tempTime = p.CalTime2Points(packman, myFurits.get(i));
+
+			if(tempTime < FastTime)	{
+				FastTime = tempTime;
+				theMostCloser = myFurits.get(i);
+			}	
 		}
 
-	}
-	return fastTime;
-
-}
-
-// return the most cloers furit to the packman
-public Fruit TheCloserFurit(Packman packman,ArrayList<Fruit> myFurits) {
-	 Path p = new Path();
-
-	double FastTime = p.CalTime2Points(packman,myFurits.get(0));
-	Fruit theMostCloser = myFurits.get(0);
-	double tempTime = 0;
-
-	for (int i = 1; i < myFurits.size(); i++) {
-		tempTime = p.CalTime2Points(packman, myFurits.get(i));
-
-		if(tempTime < FastTime)	{
-			FastTime = tempTime;
-			theMostCloser = myFurits.get(i);
-		}	
+		return theMostCloser;
 	}
 
-	return theMostCloser;
-}
+/**
+ * Calculate the index of the furit.
+ * @param furit Receiv Fruit of ArrayList
+ * @param myFurits ArrayList contain The "fruit"
+ * @return Index of Fruit (if no found return -1)
+ */
+	public int getIndexFurit(Fruit furit , ArrayList<Fruit> myFurits) {
 
-//return the index of the furit.
-public int getIndexFurit(Fruit furit , ArrayList<Fruit> myFurits) {
+		for (int i = 0; i < myFurits.size(); i++) {
 
-	for (int i = 0; i < myFurits.size(); i++) {
+			if(furit.equals(myFurits.get(i))) {
+				return i;
+			}
 
-		if(furit.equals(myFurits.get(i))) {
-			return i;
 		}
-
+		return -1;
 	}
-	return -1;
-}
 
 
 

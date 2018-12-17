@@ -5,6 +5,13 @@ import java.util.Comparator;
 import GIS.Fruit;
 import GIS.Packman;
 
+
+/**
+ * This class aims to implement Construction in order to create a constractor according to our usefulness
+ * More : https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html
+ * @author Shimon Mimoun and Omer Paz
+ *
+ */
 public class distance_Comperator implements Comparator<Double> {
 	
 
