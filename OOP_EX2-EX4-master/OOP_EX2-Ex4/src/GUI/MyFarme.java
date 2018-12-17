@@ -59,7 +59,7 @@ public class MyFarme extends JFrame implements MouseListener
 	private int isGamer=0;// if is Gamer==1 --> Fruit :::: if is Gamer == -1 --> Packman 
 	private boolean Start_game=false;
 	public boolean drwaline = false;
-
+	private ArrayList<Packman> test=new ArrayList<>();
 	Path TheCloserPackman;
 
 
@@ -149,12 +149,13 @@ public class MyFarme extends JFrame implements MouseListener
 					Start_game=true;
 
 					isGamer=2;
-
+					test = Packman_arr.clone();
 					packSmiulation();
 
 
 
 				}
+				Start_game = false;
 
 			}
 
@@ -452,6 +453,11 @@ public class MyFarme extends JFrame implements MouseListener
 		Image scaledImage = myImage.getScaledInstance(this.getWidth(),this.getHeight(),myImage.SCALE_SMOOTH);
 		g.drawImage(scaledImage, 8,50, getWidth()-17, getHeight()-60,null);
 
+
+		Graphics2D g2 = (Graphics2D)g;
+
+		g2.setStroke(new BasicStroke(3));
+
 		double x1 = 0;
 		double y1 = 0 ;
 		double x2 = 0;
@@ -476,6 +482,38 @@ public class MyFarme extends JFrame implements MouseListener
 
 			g.drawImage(packimage, (int)x1-6,(int) y1-7,30, 30, null);
 
+		}
+
+		if(drwaline == true) {
+
+
+			for(Packman pack : myGame.Packman_arr) {
+
+				test.getPath().setPath(pack.getPath().TheCurrentPath());
+
+				double x1_ =  test.getPoint().x();
+				double y1_ =  test.getPoint().y();
+				double x2_ =  pack.getPath().TheCurrentPath().get(0).getFruitPoint().x();
+				double y2_ =  pack.getPath().TheCurrentPath().get(0).getFruitPoint().y();
+
+				g.setColor(Color.orange);
+				g.drawLine((int)(x1_*getWidth()), (int)(y1_*getHeight()),(int)(x2_*getWidth()), (int)(y2_*getHeight()));
+
+				for (int i = 0; i < test.getPath().TheCurrentPath().size()-1; i++) {
+
+					x1 =  pack.getPath().TheCurrentPath().get(i).getFruitPoint().x();
+					y1 =  pack.getPath().TheCurrentPath().get(i).getFruitPoint().y();
+					x2 =  pack.getPath().TheCurrentPath().get(i+1).getFruitPoint().x();
+					y2 =  pack.getPath().TheCurrentPath().get(i+1).getFruitPoint().y();
+
+
+					g.setColor(Color.orange);
+					g.drawLine((int)(x1*getWidth()), (int)(y1*getHeight()),(int)(x2*getWidth()), (int)(y2*getHeight()));	
+
+				}
+
+
+			}
 		}
 	}
 

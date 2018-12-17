@@ -9,6 +9,7 @@ import GIS.Fruit;
 import GIS.Game;
 import GIS.Packman;
 import GIS.Path;
+import Geom.Point3D;
 
 /**
  * This class manages our algorithms that know how to find the best way for my Packman
@@ -85,6 +86,7 @@ public class ShortestPathAlgo {
 		if (myFurits.isEmpty()) {
 			return packman.getPath();
 		}
+
 
 		Fruit theCloserTemp = TheCloserFurit(packman,myFurits); // the closer furit to packman 
 		packman.getPath().TheCurrentPath().add(theCloserTemp);
