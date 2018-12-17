@@ -186,9 +186,9 @@ public class Game {
 
 		}
 		LocalDateTime now_start=LocalDateTime.now();
-		
+
 		LocalDateTime temp_start=now_start;
-	
+
 		for (int j = 0; j < this.Packman_arr.size(); j++) 
 		{
 
@@ -228,7 +228,7 @@ public class Game {
 		for (int i = 0; i < my_fruit.size(); i++) 
 		{
 			int temp=0;
-			
+
 			now_start=now_start.plusMinutes(1);
 			temp_start=now_start.plusSeconds(30);
 			String kmlelement ="<Placemark>\n" +
@@ -252,16 +252,16 @@ public class Game {
 						"</Point>\n" +
 						"</Placemark>\n";
 
-			
+
 			temp_start=temp_start.minusSeconds(1);
-			
+
 			content.add(kmlelement);			
 
-if(my_fruit.size()+1==my_fruit.size()) {
-	temp_start=temp_start.plusHours(1);
-}
+			if(my_fruit.size()+1==my_fruit.size()) {
+				temp_start=temp_start.plusHours(1);
+			}
 			String kmlelement2 ="<Placemark>\n" +
-					"<name><![CDATA[ PACKMAN "+temp+"]]></name>\n" +
+					"<name><![CDATA[ PACKMAN "+temp+","+i+"]]></name>\n" +
 					"<description>"+
 					"<![CDATA[B"
 					+nameData[0]+": <b> PACKMAN  </b><br/>"
@@ -295,29 +295,6 @@ if(my_fruit.size()+1==my_fruit.size()) {
 		System.out.println("Operation Complete");
 		pw.close();
 	} 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	public void save_to_kml_plusieur_pac() throws FileNotFoundException {
@@ -361,8 +338,14 @@ if(my_fruit.size()+1==my_fruit.size()) {
 			}
 		}
 
+		LocalDateTime now_start=LocalDateTime.now();
+		LocalDateTime temp_start_official=now_start;
+		LocalDateTime temp_start=now_start;
+
+
 		for (int j = 0; j < my_Pack.size(); j++) 
 		{
+			now_start=	temp_start_official;
 
 			String kmlelement ="<Placemark>\n" +
 					"<name><![CDATA[ PACKMAN "+j+"]]></name>\n" +
@@ -377,9 +360,9 @@ if(my_fruit.size()+1==my_fruit.size()) {
 
 
 					+"]]></description>\n" +
-					//					"<TimeStamp>\r\n" + 
-					//					"        <when>2018-11-14T21:05:0"+(j)+"Z</when>\r\n" + 
-					//					"      </TimeStamp>"+
+					"<TimeStamp>\r\n" + 
+					"        <when>"+now_start+"</when>\r\n" + 
+					"      </TimeStamp>"+
 					"<styleUrl>#Packman</styleUrl>"+
 					"<Point>\n" +
 					"<coordinates>"+my_Pack.get(j).packLocation.y()+","+my_Pack.get(j).packLocation.x()+"</coordinates>" +
@@ -391,7 +374,10 @@ if(my_fruit.size()+1==my_fruit.size()) {
 
 			for (int i = 0; i < my_Pack.get(j).getPath().TheCurrentPath().size(); i++) 
 			{
-				int temp=0;
+
+
+				now_start=now_start.plusMinutes(1);
+				temp_start=now_start.plusSeconds(30);
 
 				kmlelement ="<Placemark>\n" +
 						"<name><![CDATA[ FRUIT  "+(i)+"]]></name>\n" +
@@ -418,33 +404,36 @@ if(my_fruit.size()+1==my_fruit.size()) {
 
 
 				content.add(kmlelement);			
+				if(my_Pack.get(j).getPath().TheCurrentPath().size()+1==my_Pack.get(j).getPath().TheCurrentPath().size()) {
+					temp_start=temp_start.plusHours(1);
+				}
+
+				String kmlelement2 ="<Placemark>\n" +
+						"<name><![CDATA[ PACKMAN "+j+", "+i+"]]></name>\n" +
+						"<description>"+
+						"<![CDATA[B"
+						+nameData[0]+": <b> PACKMAN  </b><br/>"
+						+nameData[1]+": <b> PACKMAN Number"+j+" </b><br/>"
+						+nameData[2]+": <b>"+Packman_arr.get(j).packLocation.x()+" </b><br/>" 
+						+nameData[3]+": <b>"+Packman_arr.get(j).packLocation.y()+" </b><br/>" 
+						+nameData[4]+": <b>"+Packman_arr.get(j).getSpeed()+" </b><br/>" 
+						+nameData[5]+": <b>"+Packman_arr.get(j).getradius()+" </b><br/>" // altito to meter
 
 
-				//			String kmlelement2 ="<Placemark>\n" +
-				//					"<name><![CDATA[ PACKMAN "+temp+"]]></name>\n" +
-				//					"<description>"+
-				//					"<![CDATA[B"
-				//					+nameData[0]+": <b> PACKMAN  </b><br/>"
-				//					+nameData[1]+": <b> PACKMAN Number"+temp+" </b><br/>"
-				//					+nameData[2]+": <b>"+Packman_arr.get(temp).packLocation.x()+" </b><br/>" 
-				//					+nameData[3]+": <b>"+Packman_arr.get(temp).packLocation.y()+" </b><br/>" 
-				//					+nameData[4]+": <b>"+Packman_arr.get(temp).getSpeed()+" </b><br/>" 
-				//					+nameData[5]+": <b>"+Packman_arr.get(temp).getradius()+" </b><br/>" // altito to meter
-				//
-				//
-				//
-				//					+"]]></description>\n" +
-				//					"<TimeStamp>\r\n" + 
-				//					"        <when>2018-11-14T21:05:0"+(i+2)+"Z</when>\r\n" + 
-				//					"      </TimeStamp>"+
-				//					"<styleUrl>#Packman</styleUrl>"+
-				//					"<Point>\n" +
-				//					"<coordinates>"+my_fruit.get(i).getFruitPoint().y()+","+my_fruit.get(i).getFruitPoint().x()+"</coordinates>" +
-				//					"</Point>\n" +
-				//					"</Placemark>\n";
-				//
-				//
-				//			content.add(kmlelement2);
+
+						+"]]></description>\n" +
+						"<TimeStamp>\r\n" + 
+						"        <when>"+temp_start+"</when>\r\n" + 
+						"      </TimeStamp>"+
+						"<styleUrl>#Packman</styleUrl>"+
+						"<Point>\n" +
+						"<coordinates>"+my_Pack.get(j).getPath().TheCurrentPath().get(i).getFruitPoint().y()+","
+						+my_Pack.get(j).getPath().TheCurrentPath().get(i).getFruitPoint().x()+"</coordinates>" +
+						"</Point>\n" +
+						"</Placemark>\n";
+
+
+				content.add(kmlelement2);
 
 			}
 
