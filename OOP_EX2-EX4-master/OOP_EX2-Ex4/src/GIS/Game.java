@@ -153,16 +153,6 @@ public class Game {
 
 
 
-
-
-
-
-
-
-
-
-
-
 	public void save_to_kml() throws FileNotFoundException {
 		PrintWriter pw = new PrintWriter(new File(getDiractroy()+".kml"));
 

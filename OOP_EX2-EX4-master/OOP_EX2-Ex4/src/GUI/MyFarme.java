@@ -65,7 +65,7 @@ public class MyFarme extends JFrame implements MouseListener
 	private int isGamer=0;// if is Gamer==1 --> Fruit :::: if is Gamer == -1 --> Packman 
 	public boolean Start_game=false;
 	public boolean drwaline = false;
-	private ArrayList<Packman> test=new ArrayList<>();
+	public ArrayList<Packman> ArrayTemp=new ArrayList<>();
 	Path TheCloserPackman;
 
 
@@ -153,11 +153,11 @@ public class MyFarme extends JFrame implements MouseListener
 			public void actionPerformed(ActionEvent e) {
 				if(myGame.Packman_arr.size() >0 && myGame.Fruits_arr.size() > 0 ) {
 					Start_game=true;
-
+					drwaline = true;
 					isGamer=2;
 						for (int i = 0; i < Packman_arr.size(); i++) {
-							test.add(new Packman(Packman_arr.get(i)));
-							test.get(i).getPath().setPath(Packman_arr.get(i).getPath().TheCurrentPath());
+							ArrayTemp.add(new Packman(Packman_arr.get(i)));
+							ArrayTemp.get(i).getPath().setPath(Packman_arr.get(i).getPath().TheCurrentPath());
 						}
 
 					packSmiulation();
@@ -167,11 +167,7 @@ public class MyFarme extends JFrame implements MouseListener
 				Start_game = false;
 
 			}
-
-
 		});
-
-
 
 		reload_item.addActionListener(new ActionListener() {
 			@Override
@@ -187,7 +183,7 @@ public class MyFarme extends JFrame implements MouseListener
 				isGamer=0;
 				Start_game=false;
 			    drwaline = false;
-				test=new ArrayList<>();
+			    ArrayTemp=new ArrayList<>();
 				TheCloserPackman=null;
 				repaint();
 			}
@@ -403,7 +399,6 @@ public class MyFarme extends JFrame implements MouseListener
 		ArrayList<Packman> myPackmens = new ArrayList<>();
 
 		ShortestPathAlgo algo = new ShortestPathAlgo(myGame);
-		drwaline = true;
 		if(myGame.Packman_arr.size() == 1) {
 			myPackmens = myGame.Packman_arr;
 			Path p = algo.algoSinglePackman(myPackmens.get(0));
@@ -498,9 +493,9 @@ public class MyFarme extends JFrame implements MouseListener
 		if(drwaline == true) {
 			
 			
-				for(Packman pack : test) {
+				for(Packman pack : ArrayTemp) {
 					
-					if (test.size()==1)
+					if (ArrayTemp.size()==1)
 					{
 						double x1_ =  pack.getPoint().x();
 						double y1_ =  pack.getPoint().y();
@@ -548,7 +543,6 @@ public class MyFarme extends JFrame implements MouseListener
 					}
 
 				}
-				
 			}
 			
 
