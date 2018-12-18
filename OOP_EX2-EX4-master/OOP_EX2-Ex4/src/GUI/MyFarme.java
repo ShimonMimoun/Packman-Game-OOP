@@ -47,8 +47,7 @@ public class MyFarme extends JFrame implements MouseListener
 	 */
 	private static final long serialVersionUID = 1L;
 
-	MenuBar menuBarOption = new MenuBar();
-	public Map theMap = new Map();
+	
 
 	public BufferedImage myImage;
 	public BufferedImage packimage;
@@ -58,7 +57,8 @@ public class MyFarme extends JFrame implements MouseListener
 
 	double radius = 1;
 	int speed = 1;
-
+	MenuBar menuBarOption = new MenuBar();
+	public Map theMap = new Map();
 	public  ArrayList<Packman> Packman_arr = new ArrayList<>();
 	public  ArrayList<Fruit> Fruits_arr = new ArrayList<>();
 	private Game myGame=new Game(Packman_arr, Fruits_arr);
@@ -177,17 +177,18 @@ public class MyFarme extends JFrame implements MouseListener
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-
-				theMap = new Map();
-				ArrayList<Packman> Packman_arr = new ArrayList<>();
-				ArrayList<Fruit> Fruits_arr = new ArrayList<>();
-				myGame=new Game(null,null);
-				myGame.Packman_arr = Packman_arr;
-				myGame.Fruits_arr =Fruits_arr;
-				test = myGame.Packman_arr;
+				radius = 1;
+				speed = 1;
+				new MenuBar();
+				new Map();
+				 Packman_arr = new ArrayList<>();
+				Fruits_arr = new ArrayList<>();
+				myGame=new Game(Packman_arr, Fruits_arr);
 				isGamer=0;
 				Start_game=false;
-				new MyFarme();
+			    drwaline = false;
+				test=new ArrayList<>();
+				TheCloserPackman=null;
 				repaint();
 			}
 		});
