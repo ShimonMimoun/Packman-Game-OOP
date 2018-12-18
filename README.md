@@ -1,5 +1,6 @@
 
 
+
 # GPS(PacMan) -Ex2/3 
 
 This program is an educational program.
@@ -60,7 +61,9 @@ Import the Project then [OOP_EX2-EX4-master](https://github.com/omerpaz1/GPS-Ex2
 Then click in the menu on Add The user then enters the Pacmans and Fruits
 To start the game click in the menu on File-> Run
 
-Example of the game.
+### Example of the game:
+
+
 ![Start Game](https://lh3.googleusercontent.com/dmECTJSdzwHY3EuQB-8OWD6vw09XjYMsfTmrAr5KX5Iziy0sUdsWMMRbeTf0mGtlmEV8dwAH6lQ "01")
 
 ![Beginning of the algo](https://lh3.googleusercontent.com/LZudPnsdcnAunKVM7_ZqaSnl9J6mN0t9EujjidAJoGaSoL2gMsqr4ReBr7KA4-c5VG8Id507Sh0 "02")
