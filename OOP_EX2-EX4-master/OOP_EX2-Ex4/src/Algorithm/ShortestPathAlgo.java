@@ -143,16 +143,33 @@ public class ShortestPathAlgo {
 		ArrayList<Fruit> myFurits = this.fruits;
 		ArrayList<Packman> ans = new ArrayList<>();
 		ArrayList<Packman> myPackmens = this.Packmans;
+		ArrayList<Packman> tempPack = new ArrayList<>();
+
 
 		for (int i = 0; i < myPackmens.size(); i++) {
 			Packman p = new Packman(myPackmens.get(i).getPoint(),myPackmens.get(i).getSpeed(), myPackmens.get(i).getradius());
 			ans.add(p);
+			tempPack.add(p);
 		}
-		myPackmens = Algomulti(myPackmens,myFurits);
+		//myPackmens = Algomulti(myPackmens,myFurits);
 
 		for (int i = 0; i < myPackmens.size(); i++) {
-			myPackmens.get(i).setPackLocation(ans.get(i).getPoint());	
+			myPackmens.get(i).setPackLocation(ans.get(i).getPoint());
+			tempPack.get(i).setPackLocation(ans.get(i).getPoint());
+
+
 		}
+//		Path p = new Path();
+//		for (int i = 0; i < tempPack.size(); i++) {
+//			p = algoSinglePackman(tempPack.get(i));
+//			tempPack.get(i).getPath().setPath(p.TheCurrentPath());
+//			System.out.println(p.TheCurrentPath().toString());
+//			tempPack.get(i).getPath().setTheTotalTime(tempPack.get(i).getPath().CalPathTime(tempPack.get(i)));
+//		}
+		
+
+
+
 		double longestTime = myPath.CalPathTime(myPackmens.get(0));
 		double temp = 0;
 
@@ -174,21 +191,23 @@ public class ShortestPathAlgo {
 	 * @return Pacman's ArrayList to which will be added to each Pacman a path of the course he will perform
 	 */
 
-	public ArrayList<Packman> Algomulti (ArrayList<Packman> myPackmans , ArrayList<Fruit>myFurits) {
+	private ArrayList<Packman> Algomulti (ArrayList<Packman> myPackmans , ArrayList<Fruit>myFurits) {
 		Path myPath = new Path();
 		if(myFurits.isEmpty()) {
 			return myPackmans;
 		}
 
-		Packman thePackman = myPackmans.get(0);
-		Fruit theCloserFurit = TheCloserFurit(myPackmans.get(0),myFurits);
-		double FastTime = myPath.CalTime2Points(myPackmans.get(0),theCloserFurit);
+		int randomPack = (int)(Math.random()*myPackmans.size());
+
+		Packman thePackman = myPackmans.get(randomPack);
+		Fruit theCloserFurit = TheCloserFurit(myPackmans.get(randomPack),myFurits);
+		double FastTime = myPath.CalTime2Points(myPackmans.get(randomPack),theCloserFurit);
 
 		Packman tempPack;
 		Fruit tempFruit;
 		double tempTime = 0;
 
-		for (int i = 1; i < myPackmans.size(); i++) {
+		for (int i = 0; i < myPackmans.size(); i++) {
 
 			tempPack = myPackmans.get(i);
 			tempFruit = TheCloserFurit(myPackmans.get(i),myFurits);
@@ -209,12 +228,12 @@ public class ShortestPathAlgo {
 
 	}
 
-/**
- * method that calculates  the fastest point between a pac man and the path
- * @param packman Receiv Pacman on which we will look for the fastest time
- * @param myFurits ArrayList of Fruits on which we seek the fastest fruit of the Pac-Man
- * @return The double time of the fastest route
- */
+	/**
+	 * method that calculates  the fastest point between a pac man and the path
+	 * @param packman Receiv Pacman on which we will look for the fastest time
+	 * @param myFurits ArrayList of Fruits on which we seek the fastest fruit of the Pac-Man
+	 * @return The double time of the fastest route
+	 */
 
 	double FastSpeedToFriut(Packman packman ,ArrayList<Fruit> myFurits ) {
 		Path p = new Path();
@@ -233,12 +252,12 @@ public class ShortestPathAlgo {
 		return fastTime;
 
 	}
-/**
- * Return the most closers furit to the packman
- * @param packman Receiv Pacman on which we will look for the fastest Fruit
- * @param myFurits ARraylist Of Fruit on wiche we seek the most closers PAcman
- * @return a Fruit the most closers of PAcman
- */
+	/**
+	 * Return the most closers furit to the packman
+	 * @param packman Receiv Pacman on which we will look for the fastest Fruit
+	 * @param myFurits ARraylist Of Fruit on wiche we seek the most closers PAcman
+	 * @return a Fruit the most closers of PAcman
+	 */
 	public Fruit TheCloserFurit(Packman packman,ArrayList<Fruit> myFurits) {
 		Path p = new Path();
 
@@ -258,12 +277,12 @@ public class ShortestPathAlgo {
 		return theMostCloser;
 	}
 
-/**
- * Calculate the index of the furit.
- * @param fruit Receiv Fruit of ArrayList
- * @param myFurits ArrayList contain The "fruit"
- * @return Index of Fruit (if no found return -1)
- */
+	/**
+	 * Calculate the index of the furit.
+	 * @param fruit Receiv Fruit of ArrayList
+	 * @param myFurits ArrayList contain The "fruit"
+	 * @return Index of Fruit (if no found return -1)
+	 */
 	public int getIndexFurit(Fruit furit , ArrayList<Fruit> myFurits) {
 
 		for (int i = 0; i < myFurits.size(); i++) {
