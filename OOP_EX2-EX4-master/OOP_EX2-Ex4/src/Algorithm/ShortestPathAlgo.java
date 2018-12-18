@@ -143,31 +143,40 @@ public class ShortestPathAlgo {
 		ArrayList<Fruit> myFurits = this.fruits;
 		ArrayList<Packman> ans = new ArrayList<>();
 		ArrayList<Packman> myPackmens = this.Packmans;
-		ArrayList<Packman> tempPack = new ArrayList<>();
+		ArrayList<Packman> tempArray = new ArrayList<>();
 
 
 		for (int i = 0; i < myPackmens.size(); i++) {
 			Packman p = new Packman(myPackmens.get(i).getPoint(),myPackmens.get(i).getSpeed(), myPackmens.get(i).getradius());
 			ans.add(p);
-			tempPack.add(p);
 		}
-		//myPackmens = Algomulti(myPackmens,myFurits);
+		myPackmens = Algomulti(myPackmens,myFurits);
 
 		for (int i = 0; i < myPackmens.size(); i++) {
 			myPackmens.get(i).setPackLocation(ans.get(i).getPoint());
-			tempPack.get(i).setPackLocation(ans.get(i).getPoint());
-
-
 		}
-//		Path p = new Path();
-//		for (int i = 0; i < tempPack.size(); i++) {
-//			p = algoSinglePackman(tempPack.get(i));
-//			tempPack.get(i).getPath().setPath(p.TheCurrentPath());
-//			System.out.println(p.TheCurrentPath().toString());
-//			tempPack.get(i).getPath().setTheTotalTime(tempPack.get(i).getPath().CalPathTime(tempPack.get(i)));
-//		}
-		
+		Path ptemp = new Path();
+		Path newone = new Path();
 
+		for (int i = 0; i < myPackmens.size(); i++) {
+			tempArray.add(new Packman(myPackmens.get(i)));
+			tempArray.get(i).getPath().setPath(myPackmens.get(i).getPath().TheCurrentPath());	
+		}
+		
+		for (int i = 0; i < tempArray.size(); i++) {
+			
+			ptemp = disAlgo(tempArray.get(i),tempArray.get(i).getPath().TheCurrentPath());
+			
+			//tempArray.get(i).getPath().setPath(ptemp.TheCurrentPath());
+			System.out.println("temp array: "+ptemp.TheCurrentPath());
+//			System.out.println("mypacks: "+myPackmens.get(i).getPath().TheCurrentPath());
+//
+//			System.out.println("time for mypacks: "+newone.CalPathTime(myPackmens.get(i)));
+//			System.out.println("the time for temp: "+ptemp.CalPathTime(tempArray.get(i)));
+//			System.out.println(ptemp.TheCurrentPath().toString());
+			
+		}
+		
 
 
 		double longestTime = myPath.CalPathTime(myPackmens.get(0));

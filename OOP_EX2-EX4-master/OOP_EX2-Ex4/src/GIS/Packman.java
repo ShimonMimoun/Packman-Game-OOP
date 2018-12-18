@@ -37,6 +37,8 @@ public class Packman {
 	 */
 	public Packman(Packman p) {
 		this(p.packLocation,p.speed,p.radius);
+		packmanPath = new Path();
+
 	}
 	/**
 	 * Setter Method
