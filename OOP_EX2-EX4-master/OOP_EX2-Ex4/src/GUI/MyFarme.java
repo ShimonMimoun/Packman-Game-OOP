@@ -47,8 +47,7 @@ public class MyFarme extends JFrame implements MouseListener
 	 */
 	private static final long serialVersionUID = 1L;
 
-	MenuBar menuBarOption = new MenuBar();
-	public Map theMap = new Map();
+	
 
 	public BufferedImage myImage;
 	public BufferedImage packimage;
@@ -58,7 +57,8 @@ public class MyFarme extends JFrame implements MouseListener
 
 	double radius = 1;
 	int speed = 1;
-
+	MenuBar menuBarOption = new MenuBar();
+	public Map theMap = new Map();
 	public  ArrayList<Packman> Packman_arr = new ArrayList<>();
 	public  ArrayList<Fruit> Fruits_arr = new ArrayList<>();
 	private Game myGame=new Game(Packman_arr, Fruits_arr);
@@ -89,9 +89,9 @@ public class MyFarme extends JFrame implements MouseListener
 		Menu OptionMenu = new Menu("File"); 
 		menuBarOption.add(OptionMenu);
 		MenuItem runItem = new MenuItem("Run");
-		//MenuItem reload_item = new MenuItem("Reload");
+		MenuItem reload_item = new MenuItem("Reload");
 		OptionMenu.add(runItem);
-		//OptionMenu.add(reload_item);
+		OptionMenu.add(reload_item);
 		MenuItem exit = new MenuItem("Exit");
 		OptionMenu.add(exit);
 
@@ -165,30 +165,27 @@ public class MyFarme extends JFrame implements MouseListener
 				Start_game = false;
 
 			}
-
-
 		});
 
+		reload_item.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
 
-
-//		reload_item.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//
-//
-//				theMap = new Map();
-//				ArrayList<Packman> Packman_arr = new ArrayList<>();
-//				ArrayList<Fruit> Fruits_arr = new ArrayList<>();
-//				myGame=new Game(null,null);
-//				myGame.Packman_arr = Packman_arr;
-//				myGame.Fruits_arr =Fruits_arr;
-//				isGamer=0;
-//				Start_game=false;
-//				drwaline = false;
-//				new MyFarme();
-//				repaint();
-//			}
-//		});
+				radius = 1;
+				speed = 1;
+				new MenuBar();
+				new Map();
+				 Packman_arr = new ArrayList<>();
+				Fruits_arr = new ArrayList<>();
+				myGame=new Game(Packman_arr, Fruits_arr);
+				isGamer=0;
+				Start_game=false;
+			    drwaline = false;
+			    ArrayTemp=new ArrayList<>();
+				TheCloserPackman=null;
+				repaint();
+			}
+		});
 
 
 
