@@ -153,10 +153,11 @@ public class MyFarme extends JFrame implements MouseListener
 					Start_game=true;
 					drwaline = true;
 					isGamer=2;
-						for (int i = 0; i < Packman_arr.size(); i++) {
-							ArrayTemp.add(new Packman(Packman_arr.get(i)));
-							ArrayTemp.get(i).getPath().setPath(Packman_arr.get(i).getPath().TheCurrentPath());
-						}
+					
+					for (int i = 0; i < Packman_arr.size(); i++) {
+						ArrayTemp.add(new Packman(Packman_arr.get(i)));
+						ArrayTemp.get(i).getPath().setPath(Packman_arr.get(i).getPath().TheCurrentPath());
+					}
 
 					packSmiulation();
 
@@ -411,10 +412,14 @@ public class MyFarme extends JFrame implements MouseListener
 //   }
 			myPackmens = algo.algoMultiPackmans();
 			
+			for (int i = 0; i < ArrayTemp.size(); i++) {
+				Path p = algo.algoSinglePackman(myPackmens.get(i));
+				myPackmens.get(i).getPath().setPath(p.TheCurrentPath());
+				myPackmens.get(i).getPath().setTheTotalTime(p.getTheTime());
+				
+			}
 
-		for (Packman packman : myPackmens)
-		{
-
+		for (Packman packman : myPackmens)	{
 
 			Thread thread = new Thread() 
 			{
@@ -500,32 +505,7 @@ public class MyFarme extends JFrame implements MouseListener
 		if(drwaline == true) {
 			
 			
-				for(Packman pack : ArrayTemp) {
-//					
-//					if (ArrayTemp.size()==1)
-//					{
-//						double x1_ =  pack.getPoint().x();
-//						double y1_ =  pack.getPoint().y();
-//						double x2_ =  Fruits_arr.get(0).getFruitPoint().x();
-//						double y2_ =  Fruits_arr.get(0).getFruitPoint().y();
-//
-//						g.setColor(Color.orange);
-//						g.drawLine((int)(x1_*getWidth()), (int)(y1_*getHeight()),(int)(x2_*getWidth()), (int)(y2_*getHeight()));
-//
-//						
-//						for (int i = 1; i < Fruits_arr.size(); i++) {
-//
-//							x1 =  Fruits_arr.get(i).getFruitPoint().x();
-//							y1 =  Fruits_arr.get(i).getFruitPoint().y();
-//							x2 =  Fruits_arr.get(i-1).getFruitPoint().x();
-//							y2 =  Fruits_arr.get(i-1).getFruitPoint().y();
-//
-//							g.setColor(Color.orange);
-//							g.drawLine((int)(x1*getWidth()), (int)(y1*getHeight()),(int)(x2*getWidth()), (int)(y2*getHeight()));	
-//
-//						}
-//					}
-					
+				for(Packman pack : myGame.Packman_arr) {
 					if(pack.getPath().TheCurrentPath().size() != 0) {
 						double x1_ =  pack.getPoint().x();
 						double y1_ =  pack.getPoint().y();

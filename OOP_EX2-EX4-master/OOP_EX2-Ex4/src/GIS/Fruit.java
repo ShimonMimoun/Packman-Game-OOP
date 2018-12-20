@@ -10,8 +10,8 @@ import Geom.Point3D;
 public class Fruit {
 
 	
-	Point3D FuritPoint;
-	int Weight;
+	public Point3D FuritPoint;
+	private int Weight;
 /**
  * Constractor
  * @param p Receiv Point(x,y)
@@ -43,6 +43,9 @@ public class Fruit {
  */
 	public Point3D getFruitPoint() {
 		return FuritPoint;
+	}
+	public void setFruitPoint(Point3D p) {
+		this.FuritPoint = p;
 	}
 
 

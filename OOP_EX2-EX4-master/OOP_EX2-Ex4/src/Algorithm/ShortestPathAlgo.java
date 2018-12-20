@@ -53,25 +53,26 @@ public class ShortestPathAlgo {
 		
 		
 
-		oriPackman.getPath().setPath(Dis.TheCurrentPath());	
-		double timeFor1 = Dis.CalPathTime(oriPackman);
+		//oriPackman.getPath().setPath(Dis.TheCurrentPath());	
+		double timeFor1 = Dis.CalPathTime(tempPackman);
 		
 		
 		
-		oriPackman.getPath().setPath(p.TheCurrentPath());
-		double timeFor2 = p.CalPathTime(oriPackman);
+		//oriPackman.getPath().setPath(p.TheCurrentPath());
+		double timeFor2 = p.CalPathTime(tempPackman);
 
 
 		if(timeFor1 <= timeFor2) {
-			tempPackman.getPath().setPath(Dis.TheCurrentPath());	
-			tempPackman.getPath().setTheTotalTime(timeFor1);
-
-			return tempPackman.getPath();
+			Dis.setTheTotalTime(timeFor1);
+			//tempPackman.getPath().setPath(Dis.TheCurrentPath());	
+			//tempPackman.getPath().setTheTotalTime(timeFor1);
+			return Dis;
 
 		}else {
-			tempPackman.getPath().setTheTotalTime(timeFor2);
-			System.out.println(tempPackman.getPath().getTheTime());
-			return tempPackman.getPath();
+			p.setTheTotalTime(timeFor2);
+			//tempPackman.getPath().setTheTotalTime(timeFor2);
+			//System.out.println(tempPackman.getPath().getTheTime());
+			return p;
 
 		}
 
@@ -163,16 +164,16 @@ public class ShortestPathAlgo {
 
 		
 		
-//		for(Packman packman : myPackmens) {
-//			
-//			Path PackmanPath = new Path();
-//			Path p = new Path();
-//			PackmanPath = packman.getPath();
-//
-//
-//			Packman pack = new Packman(packman);
-//			pack.getPath().setPath(algoSinglePackman(packman).TheCurrentPath());
-//			pack.getPath().setTheTotalTime(p.CalPathTime(pack));
+		for(Packman packman : myPackmens) {
+			
+			Path PackmanPath = new Path();
+			Path p = new Path();
+			PackmanPath = packman.getPath();
+
+
+			//Packman pack = new Packman(packman);
+//			packman.getPath().setPath(algoSinglePackman(packman).TheCurrentPath());
+//			packman.getPath().setTheTotalTime(packman.getPath().CalPathTime(packman));
 //			
 //			
 //				if(PackmanPath.getTheTime() <= pack.getPath().getTheTime()) {
@@ -184,8 +185,8 @@ public class ShortestPathAlgo {
 //				packman.getPath().setPath(pack.getPath().TheCurrentPath());
 //		
 //			}
-//
-//		}
+
+		}
 
 
 		double longestTime = myPath.CalPathTime(myPackmens.get(0));
@@ -197,6 +198,9 @@ public class ShortestPathAlgo {
 				longestTime = temp;
 			}
 		}
+
+		
+		
 		System.out.println("the Total time is: "+longestTime);
 		return myPackmens;
 	}
