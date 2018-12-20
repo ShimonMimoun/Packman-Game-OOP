@@ -395,21 +395,26 @@ public class MyFarme extends JFrame implements MouseListener
 	}
 	private void  packSmiulation() {
 		ArrayList<Packman> myPackmens = new ArrayList<>();
+		ArrayList<Fruit> tempfruit = new ArrayList<>();
 
+//
 		ShortestPathAlgo algo = new ShortestPathAlgo(myGame);
-		if(myGame.Packman_arr.size() == 1) {
-			myPackmens = myGame.Packman_arr;
-			Path p = algo.algoSinglePackman(myPackmens.get(0));
-			Fruits_arr=p.TheCurrentPath();
-			myPackmens.get(0).getPath().setPath(p.TheCurrentPath());
-			myPackmens.get(0).getPath().setTheTotalTime(p.getTheTime());
-		}
-		else 
-		{
+//		if(myGame.Packman_arr.size() == 1) {
+//			myPackmens = myGame.Packman_arr;
+//			Path p = algo.algoSinglePackman(myPackmens.get(0));
+//			Fruits_arr=p.TheCurrentPath();
+//			myPackmens.get(0).getPath().setPath(p.TheCurrentPath());
+//			myPackmens.get(0).getPath().setTheTotalTime(p.getTheTime());
+//		}
+//		else 
+//		{
+//   }
 			myPackmens = algo.algoMultiPackmans();
-		}
+			
+
 		for (Packman packman : myPackmens)
 		{
+
 
 			Thread thread = new Thread() 
 			{
@@ -422,17 +427,21 @@ public class MyFarme extends JFrame implements MouseListener
 
 						for (int j = 0; j < packman.getPath().getTheTime(); j++) {
 							if (i == packman.getPath().TheCurrentPath().size()) {
+
 								continue;
 							}
 							Point3D ans = packman.getPath().theNextPoint(packman,packman.getPath().TheCurrentPath().get(i) , j);
 							packman.setPackLocation(ans);
+
 							repaint();
 
 							if(packman.getPath().CalTime2Points(packman,packman.getPath().TheCurrentPath().get(i) ) <= 0) {
+						
 								continue;
+								
 							}
 							try {
-								sleep(10);
+								sleep(15);
 							} catch (InterruptedException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -492,30 +501,30 @@ public class MyFarme extends JFrame implements MouseListener
 			
 			
 				for(Packman pack : ArrayTemp) {
-					
-					if (ArrayTemp.size()==1)
-					{
-						double x1_ =  pack.getPoint().x();
-						double y1_ =  pack.getPoint().y();
-						double x2_ =  Fruits_arr.get(0).getFruitPoint().x();
-						double y2_ =  Fruits_arr.get(0).getFruitPoint().y();
-
-						g.setColor(Color.orange);
-						g.drawLine((int)(x1_*getWidth()), (int)(y1_*getHeight()),(int)(x2_*getWidth()), (int)(y2_*getHeight()));
-
-						
-						for (int i = 1; i < Fruits_arr.size(); i++) {
-
-							x1 =  Fruits_arr.get(i).getFruitPoint().x();
-							y1 =  Fruits_arr.get(i).getFruitPoint().y();
-							x2 =  Fruits_arr.get(i-1).getFruitPoint().x();
-							y2 =  Fruits_arr.get(i-1).getFruitPoint().y();
-
-							g.setColor(Color.orange);
-							g.drawLine((int)(x1*getWidth()), (int)(y1*getHeight()),(int)(x2*getWidth()), (int)(y2*getHeight()));	
-
-						}
-					}
+//					
+//					if (ArrayTemp.size()==1)
+//					{
+//						double x1_ =  pack.getPoint().x();
+//						double y1_ =  pack.getPoint().y();
+//						double x2_ =  Fruits_arr.get(0).getFruitPoint().x();
+//						double y2_ =  Fruits_arr.get(0).getFruitPoint().y();
+//
+//						g.setColor(Color.orange);
+//						g.drawLine((int)(x1_*getWidth()), (int)(y1_*getHeight()),(int)(x2_*getWidth()), (int)(y2_*getHeight()));
+//
+//						
+//						for (int i = 1; i < Fruits_arr.size(); i++) {
+//
+//							x1 =  Fruits_arr.get(i).getFruitPoint().x();
+//							y1 =  Fruits_arr.get(i).getFruitPoint().y();
+//							x2 =  Fruits_arr.get(i-1).getFruitPoint().x();
+//							y2 =  Fruits_arr.get(i-1).getFruitPoint().y();
+//
+//							g.setColor(Color.orange);
+//							g.drawLine((int)(x1*getWidth()), (int)(y1*getHeight()),(int)(x2*getWidth()), (int)(y2*getHeight()));	
+//
+//						}
+//					}
 					
 					if(pack.getPath().TheCurrentPath().size() != 0) {
 						double x1_ =  pack.getPoint().x();
@@ -533,7 +542,7 @@ public class MyFarme extends JFrame implements MouseListener
 							y1 =  pack.getPath().TheCurrentPath().get(i).getFruitPoint().y();
 							x2 =  pack.getPath().TheCurrentPath().get(i-1).getFruitPoint().x();
 							y2 =  pack.getPath().TheCurrentPath().get(i-1).getFruitPoint().y();
-
+							
 							g.setColor(Color.orange);
 							g.drawLine((int)(x1*getWidth()), (int)(y1*getHeight()),(int)(x2*getWidth()), (int)(y2*getHeight()));	
 

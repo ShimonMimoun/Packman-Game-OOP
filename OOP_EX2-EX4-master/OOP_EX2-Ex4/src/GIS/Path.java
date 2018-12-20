@@ -14,8 +14,8 @@ public class Path{
 	public double totalTimePath;
 	Map theMap = new Map();
 	
-	ArrayList<Fruit> thepath;
-	ArrayList<Packman> temp_path;
+	private ArrayList<Fruit> thepath;
+	private ArrayList<Packman> temp_path;
 
 /**
  * Constractor 
