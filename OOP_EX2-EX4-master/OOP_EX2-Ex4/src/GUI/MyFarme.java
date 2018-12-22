@@ -505,7 +505,8 @@ public class MyFarme extends JFrame implements MouseListener
 		if(drwaline == true) {
 			
 			
-				for(Packman pack : myGame.Packman_arr) {
+				for(Packman pack :ArrayTemp) {
+
 					if(pack.getPath().TheCurrentPath().size() != 0) {
 						double x1_ =  pack.getPoint().x();
 						double y1_ =  pack.getPoint().y();
