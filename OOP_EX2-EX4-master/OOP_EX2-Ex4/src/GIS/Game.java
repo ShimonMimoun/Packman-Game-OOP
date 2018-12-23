@@ -164,7 +164,7 @@ public class Game {
 						"<kml xmlns=\"http://www.opengis.net/kml/2.2\"><Document>\r\n<name> Points with TimeStamps</name>\r\n <Style id=\"red\">\r\n" + 
 						"<IconStyle><Icon><href>http://maps.google.com/mapfiles/ms/icons/red-dot.png</href></Icon></IconStyle>\r\n" + 
 						"</Style><Style id=\"Packman\"><IconStyle><Icon><href>http://www.iconhot.com/icon/png/quiet/256/pac-man.png</href></Icon></IconStyle>\r\n" + 
-						"</Style><Style id=\"Fruit\"><IconStyle><Icon><href>http://www.stickpng.com/assets/images/580b57fcd9996e24bc43c316.png</href></Icon></IconStyle></Style>\r\n" + 
+						"</Style><Style id=\"Fruit\"><IconStyle><Icon><href>https://www.clipartmax.com/png/full/10-109149_heart-outline-clipart.png</href></Icon></IconStyle></Style>\r\n" + 
 						"\r\n" + 
 						"    <Style id=\"check-hide-children\">\r\n" + 
 						"      <ListStyle>\r\n" + 
@@ -183,13 +183,15 @@ public class Game {
 		ArrayList<Packman> myPackmens = new ArrayList<>();
 		ShortestPathAlgo algo = new ShortestPathAlgo(this);
 
+		myPackmens = algo.algoMultiPackmans();
 
-		if(Packman_arr.size() == 1) {
-			myPackmens =Packman_arr;
-			Path p = algo.algoSinglePackman(myPackmens.get(0));
-			myPackmens.get(0).getPath().setPath(p.TheCurrentPath());
-			myPackmens.get(0).getPath().setTheTotalTime(p.getTheTime());
-		}else {	myPackmens = algo.algoMultiPackmans();}
+		for (int i = 0; i < myPackmens.size(); i++) {
+			Path p = algo.algoSinglePackman(myPackmens.get(i));
+			myPackmens.get(i).getPath().setPath(p.TheCurrentPath());
+			myPackmens.get(i).getPath().setTheTotalTime(p.getTheTime());
+
+		}
+		
 
 
 		for (int i = 0; i < myPackmens.size(); i++) {
