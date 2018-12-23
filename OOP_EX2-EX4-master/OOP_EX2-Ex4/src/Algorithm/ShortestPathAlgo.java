@@ -8,7 +8,6 @@ import GIS.Game;
 import GIS.Packman;
 import GIS.Path;
 import Geom.Point3D;
-import sun.security.provider.DSAPublicKeyImpl;
 
 /**
  * This class manages our algorithms that know how to find the best way for my Packman
@@ -52,26 +51,19 @@ public class ShortestPathAlgo {
 		Path p = calFastDisOnePack(tempPackman, Tempfruits);
 		
 		
-
-		//oriPackman.getPath().setPath(Dis.TheCurrentPath());	
 		double timeFor1 = Dis.CalPathTime(tempPackman);
 		
-		
-		
-		//oriPackman.getPath().setPath(p.TheCurrentPath());
 		double timeFor2 = p.CalPathTime(tempPackman);
 
 
-		if(timeFor1 <= timeFor2) {
+		if(timeFor1 < timeFor2) {
 			Dis.setTheTotalTime(timeFor1);
-			//tempPackman.getPath().setPath(Dis.TheCurrentPath());	
-			//tempPackman.getPath().setTheTotalTime(timeFor1);
+
 			return Dis;
 
 		}else {
 			p.setTheTotalTime(timeFor2);
-			//tempPackman.getPath().setTheTotalTime(timeFor2);
-			//System.out.println(tempPackman.getPath().getTheTime());
+
 			return p;
 
 		}

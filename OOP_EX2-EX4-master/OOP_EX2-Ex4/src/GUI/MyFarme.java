@@ -81,7 +81,7 @@ public class MyFarme extends JFrame implements MouseListener
 
 		try {	myImage = ImageIO.read(new File(theMap.getMapDiractory())); } catch (IOException e) { e.printStackTrace();	}	
 		try {	packimage = ImageIO.read(new File("Pictures&Icones/packnew.png")); } catch (IOException e) { e.printStackTrace();	}
-		try {	Fruitimage = ImageIO.read(new File("Pictures&Icones/furit.png")); } catch (IOException e) { e.printStackTrace();	}
+		try {	Fruitimage = ImageIO.read(new File("Pictures&Icones/fruit.png")); } catch (IOException e) { e.printStackTrace();	}
 
 
 
@@ -398,18 +398,8 @@ public class MyFarme extends JFrame implements MouseListener
 		ArrayList<Packman> myPackmens = new ArrayList<>();
 		ArrayList<Fruit> tempfruit = new ArrayList<>();
 
-		//
+
 		ShortestPathAlgo algo = new ShortestPathAlgo(myGame);
-		//		if(myGame.Packman_arr.size() == 1) {
-		//			myPackmens = myGame.Packman_arr;
-		//			Path p = algo.algoSinglePackman(myPackmens.get(0));
-		//			Fruits_arr=p.TheCurrentPath();
-		//			myPackmens.get(0).getPath().setPath(p.TheCurrentPath());
-		//			myPackmens.get(0).getPath().setTheTotalTime(p.getTheTime());
-		//		}
-		//		else 
-		//		{
-		//   }
 		myPackmens = algo.algoMultiPackmans();
 
 		for (int i = 0; i < ArrayTemp.size(); i++) {
