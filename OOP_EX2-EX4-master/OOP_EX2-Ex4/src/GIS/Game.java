@@ -154,7 +154,7 @@ public class Game {
 				Point3D p2 = new Point3D(row[5],row[6],row[7]);
 				p1 = theMap.GPS2Pixel(p1);
 				p2 = theMap.GPS2Pixel(p2);
-				Boxs_arr.add(new Box(p1.x(),p1.y(),p2.x(),p2.y()));
+				Boxs_arr.add(new Box(p1,p2));
 
 			}
 			if(row[0].equals("G")) {
