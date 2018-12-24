@@ -434,10 +434,10 @@ public class MyFarme extends JFrame implements MouseListener
 
 
 						for (int j = 0; j < packman.getPath().getTheTime(); j++) {
-//							if (i == packman.getPath().TheCurrentPath().size()) {
-//
-//								continue;
-//							}
+							if (i == packman.getPath().TheCurrentPath().size()) {
+
+								continue;
+							}
 							Point3D ans = packman.getPath().theNextPoint(packman,packman.getPath().TheCurrentPath().get(i) , j);
 							packman.setPackLocation(ans);
 
@@ -447,7 +447,7 @@ public class MyFarme extends JFrame implements MouseListener
 
 							}
 							try {
-								sleep(15);
+								sleep(50);
 							} catch (InterruptedException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -517,8 +517,8 @@ public class MyFarme extends JFrame implements MouseListener
 				y1=(myGame.Boxs_arr.get(j).getP1().y()*getHeight());
 				x2=(myGame.Boxs_arr.get(j).getP2().x()*getWidth());
 				y2=(myGame.Boxs_arr.get(j).getP2().y()*getHeight());	
-				double width = y1-y2;
-				double height = x1-x2;
+				double width = x2-x1;
+				double height = y2-y1;
 				g.drawImage(box, (int)x1,(int) y1,(int)width, (int)height, null);
 
 			}

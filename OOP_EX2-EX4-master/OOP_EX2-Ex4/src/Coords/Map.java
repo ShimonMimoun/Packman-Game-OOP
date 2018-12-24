@@ -21,6 +21,7 @@ public class Map {
 	 * Default Constractor of my Class 
 	 */
 	public Map() {
+		//32.101898,35.202369,0.0,32.105728,35.212416,0.0
 		this.leftUp = new Point3D(32.105770,  35.202469);
 		this.RightDown = new Point3D(32.101899, 35.211588);
 		this.x_length = this.RightDown.y()-this.leftUp.y();
