@@ -421,8 +421,15 @@ public class MyFarme extends JFrame implements MouseListener
 			myPackmens.get(i).getPath().setTheTotalTime(p.getTheTime());
 
 		}
+		
+		for (int i = 0; i < myGame.Fruits_arr.size(); i++) {
+			System.out.println(Fruits_arr.get(i).toString());
+			
+		}
+
 
 		for (Packman packman : myPackmens)	{
+			
 
 			Thread thread = new Thread() 
 			{
@@ -430,6 +437,7 @@ public class MyFarme extends JFrame implements MouseListener
 				public void run()
 				{
 
+					
 					for (int i = 0; i < packman.getPath().TheCurrentPath().size(); i++) {
 
 
@@ -442,10 +450,15 @@ public class MyFarme extends JFrame implements MouseListener
 							packman.setPackLocation(ans);
 
 							repaint();
-							if(packman.getPath().CalTime2Points(packman,packman.getPath().TheCurrentPath().get(i) ) <= 0) {
+							System.out.println(j);
+							if(packman.getPath().CalTime2Points(packman,packman.getPath().TheCurrentPath().get(i) ) < 5) {
+	
 								continue;
 
 							}
+							System.out.println(myGame.Fruits_arr.remove(i).toString());
+
+							myGame.Fruits_arr.remove(i);
 							try {
 								sleep(50);
 							} catch (InterruptedException e) {
@@ -497,7 +510,6 @@ public class MyFarme extends JFrame implements MouseListener
 
 				x1=(myGame.Packman_arr.get(j).getPoint().x()*getWidth());
 				y1=(myGame.Packman_arr.get(j).getPoint().y()*getHeight());	
-				System.out.println(myGame.Packman_arr.get(j));
 
 
 				g.drawImage(packimage, (int)x1-6,(int) y1-7,30, 30, null);
