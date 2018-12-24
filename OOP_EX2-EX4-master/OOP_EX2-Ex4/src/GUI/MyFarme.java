@@ -228,6 +228,7 @@ public class MyFarme extends JFrame implements MouseListener
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				isGamer = 1;
+
 			}
 		});
 
@@ -239,6 +240,19 @@ public class MyFarme extends JFrame implements MouseListener
 				isGamer = 3;
 			}
 		});
+
+
+
+		Box_item.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				createdbox();
+				repaint();
+
+			}
+		});
+
 
 		Packman_Item.addActionListener(new ActionListener() {
 			@Override
@@ -449,7 +463,7 @@ public class MyFarme extends JFrame implements MouseListener
 	}
 	private void  packSmiulation() {
 		ArrayList<Packman> myPackmens = new ArrayList<>();
-		ArrayList<Fruit> tempfruit = new ArrayList<>();
+
 
 
 		ShortestPathAlgo algo = new ShortestPathAlgo(myGame);
@@ -547,6 +561,7 @@ public class MyFarme extends JFrame implements MouseListener
 			}
 
 			for (int j=0; j<myGame.Ghost_arr.size(); j++) {
+				System.out.println((Boxs_arr.get(0).toString()));
 				x1=(myGame.Ghost_arr.get(j).getPoint().x()*getWidth());
 				y1=(myGame.Ghost_arr.get(j).getPoint().y()*getHeight());	
 
@@ -567,7 +582,7 @@ public class MyFarme extends JFrame implements MouseListener
 			if(myGame.Player_user!=null)
 			{x1=(myGame.Player_user.getPoint_player().x()*getWidth());
 			y1=(myGame.Player_user.getPoint_player().y()*getHeight());	
-		
+
 			g.drawImage(player,(int)x1,(int) y1,30, 30,null);
 			}
 		}
@@ -653,7 +668,37 @@ public class MyFarme extends JFrame implements MouseListener
 
 	}
 
+	public void createdbox() {
+		double X1=0;
+		double X2=0;
+		double Y1=0;
+		double Y2=0;
 
+
+		do {
+			String	x1=JOptionPane.showInputDialog("Enter X1 Pixel");
+			X1=Double.parseDouble(x1);
+		} while ((X1<0) ||(X1>this.getWidth()));
+
+		do {
+			String	y1=JOptionPane.showInputDialog("Enter Y1 Pixel");
+			Y1=Double.parseDouble(y1);
+		} while ((Y1<0) ||(Y1>this.getHeight()));
+
+		do {
+			String	x2=JOptionPane.showInputDialog("Enter X2 Pixel");
+			X2=Double.parseDouble(x2);
+		} while ((X2<0) ||(X2>this.getWidth())||(X2<X1));
+
+		do {
+			String	y2=JOptionPane.showInputDialog("Enter Y2 Pixel");	
+			Y2=Double.parseDouble(y2);
+		} while ((Y2<0) ||(Y2>this.getWidth())||(Y2<Y1));
+
+		Boxs_arr.add(new Box(new Point3D(X1/getWidth(), Y1/getHeight()),
+				new Point3D(X2/getWidth(), Y2/getHeight())));
+
+	}
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub

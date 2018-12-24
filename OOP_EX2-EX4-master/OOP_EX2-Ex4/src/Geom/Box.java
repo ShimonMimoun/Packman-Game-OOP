@@ -4,7 +4,7 @@ public class Box {
 	
 	private Point3D p1;
 	private Point3D p2;
-	
+	private static int _count = 0;
 	
 	public Box(Point3D p1 , Point3D p2) {
 		
