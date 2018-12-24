@@ -12,6 +12,7 @@ import java.util.List;
 import Algorithm.ShortestPathAlgo;
 import Coords.Map;
 import File_format.csv2kml;
+import Geom.Box;
 import Geom.Point3D;
 
 /**
@@ -25,6 +26,9 @@ public class Game {
 
 	public  ArrayList<Packman> Packman_arr = new ArrayList<>();
 	public  ArrayList<Fruit> Fruits_arr = new ArrayList<>();
+	public  ArrayList<Box> Boxs_arr = new ArrayList<>();
+	public  ArrayList<Ghost> Ghost_arr = new ArrayList<>();
+	
 	public 	String file_directory;
 	public Map theMap = new Map();
 
@@ -32,13 +36,17 @@ public class Game {
 
 /**
  * Constractor
- * @param p Receiv Packman
- * @param f Receiv Fruit
+ * @param Packmans Receiv Packmans
+ * @param Fruits Receiv Fruits
+ * @param Boxs Receiv Box
+ * @param Ghosts Receiv Ghosts
  */
 
-	public Game(ArrayList<Packman> p , ArrayList<Fruit> f) {
-		this.Packman_arr = p;
-		this.Fruits_arr = f;
+	public Game(ArrayList<Packman> packmans , ArrayList<Fruit> Fruits , ArrayList<Box> Boxs ,ArrayList<Ghost> Ghosts) {
+		this.Packman_arr = packmans;
+		this.Fruits_arr = Fruits;
+		this.Boxs_arr = Boxs;
+		this.Ghost_arr = Ghosts;
 
 	}
 /**
@@ -57,17 +65,11 @@ public class Game {
 	}
 
 
-
-
-
-
-
-
 	public  void save2Csv() throws FileNotFoundException {
 
 		PrintWriter pw = new PrintWriter(new File(getDiractroy()+".csv"));
 		StringBuilder sb = new StringBuilder();
-		String[] heders = {"Type","id"	,"Lat"	,"Lon"	,"Alt"	,"Speed/Weight"	,"Radius"};
+		String[] heders = {"Type","ID"	,"Lat"	,"Lon"	,"Alt"	,"Speed/Weight"	,"Radius"};
 
 		for (int i = 0; i < heders.length; i++) {
 			sb.append(heders[i]);
@@ -76,6 +78,8 @@ public class Game {
 		sb.append(this.Packman_arr.size());
 		sb.append(',');
 		sb.append(this.Fruits_arr.size());
+		sb.append(',');
+		sb.append(this.Boxs_arr.size());
 		sb.append('\n');
 
 		for (int i = 0; i < Packman_arr.size(); i++) {
@@ -142,9 +146,27 @@ public class Game {
 			if(row[0].equals("F")) {
 				Point3D p = new Point3D(row[2],row[3],row[4]);
 				p = theMap.GPS2Pixel(p);
-				int Weight = Integer.parseInt(row[5]);
+				double Weight = Double.parseDouble(row[5]);
 				Fruits_arr.add(new Fruit(p, Weight));
 			}
+			if(row[0].equals("B")) {
+				Point3D p1 = new Point3D(row[2],row[3],row[4]);
+				Point3D p2 = new Point3D(row[5],row[6],row[7]);
+				p1 = theMap.GPS2Pixel(p1);
+				p2 = theMap.GPS2Pixel(p2);
+				Boxs_arr.add(new Box(p1.x(),p1.y(),p2.x(),p2.y()));
+
+			}
+			if(row[0].equals("G")) {
+				Point3D p = new Point3D(row[2],row[3],row[4]);
+				p = theMap.GPS2Pixel(p);
+
+				double speed = Double.parseDouble(row[5]);
+				double radius = Double.parseDouble(row[6]);
+				Ghost_arr.add(new Ghost(p, speed, radius));	
+			}
+			
+			
 		}
 
 

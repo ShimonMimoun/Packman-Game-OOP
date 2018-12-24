@@ -11,13 +11,13 @@ public class Fruit {
 
 	
 	public Point3D FuritPoint;
-	private int Weight;
+	private double Weight;
 /**
  * Constractor
  * @param p Receiv Point(x,y)
  * @param Weight Receiv Weight
  */
-	public Fruit(Point3D p, int Weight) {
+	public Fruit(Point3D p, double Weight) {
 		
 		this.FuritPoint = p;
 		this.Weight = Weight;
@@ -34,7 +34,7 @@ public class Fruit {
  * Getter Method
  * @return the Weight
  */
-	public int getWeight() {
+	public double getWeight() {
 		return Weight;
 	}
 /**

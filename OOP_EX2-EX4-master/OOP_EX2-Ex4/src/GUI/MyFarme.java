@@ -29,8 +29,10 @@ import Algorithm.ShortestPathAlgo;
 import Coords.Map;
 import GIS.Fruit;
 import GIS.Game;
+import GIS.Ghost;
 import GIS.Packman;
 import GIS.Path;
+import Geom.Box;
 import Geom.Point3D;
 
 /**
@@ -52,8 +54,10 @@ public class MyFarme extends JFrame implements MouseListener
 	public BufferedImage myImage;
 	public BufferedImage packimage;
 	public BufferedImage Fruitimage;
-	public BufferedImage DEED_Fruit;
-	public BufferedImage DEED_Pack;
+	public BufferedImage ghost;
+	public BufferedImage box;
+
+
 
 	double radius = 1;
 	int speed = 1;
@@ -61,7 +65,9 @@ public class MyFarme extends JFrame implements MouseListener
 	public Map theMap = new Map();
 	public  ArrayList<Packman> Packman_arr = new ArrayList<>();
 	public  ArrayList<Fruit> Fruits_arr = new ArrayList<>();
-	private Game myGame=new Game(Packman_arr, Fruits_arr);
+	public  ArrayList<Box> Boxs_arr = new ArrayList<>();
+	public  ArrayList<Ghost> Ghost_arr = new ArrayList<>();
+	private Game myGame=new Game(Packman_arr, Fruits_arr,Boxs_arr,Ghost_arr);
 	private int isGamer=0;// if is Gamer==1 --> Fruit :::: if is Gamer == -1 --> Packman 
 	public boolean Start_game=false;
 	public boolean drwaline = false;
@@ -82,6 +88,9 @@ public class MyFarme extends JFrame implements MouseListener
 		try {	myImage = ImageIO.read(new File(theMap.getMapDiractory())); } catch (IOException e) { e.printStackTrace();	}	
 		try {	packimage = ImageIO.read(new File("Pictures&Icones/packnew.png")); } catch (IOException e) { e.printStackTrace();	}
 		try {	Fruitimage = ImageIO.read(new File("Pictures&Icones/fruit.png")); } catch (IOException e) { e.printStackTrace();	}
+		try {	box = ImageIO.read(new File("Pictures&Icones/box.png")); } catch (IOException e) { e.printStackTrace();	}
+		try {	ghost = ImageIO.read(new File("Pictures&Icones/ghost.png")); } catch (IOException e) { e.printStackTrace();	}
+
 
 
 
@@ -178,7 +187,9 @@ public class MyFarme extends JFrame implements MouseListener
 				new Map();
 				Packman_arr = new ArrayList<>();
 				Fruits_arr = new ArrayList<>();
-				myGame=new Game(Packman_arr, Fruits_arr);
+				Boxs_arr = new ArrayList<>();
+				Ghost_arr = new ArrayList<>();
+				myGame=new Game(Packman_arr, Fruits_arr,Boxs_arr,Ghost_arr);
 				isGamer=0;
 				Start_game=false;
 				drwaline = false;
@@ -303,12 +314,14 @@ public class MyFarme extends JFrame implements MouseListener
 				int returnValue = fileChooser.showOpenDialog(null);
 				if (returnValue == JFileChooser.APPROVE_OPTION) {
 					System.out.println(fileChooser.getSelectedFile().getPath());
-					Game theGame = new Game(myGame.Packman_arr,myGame.Fruits_arr);
+					Game theGame = new Game(Packman_arr, Fruits_arr,Boxs_arr,Ghost_arr);
 					theGame.setfile_directory(fileChooser.getSelectedFile().getPath());
 					try {
 						theGame.Csvread();
 						myGame.Packman_arr = theGame.Packman_arr;
 						myGame.Fruits_arr = theGame.Fruits_arr;
+						myGame.Boxs_arr = theGame.Boxs_arr;
+						myGame.Ghost_arr = theGame.Ghost_arr;
 						myGame.file_directory = theGame.file_directory;
 						isGamer = 2;
 
@@ -421,17 +434,15 @@ public class MyFarme extends JFrame implements MouseListener
 
 
 						for (int j = 0; j < packman.getPath().getTheTime(); j++) {
-							if (i == packman.getPath().TheCurrentPath().size()) {
-
-								continue;
-							}
+//							if (i == packman.getPath().TheCurrentPath().size()) {
+//
+//								continue;
+//							}
 							Point3D ans = packman.getPath().theNextPoint(packman,packman.getPath().TheCurrentPath().get(i) , j);
 							packman.setPackLocation(ans);
 
 							repaint();
-
 							if(packman.getPath().CalTime2Points(packman,packman.getPath().TheCurrentPath().get(i) ) <= 0) {
-
 								continue;
 
 							}
@@ -473,56 +484,79 @@ public class MyFarme extends JFrame implements MouseListener
 
 
 		if (isGamer!=0) {
-			for (int i=0; i<myGame.Fruits_arr.size(); i++) 
-			{
+			for (int i=0; i<myGame.Fruits_arr.size(); i++) 	{
 				x1=(int)(myGame.Fruits_arr.get(i).getFruitPoint().x()*getWidth());
 				y1=(int)(myGame.Fruits_arr.get(i).getFruitPoint().y()*getHeight());	
 
+
 				g.drawImage(Fruitimage, (int)x1-5, (int)y1-6,30, 30, null);
+				
+			}
+			
+			for (int j=0; j<myGame.Packman_arr.size(); j++) {
+
+				x1=(myGame.Packman_arr.get(j).getPoint().x()*getWidth());
+				y1=(myGame.Packman_arr.get(j).getPoint().y()*getHeight());	
+				System.out.println(myGame.Packman_arr.get(j));
+
+
+				g.drawImage(packimage, (int)x1-6,(int) y1-7,30, 30, null);
 
 			}
-		}
 
-		for (int j=0; j<myGame.Packman_arr.size(); j++) {
+			for (int j=0; j<myGame.Ghost_arr.size(); j++) {
+				x1=(myGame.Ghost_arr.get(j).getPoint().x()*getWidth());
+				y1=(myGame.Ghost_arr.get(j).getPoint().y()*getHeight());	
 
-			x1=(myGame.Packman_arr.get(j).getPoint().x()*getWidth());
-			y1=(myGame.Packman_arr.get(j).getPoint().y()*getHeight());	
-
-			g.drawImage(packimage, (int)x1-6,(int) y1-7,30, 30, null);
-
-		}
-
-		if(drwaline == true) {
-
-			int j=0;
-			for(Packman pack : myGame.Packman_arr) {
-
-				if(pack.getPath().TheCurrentPath().size() != 0) {
-					double x1_ =  ArrayTemp.get(j).getPoint().x();
-					double y1_ =  ArrayTemp.get(j).getPoint().y();
-					double x2_ =  pack.getPath().TheCurrentPath().get(0).getFruitPoint().x();
-					double y2_ = pack.getPath().TheCurrentPath().get(0).getFruitPoint().y();
-
-					g.setColor(Color.orange);
-					g.drawLine((int)(x1_*getWidth()), (int)(y1_*getHeight()),(int)(x2_*getWidth()), (int)(y2_*getHeight()));
-					j++;
-
-					for (int i = 1; i < pack.getPath().TheCurrentPath().size(); i++) {
-
-						x1 =  pack.getPath().TheCurrentPath().get(i).getFruitPoint().x();
-						y1 =  pack.getPath().TheCurrentPath().get(i).getFruitPoint().y();
-						x2 =  pack.getPath().TheCurrentPath().get(i-1).getFruitPoint().x();
-						y2 =  pack.getPath().TheCurrentPath().get(i-1).getFruitPoint().y();
-
-
-						g.setColor(Color.orange);
-						g.drawLine((int)(x1*getWidth()), (int)(y1*getHeight()),(int)(x2*getWidth()), (int)(y2*getHeight()));	
-
-					}
-				}
+				g.drawImage(ghost, (int)x1,(int) y1,30, 30, null);
 
 			}
+			for (int j=0; j<myGame.Boxs_arr.size(); j++) {
+
+				x1=(myGame.Boxs_arr.get(j).getP1().x()*getWidth());
+				y1=(myGame.Boxs_arr.get(j).getP1().y()*getHeight());
+				x2=(myGame.Boxs_arr.get(j).getP2().x()*getWidth());
+				y2=(myGame.Boxs_arr.get(j).getP2().y()*getHeight());	
+				double width = y1-y2;
+				double height = x1-x2;
+				g.drawImage(box, (int)x1,(int) y1,(int)width, (int)height, null);
+
+			}
+			
 		}
+
+
+
+//		if(drwaline == true) {
+//
+//			int j=0;
+//			for(Packman pack : myGame.Packman_arr) {
+//
+//				if(pack.getPath().TheCurrentPath().size() != 0) {
+//					double x1_ =  ArrayTemp.get(j).getPoint().x();
+//					double y1_ =  ArrayTemp.get(j).getPoint().y();
+//					double x2_ =  pack.getPath().TheCurrentPath().get(0).getFruitPoint().x();
+//					double y2_ = pack.getPath().TheCurrentPath().get(0).getFruitPoint().y();
+//					g.setColor(Color.orange);
+//					g.drawLine((int)(x1_*getWidth()), (int)(y1_*getHeight()),(int)(x2_*getWidth()), (int)(y2_*getHeight()));
+//					j++;
+//
+//					for (int i = 1; i < pack.getPath().TheCurrentPath().size(); i++) {
+//
+//						x1 =  pack.getPath().TheCurrentPath().get(i).getFruitPoint().x();
+//						y1 =  pack.getPath().TheCurrentPath().get(i).getFruitPoint().y();
+//						x2 =  pack.getPath().TheCurrentPath().get(i-1).getFruitPoint().x();
+//						y2 =  pack.getPath().TheCurrentPath().get(i-1).getFruitPoint().y();
+//
+//
+//						g.setColor(Color.orange);
+//						g.drawLine((int)(x1*getWidth()), (int)(y1*getHeight()),(int)(x2*getWidth()), (int)(y2*getHeight()));	
+//
+//					}
+//				}
+//
+//			}
+//		}
 
 
 	}
