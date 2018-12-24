@@ -1,3 +1,4 @@
+
 # GPS(PacMan) -Ex2/3 
 
 This program is an educational program.
@@ -59,16 +60,8 @@ Then click in the menu on Add The user then enters the Pacmans and Fruits
 To start the game click in the menu on File-> Run
 
 ### Example of the game:
-
-
-![Start Game](https://lh3.googleusercontent.com/dmECTJSdzwHY3EuQB-8OWD6vw09XjYMsfTmrAr5KX5Iziy0sUdsWMMRbeTf0mGtlmEV8dwAH6lQ "01")
-
-![Beginning of the algo](https://lh3.googleusercontent.com/LZudPnsdcnAunKVM7_ZqaSnl9J6mN0t9EujjidAJoGaSoL2gMsqr4ReBr7KA4-c5VG8Id507Sh0 "02")
-
-
-![Suit...](https://lh3.googleusercontent.com/isvKOWD5ZH5i6clTN7L9VGshpXr25iPqKsR0SfzvxL8pJWt8PblWubWTrzmAe90vd6ZQ6g0_ohA "03")
-
-![ENDDD](https://lh3.googleusercontent.com/S4L46Ua3CecAuByX2dHc2nG90b8x6CbnxQQQJyc-Hddr_nq9CKh88h7tmg36c3dQ4htG4OHwRmE "04")
+![enter image description here](https://lh3.googleusercontent.com/Byxkm3oKkQx5NkQMymrCwOfjvV1mOFbfr-xd5Bonn9d5wZYlHbXoRN7LSxc1gYKZE7TNgCqn3-c "01")
+![enter image description here](https://lh3.googleusercontent.com/80MaN_s8DBpvT64s_95Dyq0uPfAVPtt4DZPgX8xMvp1w1TuZB6tU6-oG5iLnlqCb9u2wQyIYkqA "02")
 # Acknowledgments
 
 Wikipedia to understand more how to CSV File :  https://fr.wikipedia.org/wiki/Comma-separated_values

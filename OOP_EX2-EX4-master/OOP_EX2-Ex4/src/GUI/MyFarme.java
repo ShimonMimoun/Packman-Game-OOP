@@ -415,7 +415,7 @@ public class MyFarme extends JFrame implements MouseListener
 		ShortestPathAlgo algo = new ShortestPathAlgo(myGame);
 		myPackmens = algo.algoMultiPackmans();
 
-		for (int i = 0; i < ArrayTemp.size(); i++) {
+		for (int i = 0; i < myPackmens.size(); i++) {
 			Path p = algo.algoSinglePackman(myPackmens.get(i));
 			myPackmens.get(i).getPath().setPath(p.TheCurrentPath());
 			myPackmens.get(i).getPath().setTheTotalTime(p.getTheTime());
