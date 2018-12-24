@@ -32,6 +32,7 @@ import GIS.Game;
 import GIS.Ghost;
 import GIS.Packman;
 import GIS.Path;
+import GIS.Player;
 import Geom.Box;
 import Geom.Point3D;
 
@@ -56,6 +57,7 @@ public class MyFarme extends JFrame implements MouseListener
 	public BufferedImage Fruitimage;
 	public BufferedImage ghost;
 	public BufferedImage box;
+	public BufferedImage player;
 
 
 
@@ -90,6 +92,7 @@ public class MyFarme extends JFrame implements MouseListener
 		try {	Fruitimage = ImageIO.read(new File("Pictures&Icones/fruit.png")); } catch (IOException e) { e.printStackTrace();	}
 		try {	box = ImageIO.read(new File("Pictures&Icones/box.png")); } catch (IOException e) { e.printStackTrace();	}
 		try {	ghost = ImageIO.read(new File("Pictures&Icones/ghost.png")); } catch (IOException e) { e.printStackTrace();	}
+		try {	ghost = ImageIO.read(new File("Pictures&Icones/Player.png")); } catch (IOException e) { e.printStackTrace();	}
 
 
 
@@ -111,9 +114,21 @@ public class MyFarme extends JFrame implements MouseListener
 		menuBarOption.add(AddMenu);
 
 		MenuItem Packman_Item = new MenuItem("Packman");
-		MenuItem Fruit_item = new MenuItem("Fruit");		
+		MenuItem Fruit_item = new MenuItem("Fruit");	
+		MenuItem Player_User_item = new MenuItem("Player_User");	
+
+		MenuItem Ghost_item = new MenuItem("Ghost");
+		AddMenu.add(Player_User_item);
 		AddMenu.add(Packman_Item);
 		AddMenu.add(Fruit_item);
+		AddMenu.add(Ghost_item);
+
+		Menu AddLimite = new Menu("Limit"); 
+		MenuItem Box_item = new MenuItem("Box");
+		menuBarOption.add(AddLimite);
+		AddLimite.add(Box_item);
+
+
 
 		Menu SetMenu = new Menu("Set"); 
 
@@ -213,6 +228,31 @@ public class MyFarme extends JFrame implements MouseListener
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				isGamer = 1;
+			}
+		});
+
+
+
+		Ghost_item.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				isGamer = 3;
+			}
+		});
+
+		Packman_Item.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				isGamer = -1;
+
+			}
+		});
+
+		Player_User_item.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				isGamer = 2;
+
 			}
 		});
 
@@ -484,15 +524,17 @@ public class MyFarme extends JFrame implements MouseListener
 
 
 		if (isGamer!=0) {
+
+
 			for (int i=0; i<myGame.Fruits_arr.size(); i++) 	{
 				x1=(int)(myGame.Fruits_arr.get(i).getFruitPoint().x()*getWidth());
 				y1=(int)(myGame.Fruits_arr.get(i).getFruitPoint().y()*getHeight());	
 
 
 				g.drawImage(Fruitimage, (int)x1-5, (int)y1-6,30, 30, null);
-				
+
 			}
-			
+
 			for (int j=0; j<myGame.Packman_arr.size(); j++) {
 
 				x1=(myGame.Packman_arr.get(j).getPoint().x()*getWidth());
@@ -523,40 +565,45 @@ public class MyFarme extends JFrame implements MouseListener
 
 			}
 			
+				x1=(myGame.Player_user.getPoint_player().x()*getWidth());
+				y1=(myGame.Player_user.getPoint_player().y()*getHeight());	
+
+				g.drawImage(player, (int)x1,(int) y1,30, 30, null);
+		
 		}
 
 
 
-//		if(drwaline == true) {
-//
-//			int j=0;
-//			for(Packman pack : myGame.Packman_arr) {
-//
-//				if(pack.getPath().TheCurrentPath().size() != 0) {
-//					double x1_ =  ArrayTemp.get(j).getPoint().x();
-//					double y1_ =  ArrayTemp.get(j).getPoint().y();
-//					double x2_ =  pack.getPath().TheCurrentPath().get(0).getFruitPoint().x();
-//					double y2_ = pack.getPath().TheCurrentPath().get(0).getFruitPoint().y();
-//					g.setColor(Color.orange);
-//					g.drawLine((int)(x1_*getWidth()), (int)(y1_*getHeight()),(int)(x2_*getWidth()), (int)(y2_*getHeight()));
-//					j++;
-//
-//					for (int i = 1; i < pack.getPath().TheCurrentPath().size(); i++) {
-//
-//						x1 =  pack.getPath().TheCurrentPath().get(i).getFruitPoint().x();
-//						y1 =  pack.getPath().TheCurrentPath().get(i).getFruitPoint().y();
-//						x2 =  pack.getPath().TheCurrentPath().get(i-1).getFruitPoint().x();
-//						y2 =  pack.getPath().TheCurrentPath().get(i-1).getFruitPoint().y();
-//
-//
-//						g.setColor(Color.orange);
-//						g.drawLine((int)(x1*getWidth()), (int)(y1*getHeight()),(int)(x2*getWidth()), (int)(y2*getHeight()));	
-//
-//					}
-//				}
-//
-//			}
-//		}
+		//		if(drwaline == true) {
+		//
+		//			int j=0;
+		//			for(Packman pack : myGame.Packman_arr) {
+		//
+		//				if(pack.getPath().TheCurrentPath().size() != 0) {
+		//					double x1_ =  ArrayTemp.get(j).getPoint().x();
+		//					double y1_ =  ArrayTemp.get(j).getPoint().y();
+		//					double x2_ =  pack.getPath().TheCurrentPath().get(0).getFruitPoint().x();
+		//					double y2_ = pack.getPath().TheCurrentPath().get(0).getFruitPoint().y();
+		//					g.setColor(Color.orange);
+		//					g.drawLine((int)(x1_*getWidth()), (int)(y1_*getHeight()),(int)(x2_*getWidth()), (int)(y2_*getHeight()));
+		//					j++;
+		//
+		//					for (int i = 1; i < pack.getPath().TheCurrentPath().size(); i++) {
+		//
+		//						x1 =  pack.getPath().TheCurrentPath().get(i).getFruitPoint().x();
+		//						y1 =  pack.getPath().TheCurrentPath().get(i).getFruitPoint().y();
+		//						x2 =  pack.getPath().TheCurrentPath().get(i-1).getFruitPoint().x();
+		//						y2 =  pack.getPath().TheCurrentPath().get(i-1).getFruitPoint().y();
+		//
+		//
+		//						g.setColor(Color.orange);
+		//						g.drawLine((int)(x1*getWidth()), (int)(y1*getHeight()),(int)(x2*getWidth()), (int)(y2*getHeight()));	
+		//
+		//					}
+		//				}
+		//
+		//			}
+		//		}
 
 
 	}
@@ -591,6 +638,16 @@ public class MyFarme extends JFrame implements MouseListener
 			myGame.Packman_arr.add(new Packman(point_return, radius, speed));
 			System.out.println("Packman "+covertedfromPixel.toString());
 
+			repaint();
+		}else if(isGamer==3)
+		{
+			myGame.Ghost_arr.add(new Ghost(point_return, radius, speed));
+			System.out.println("Ghost "+covertedfromPixel.toString());
+			repaint();
+		}else if(isGamer==2)
+		{
+			myGame.Player_user=new Player(point_return, speed);
+			System.out.println("Ghost "+covertedfromPixel.toString());
 			repaint();
 		}
 
