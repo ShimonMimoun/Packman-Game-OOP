@@ -92,7 +92,7 @@ public class MyFarme extends JFrame implements MouseListener
 		try {	Fruitimage = ImageIO.read(new File("Pictures&Icones/fruit.png")); } catch (IOException e) { e.printStackTrace();	}
 		try {	box = ImageIO.read(new File("Pictures&Icones/box.png")); } catch (IOException e) { e.printStackTrace();	}
 		try {	ghost = ImageIO.read(new File("Pictures&Icones/ghost.png")); } catch (IOException e) { e.printStackTrace();	}
-		try {	ghost = ImageIO.read(new File("Pictures&Icones/Player.png")); } catch (IOException e) { e.printStackTrace();	}
+		try {	player = ImageIO.read(new File("Pictures&Icones/Player.png")); } catch (IOException e) { e.printStackTrace();	}
 
 
 
@@ -564,12 +564,12 @@ public class MyFarme extends JFrame implements MouseListener
 				g.drawImage(box, (int)x1,(int) y1,(int)width, (int)height, null);
 
 			}
-			
-				x1=(myGame.Player_user.getPoint_player().x()*getWidth());
-				y1=(myGame.Player_user.getPoint_player().y()*getHeight());	
-
-				g.drawImage(player, (int)x1,(int) y1,30, 30, null);
+			if(myGame.Player_user!=null)
+			{x1=(myGame.Player_user.getPoint_player().x()*getWidth());
+			y1=(myGame.Player_user.getPoint_player().y()*getHeight());	
 		
+			g.drawImage(player,(int)x1,(int) y1,30, 30,null);
+			}
 		}
 
 
