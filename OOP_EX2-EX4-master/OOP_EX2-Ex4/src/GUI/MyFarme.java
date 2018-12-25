@@ -60,7 +60,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 	public BufferedImage player;
 
 
-boolean solo_Play=false;
+	boolean solo_Play=false;
 	double radius = 1;
 	int speed = 1;
 	MenuBar menuBarOption = new MenuBar();
@@ -182,8 +182,8 @@ boolean solo_Play=false;
 					isGamer=2;
 					playGame.getBoard();
 					playGame.start();
-				
-					
+
+
 					Thread thread = new Thread(){
 						ArrayList<String> board_data = playGame.getBoard();
 
@@ -227,7 +227,7 @@ boolean solo_Play=false;
 		reload_item.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				solo_Play=false;
 				radius = 1;
 				speed = 1;
 				new MenuBar();
@@ -408,7 +408,7 @@ boolean solo_Play=false;
 					System.out.println(fileChooser.getSelectedFile().getPath())	;
 
 					playGame = new Play(fileChooser.getSelectedFile().getPath());
-					
+
 					try {
 						myGame = new Game(playGame);
 						solo_Play=true;
@@ -417,7 +417,7 @@ boolean solo_Play=false;
 						e2.printStackTrace();
 					}
 					myGame.setfile_directory(fileChooser.getSelectedFile().getPath());
-				
+
 					isGamer = 2;
 					JOptionPane.showMessageDialog(fileChooser, "Don't forget to add a Player to run!!!!","WARNING", returnValue);
 					repaint();
