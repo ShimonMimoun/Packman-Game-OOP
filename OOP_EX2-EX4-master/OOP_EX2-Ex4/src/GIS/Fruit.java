@@ -8,7 +8,7 @@ import Geom.Point3D;
  *
  */
 public class Fruit {
-
+	
 	
 	public Point3D FuritPoint;
 	private double Weight;

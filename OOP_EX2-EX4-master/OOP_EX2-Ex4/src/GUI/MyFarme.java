@@ -32,6 +32,7 @@ import GIS.Game;
 import GIS.Ghost;
 import GIS.Packman;
 import GIS.Path;
+import GIS.Player;
 import Geom.Box;
 import Geom.Point3D;
 
@@ -56,6 +57,7 @@ public class MyFarme extends JFrame implements MouseListener
 	public BufferedImage Fruitimage;
 	public BufferedImage ghost;
 	public BufferedImage box;
+	public BufferedImage player;
 
 
 
@@ -90,6 +92,7 @@ public class MyFarme extends JFrame implements MouseListener
 		try {	Fruitimage = ImageIO.read(new File("Pictures&Icones/fruit.png")); } catch (IOException e) { e.printStackTrace();	}
 		try {	box = ImageIO.read(new File("Pictures&Icones/box.png")); } catch (IOException e) { e.printStackTrace();	}
 		try {	ghost = ImageIO.read(new File("Pictures&Icones/ghost.png")); } catch (IOException e) { e.printStackTrace();	}
+		try {	player = ImageIO.read(new File("Pictures&Icones/Player.png")); } catch (IOException e) { e.printStackTrace();	}
 
 
 
@@ -111,9 +114,21 @@ public class MyFarme extends JFrame implements MouseListener
 		menuBarOption.add(AddMenu);
 
 		MenuItem Packman_Item = new MenuItem("Packman");
-		MenuItem Fruit_item = new MenuItem("Fruit");		
+		MenuItem Fruit_item = new MenuItem("Fruit");	
+		MenuItem Player_User_item = new MenuItem("Player_User");	
+
+		MenuItem Ghost_item = new MenuItem("Ghost");
+		AddMenu.add(Player_User_item);
 		AddMenu.add(Packman_Item);
 		AddMenu.add(Fruit_item);
+		AddMenu.add(Ghost_item);
+
+		Menu AddLimite = new Menu("Limit"); 
+		MenuItem Box_item = new MenuItem("Box");
+		menuBarOption.add(AddLimite);
+		AddLimite.add(Box_item);
+
+
 
 		Menu SetMenu = new Menu("Set"); 
 
@@ -213,6 +228,45 @@ public class MyFarme extends JFrame implements MouseListener
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				isGamer = 1;
+
+			}
+		});
+
+
+
+		Ghost_item.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				isGamer = 3;
+			}
+		});
+
+
+
+		Box_item.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				createdbox();
+				repaint();
+
+			}
+		});
+
+
+		Packman_Item.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				isGamer = -1;
+
+			}
+		});
+
+		Player_User_item.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				isGamer = 2;
+
 			}
 		});
 
@@ -409,7 +463,7 @@ public class MyFarme extends JFrame implements MouseListener
 	}
 	private void  packSmiulation() {
 		ArrayList<Packman> myPackmens = new ArrayList<>();
-		ArrayList<Fruit> tempfruit = new ArrayList<>();
+
 
 
 		ShortestPathAlgo algo = new ShortestPathAlgo(myGame);
@@ -503,14 +557,13 @@ public class MyFarme extends JFrame implements MouseListener
 
 
 		if (isGamer!=0) {
-			if(myGame.Fruits_arr.size() > 0) {
-				for (int i=0; i<myGame.Fruits_arr.size(); i++) 	{
-					x1=(int)(myGame.Fruits_arr.get(i).getFruitPoint().x()*getWidth());
-					y1=(int)(myGame.Fruits_arr.get(i).getFruitPoint().y()*getHeight());	
 
 
-					g.drawImage(Fruitimage, (int)x1-5, (int)y1-6,30, 30, null);
-				}
+
+			for (int i=0; i<myGame.Fruits_arr.size(); i++) 	{
+				x1=(int)(myGame.Fruits_arr.get(i).getFruitPoint().x()*getWidth());
+				y1=(int)(myGame.Fruits_arr.get(i).getFruitPoint().y()*getHeight());	
+
 
 			}
 
@@ -525,6 +578,7 @@ public class MyFarme extends JFrame implements MouseListener
 			}
 
 			for (int j=0; j<myGame.Ghost_arr.size(); j++) {
+				System.out.println((Boxs_arr.get(0).toString()));
 				x1=(myGame.Ghost_arr.get(j).getPoint().x()*getWidth());
 				y1=(myGame.Ghost_arr.get(j).getPoint().y()*getHeight());	
 
@@ -543,7 +597,14 @@ public class MyFarme extends JFrame implements MouseListener
 
 			}
 
+			if(myGame.Player_user!=null)
+			{x1=(myGame.Player_user.getPoint_player().x()*getWidth());
+			y1=(myGame.Player_user.getPoint_player().y()*getHeight());	
+
+			g.drawImage(player,(int)x1,(int) y1,30, 30,null);
+			}
 		}
+
 
 	}
 
@@ -578,11 +639,51 @@ public class MyFarme extends JFrame implements MouseListener
 			System.out.println("Packman "+covertedfromPixel.toString());
 
 			repaint();
+		}else if(isGamer==3)
+		{
+			myGame.Ghost_arr.add(new Ghost(point_return, radius, speed));
+			System.out.println("Ghost "+covertedfromPixel.toString());
+			repaint();
+		}else if(isGamer==2)
+		{
+			myGame.Player_user=new Player(point_return, speed);
+			System.out.println("Ghost "+covertedfromPixel.toString());
+			repaint();
 		}
 
 	}
 
+	public void createdbox() {
+		double X1=0;
+		double X2=0;
+		double Y1=0;
+		double Y2=0;
 
+
+		do {
+			String	x1=JOptionPane.showInputDialog("Enter X1 Pixel");
+			X1=Double.parseDouble(x1);
+		} while ((X1<0) ||(X1>this.getWidth()));
+
+		do {
+			String	y1=JOptionPane.showInputDialog("Enter Y1 Pixel");
+			Y1=Double.parseDouble(y1);
+		} while ((Y1<0) ||(Y1>this.getHeight()));
+
+		do {
+			String	x2=JOptionPane.showInputDialog("Enter X2 Pixel");
+			X2=Double.parseDouble(x2);
+		} while ((X2<0) ||(X2>this.getWidth())||(X2<X1));
+
+		do {
+			String	y2=JOptionPane.showInputDialog("Enter Y2 Pixel");	
+			Y2=Double.parseDouble(y2);
+		} while ((Y2<0) ||(Y2>this.getWidth())||(Y2<Y1));
+
+		Boxs_arr.add(new Box(new Point3D(X1/getWidth(), Y1/getHeight()),
+				new Point3D(X2/getWidth(), Y2/getHeight())));
+
+	}
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub

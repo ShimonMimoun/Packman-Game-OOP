@@ -28,7 +28,7 @@ public class Game {
 	public  ArrayList<Fruit> Fruits_arr = new ArrayList<>();
 	public  ArrayList<Box> Boxs_arr = new ArrayList<>();
 	public  ArrayList<Ghost> Ghost_arr = new ArrayList<>();
-	
+	public Player Player_user;
 	public 	String file_directory;
 	public Map theMap = new Map();
 
