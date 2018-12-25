@@ -6,7 +6,6 @@ import java.awt.Image;
 import java.awt.Menu;
 import java.awt.MenuBar;
 import java.awt.MenuItem;
-import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -26,7 +25,6 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
-import Algorithm.ShortestPathAlgo;
 import Coords.Map;
 import GIS.Fruit;
 import GIS.Game;
@@ -62,7 +60,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 	public BufferedImage player;
 
 
-
+boolean solo_Play=false;
 	double radius = 1;
 	int speed = 1;
 	MenuBar menuBarOption = new MenuBar();
@@ -179,17 +177,17 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 			public void actionPerformed(ActionEvent e) {
 
 
-				if(myGame.Packman_arr.size() >0 && myGame.Fruits_arr.size() > 0 ) {
+				if(myGame.Packman_arr.size() >0 && myGame.Fruits_arr.size() > 0 &&solo_Play==true ) {
 					Start_game=true;
 					isGamer=2;
 					playGame.getBoard();
-					playGame.setInitLocation(32.1040,35.2061);
 					playGame.start();
-
+				
+					
 					Thread thread = new Thread(){
 						ArrayList<String> board_data = playGame.getBoard();
-						
-						
+
+
 
 						public void run(){ 
 
@@ -203,7 +201,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 								for (int i = 0; i < 10; i++) {
 									playGame.rotate(36*i);
 								}
-								
+
 								board_data = playGame.getBoard();
 
 
@@ -299,7 +297,11 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 		Player_User_item.addActionListener  (new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+
 				isGamer = 2;
+
+
+
 
 
 			}
@@ -406,19 +408,16 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 					System.out.println(fileChooser.getSelectedFile().getPath())	;
 
 					playGame = new Play(fileChooser.getSelectedFile().getPath());
-					Game theGame=null;
+					
 					try {
 						myGame = new Game(playGame);
+						solo_Play=true;
 					} catch (IOException e2) {
 						// TODO Auto-generated catch block
 						e2.printStackTrace();
 					}
 					myGame.setfile_directory(fileChooser.getSelectedFile().getPath());
-					//					myGame.Packman_arr = theGame.Packman_arr;
-					//					myGame.Fruits_arr = theGame.Fruits_arr;
-					//					myGame.Boxs_arr = theGame.Boxs_arr;
-					//					myGame.Ghost_arr = theGame.Ghost_arr;
-					//					myGame.file_directory = theGame.file_directory;
+				
 					isGamer = 2;
 
 					repaint();
@@ -607,7 +606,9 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 		}else if(isGamer==2)
 		{
 			myGame.Player_user=new Player(point_return, speed,radius);
-			System.out.println("Ghost "+covertedfromPixel.toString());
+
+			System.out.println("Player "+covertedfromPixel.toString());
+			if(solo_Play==true) playGame.setInitLocation(covertedfromPixel.x(), covertedfromPixel.y());
 			repaint();
 		}
 
