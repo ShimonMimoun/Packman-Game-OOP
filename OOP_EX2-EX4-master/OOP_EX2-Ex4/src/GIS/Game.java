@@ -7,13 +7,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 import Algorithm.ShortestPathAlgo;
 import Coords.Map;
-import File_format.csv2kml;
 import Geom.Box;
 import Geom.Point3D;
+import Robot.Play;
 
 /**
  * This class represents the function that manages the games (pacmans, fruits ..)
@@ -29,30 +28,39 @@ public class Game {
 	public  ArrayList<Box> Boxs_arr = new ArrayList<>();
 	public  ArrayList<Ghost> Ghost_arr = new ArrayList<>();
 	public Player Player_user;
-	public 	String file_directory;
+	public 	String file_directory = "";
 	public Map theMap = new Map();
+	public Play play;
 
 
 
-/**
- * Constractor
- * @param Packmans Receiv Packmans
- * @param Fruits Receiv Fruits
- * @param Boxs Receiv Box
- * @param Ghosts Receiv Ghosts
- */
+	/**
+	 * Constractor
+	 * @param Packmans Receiv Packmans
+	 * @param Fruits Receiv Fruits
+	 * @param Boxs Receiv Box
+	 * @param Ghosts Receiv Ghosts
+	 * @throws IOException 
+	 */
 
-	public Game(ArrayList<Packman> packmans , ArrayList<Fruit> Fruits , ArrayList<Box> Boxs ,ArrayList<Ghost> Ghosts) {
-		this.Packman_arr = packmans;
-		this.Fruits_arr = Fruits;
-		this.Boxs_arr = Boxs;
-		this.Ghost_arr = Ghosts;
+	public Game(ArrayList<Packman> pack,ArrayList<Fruit> fruit,ArrayList<Box> box,ArrayList<Ghost> ghost) {
+
+		this.Packman_arr = pack;
+		this.Fruits_arr = fruit;
+		this.Boxs_arr = box;
+		this.Ghost_arr = ghost;
 
 	}
-/**
- * Getter Method
- * @return  a Directory of file
- */
+	public Game(Play play) throws IOException {
+		this.play = play;
+		CreateGame(play.getBoard());
+	}
+
+
+	/**
+	 * Getter Method
+	 * @return  a Directory of file
+	 */
 	public String getDiractroy() {
 		return this.file_directory;
 	}
@@ -129,11 +137,15 @@ public class Game {
 	}
 
 
-	public void Csvread() throws IOException{		
-		List<String[]> s = csv2kml.readFile2(getDiractroy());
 
-		for (int i = 1; i < s.size(); i++) {
-			String[] row = s.get(i);
+
+	public void CreateGame(ArrayList<String> board) throws IOException{		
+
+		ArrayList<String> s = board;
+
+		for(int i=0;i<s.size();i++) {
+			String line = s.get(i);
+			String[] row = line.split(",");
 
 			if(row[0].equals("P")) {
 				Point3D p = new Point3D(row[2],row[3],row[4]);
@@ -165,8 +177,15 @@ public class Game {
 				double radius = Double.parseDouble(row[6]);
 				Ghost_arr.add(new Ghost(p, speed, radius));	
 			}
-			
-			
+			if(row[0].equals("M")) {
+				Point3D p = new Point3D(row[2],row[3],row[4]);
+				p = theMap.GPS2Pixel(p);
+				double speed = Double.parseDouble(row[5]);
+				double radius = Double.parseDouble(row[6]);
+				Player_user = new Player(p, speed, radius);
+
+			}
+
 		}
 
 
@@ -213,7 +232,7 @@ public class Game {
 			myPackmens.get(i).getPath().setTheTotalTime(p.getTheTime());
 
 		}
-		
+
 
 
 		for (int i = 0; i < myPackmens.size(); i++) {
@@ -296,23 +315,23 @@ public class Game {
 				content.add(kmlelement2);
 
 			}
-				
-				for (int i = 0; i < packman_for.getPath().TheCurrentPath().size(); i++) {
 
-					now_start=now_start.plusMinutes(5);
-					temp_start=now_start.plusMinutes(10);
+			for (int i = 0; i < packman_for.getPath().TheCurrentPath().size(); i++) {
 
-
+				now_start=now_start.plusMinutes(5);
+				temp_start=now_start.plusMinutes(10);
 
 
-					kmlelement ="<Placemark>\n" +
-							"<name><![CDATA[ FRUIT "+(i)+",Pac:"+j+"]]></name>\n <description>"+
-							"<![CDATA["
-							+nameData[0]+": <b> FRUIT  </b><br/>"
-							+nameData[1]+": <b> FRUIT Number :"+i+",Pac:"+j+" </b><br/>"
-							+nameData[2]+": <b>"+packman_for.getPath().TheCurrentPath().get(i).getFruitPoint().x()+" </b><br/>" 
-							+nameData[3]+": <b>"+packman_for.getPath().TheCurrentPath().get(i).getFruitPoint().y()+" </b><br/>" 
-							+nameData[4]+": <b>"+packman_for.getPath().TheCurrentPath().get(i).getWeight()+" </b><br/>" 
+
+
+				kmlelement ="<Placemark>\n" +
+						"<name><![CDATA[ FRUIT "+(i)+",Pac:"+j+"]]></name>\n <description>"+
+						"<![CDATA["
+						+nameData[0]+": <b> FRUIT  </b><br/>"
+						+nameData[1]+": <b> FRUIT Number :"+i+",Pac:"+j+" </b><br/>"
+						+nameData[2]+": <b>"+packman_for.getPath().TheCurrentPath().get(i).getFruitPoint().x()+" </b><br/>" 
+						+nameData[3]+": <b>"+packman_for.getPath().TheCurrentPath().get(i).getFruitPoint().y()+" </b><br/>" 
+						+nameData[4]+": <b>"+packman_for.getPath().TheCurrentPath().get(i).getWeight()+" </b><br/>" 
 
 
 						+"]]></description>\n" +
@@ -328,41 +347,41 @@ public class Game {
 
 
 
-					content.add(kmlelement);			
-					
-					
-					
-					
-					if(i+1==packman_for.getPath().TheCurrentPath().size()) temp_start=now_start_end;
-
-					String kmlelement2 ="<Placemark>\n" +
-							"<name><![CDATA[ PACKMAN Moving "+j+", "+i+"]]></name>\n" +
-							"<description>"+
-							"<![CDATA["
-							+nameData[0]+": <b> PACKMAN  </b><br/>"
-							+nameData[1]+": <b> PACKMAN Moving "+j+", "+i+"</b><br/>"
-							+nameData[2]+": <b>"+packman_for.packLocation.x()+" </b><br/>" 
-							+nameData[3]+": <b>"+packman_for.packLocation.y()+" </b><br/>" 
-							+nameData[4]+": <b>"+packman_for.getSpeed()+" </b><br/>" 
-							+nameData[5]+": <b>"+Packman_arr.get(j).getradius()+" </b><br/>" // altito to meter
+				content.add(kmlelement);			
 
 
 
-							+"]]></description>\n" +
-							"<TimeStamp>\r\n" + 
-							"        <when>"+temp_start+"</when>\r\n" + 
-							"      </TimeStamp>"+
-							"<styleUrl>#Packman</styleUrl>"+
-							"<Point>\n" +
-							"<coordinates>"+packman_for.getPath().TheCurrentPath().get(i).getFruitPoint().y()+","
-							+packman_for.getPath().TheCurrentPath().get(i).getFruitPoint().x()+"</coordinates>" +
-							"</Point>\n" +
-							"</Placemark>\n";
+
+				if(i+1==packman_for.getPath().TheCurrentPath().size()) temp_start=now_start_end;
+
+				String kmlelement2 ="<Placemark>\n" +
+						"<name><![CDATA[ PACKMAN Moving "+j+", "+i+"]]></name>\n" +
+						"<description>"+
+						"<![CDATA["
+						+nameData[0]+": <b> PACKMAN  </b><br/>"
+						+nameData[1]+": <b> PACKMAN Moving "+j+", "+i+"</b><br/>"
+						+nameData[2]+": <b>"+packman_for.packLocation.x()+" </b><br/>" 
+						+nameData[3]+": <b>"+packman_for.packLocation.y()+" </b><br/>" 
+						+nameData[4]+": <b>"+packman_for.getSpeed()+" </b><br/>" 
+						+nameData[5]+": <b>"+Packman_arr.get(j).getradius()+" </b><br/>" // altito to meter
 
 
-					content.add(kmlelement2);
 
-				}
+						+"]]></description>\n" +
+						"<TimeStamp>\r\n" + 
+						"        <when>"+temp_start+"</when>\r\n" + 
+						"      </TimeStamp>"+
+						"<styleUrl>#Packman</styleUrl>"+
+						"<Point>\n" +
+						"<coordinates>"+packman_for.getPath().TheCurrentPath().get(i).getFruitPoint().y()+","
+						+packman_for.getPath().TheCurrentPath().get(i).getFruitPoint().x()+"</coordinates>" +
+						"</Point>\n" +
+						"</Placemark>\n";
+
+
+				content.add(kmlelement2);
+
+			}
 
 
 		}

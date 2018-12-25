@@ -5,6 +5,17 @@ import Geom.Point3D;
 public class Player {
 	
 	private Point3D Point_player;
+	private double speed;
+	private double radius;
+	
+	
+	public Player(Point3D p1, double speed, double radius) {
+		
+		this.Point_player = p1;
+		this.speed = speed;
+		this.radius = radius;
+	}
+	
 	public Point3D getPoint_player() {
 		return Point_player;
 	}
@@ -26,17 +37,12 @@ public class Player {
 	public void setSpeed(double speed) {
 		this.speed = speed;
 	}
-
-
-
-	private double speed;
-	
-	
-	
-	public Player(Point3D p1, double speed) {
-		
-		this.Point_player = p1;
-		this.speed = speed;
-		
+	public double getRadius() {
+		return radius;
 	}
+
+	public void setRadius(double radius) {
+		this.radius = radius;
+	}
+
 }

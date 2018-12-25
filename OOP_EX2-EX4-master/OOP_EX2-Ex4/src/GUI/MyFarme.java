@@ -10,6 +10,7 @@ import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -35,6 +36,7 @@ import GIS.Path;
 import GIS.Player;
 import Geom.Box;
 import Geom.Point3D;
+import Robot.Play;
 
 /**
  * This Class manages the graphical representation of the entire program.
@@ -43,7 +45,7 @@ import Geom.Point3D;
  * @author Mimoun Shimon and Omer Paz
  *
  */
-public class MyFarme extends JFrame implements MouseListener
+public class MyFarme extends JFrame implements MouseListener , KeyListener
 {
 	/**
 	 * 
@@ -69,6 +71,7 @@ public class MyFarme extends JFrame implements MouseListener
 	public  ArrayList<Fruit> Fruits_arr = new ArrayList<>();
 	public  ArrayList<Box> Boxs_arr = new ArrayList<>();
 	public  ArrayList<Ghost> Ghost_arr = new ArrayList<>();
+	public Play playGame;
 	private Game myGame=new Game(Packman_arr, Fruits_arr,Boxs_arr,Ghost_arr);
 	private int isGamer=0;// if is Gamer==1 --> Fruit :::: if is Gamer == -1 --> Packman 
 	public boolean Start_game=false;
@@ -81,6 +84,7 @@ public class MyFarme extends JFrame implements MouseListener
 	{
 		initGUI();		
 		this.addMouseListener(this); 
+		this.addKeyListener(this);
 
 	}
 
@@ -175,15 +179,20 @@ public class MyFarme extends JFrame implements MouseListener
 			public void actionPerformed(ActionEvent e) {
 				if(myGame.Packman_arr.size() >0 && myGame.Fruits_arr.size() > 0 ) {
 					Start_game=true;
-					drwaline = true;
 					isGamer=2;
+					playGame.getBoard();
 
-					for (int i = 0; i < myGame.Packman_arr.size(); i++) {
-						ArrayTemp.add(new Packman(myGame.Packman_arr.get(i)));
-						ArrayTemp.get(i).getPath().setPath(myGame.Packman_arr.get(i).getPath().TheCurrentPath());
+					while(true) {
+						try {
+							myGame.CreateGame(playGame.getBoard());
+							System.out.println(myGame.Packman_arr.get(0).toString());
+							repaint();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+
 					}
-
-					packSmiulation();
 
 
 				}
@@ -262,21 +271,14 @@ public class MyFarme extends JFrame implements MouseListener
 			}
 		});
 
-//		Player_User_item.addActionListener  (new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				isGamer = 2;
-//				   Panel panel = new Panel();
-//				   panel.addKeyListener(new KeyListener() {
-//				        public void keyTyped(KeyEvent e) {
-//
-//				        }
-//
-//				   }
-//				keyPressed(e);
-//
-//			}
-//		});
+		Player_User_item.addActionListener  (new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				isGamer = 2;
+
+
+			}
+		});
 
 		//
 		Packman_Item.addActionListener(new ActionListener() {
@@ -376,23 +378,25 @@ public class MyFarme extends JFrame implements MouseListener
 
 				int returnValue = fileChooser.showOpenDialog(null);
 				if (returnValue == JFileChooser.APPROVE_OPTION) {
-					System.out.println(fileChooser.getSelectedFile().getPath());
-					Game theGame = new Game(Packman_arr, Fruits_arr,Boxs_arr,Ghost_arr);
-					theGame.setfile_directory(fileChooser.getSelectedFile().getPath());
+					System.out.println(fileChooser.getSelectedFile().getPath())	;
+
+					playGame = new Play(fileChooser.getSelectedFile().getPath());
+					Game theGame=null;
 					try {
-						theGame.Csvread();
-						myGame.Packman_arr = theGame.Packman_arr;
-						myGame.Fruits_arr = theGame.Fruits_arr;
-						myGame.Boxs_arr = theGame.Boxs_arr;
-						myGame.Ghost_arr = theGame.Ghost_arr;
-						myGame.file_directory = theGame.file_directory;
-						isGamer = 2;
-
-						repaint();
-
-					} catch (IOException e1) {
-						e1.printStackTrace();
+						myGame = new Game(playGame);
+					} catch (IOException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
 					}
+					myGame.setfile_directory(fileChooser.getSelectedFile().getPath());
+//					myGame.Packman_arr = theGame.Packman_arr;
+//					myGame.Fruits_arr = theGame.Fruits_arr;
+//					myGame.Boxs_arr = theGame.Boxs_arr;
+//					myGame.Ghost_arr = theGame.Ghost_arr;
+//					myGame.file_directory = theGame.file_directory;
+					isGamer = 2;
+
+					repaint();
 
 				}
 			}
@@ -470,84 +474,6 @@ public class MyFarme extends JFrame implements MouseListener
 		});
 
 	}
-	private void  packSmiulation() {
-		ArrayList<Packman> myPackmens = new ArrayList<>();
-
-
-
-		ShortestPathAlgo algo = new ShortestPathAlgo(myGame);
-		myPackmens = algo.algoMultiPackmans();
-
-		for (int i = 0; i < myPackmens.size(); i++) {
-			Path p = algo.algoSinglePackman(myPackmens.get(i));
-			myPackmens.get(i).getPath().setPath(p.TheCurrentPath());
-			myPackmens.get(i).getPath().setTheTotalTime(p.getTheTime());
-
-		}
-
-
-
-
-		for (Packman packman : myPackmens)	{
-
-
-			Thread thread = new Thread() 
-			{
-				@Override
-				public void run()
-				{
-
-
-					for (int i = 0; i < packman.getPath().TheCurrentPath().size(); i++) {
-						
-						if(Fruits_arr.size() == 0) {
-							break;
-						}
-
-
-						for (int j = 0; j < packman.getPath().getTheTime(); j++) {
-							Point3D ans = packman.getPath().theNextPoint(packman,packman.getPath().TheCurrentPath().get(i) , j);
-							try {
-								sleep(20);
-							} catch (InterruptedException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-
-							packman.setPackLocation(ans);
-
-							repaint();
-							if(packman.getPath().CalTime2Points(packman,packman.getPath().TheCurrentPath().get(i) ) <= 5) {
-								System.out.println("I is : "+i);
-								System.out.println("pack size: "+packman.getPath().TheCurrentPath().size());
-								System.out.println("array size: "+myGame.Fruits_arr.size());
-								System.out.println("HERE");
-								myGame.Fruits_arr.remove(algo.getIndexFurit(packman.getPath().TheCurrentPath().get(i), packman.getPath().TheCurrentPath()));
-								break;
-
-							}
-
-							try {
-								sleep(30);
-							} catch (InterruptedException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						}
-
-					}
-
-				}
-			};
-			thread.start();
-
-
-		}
-	}
-
-
-
-
 
 	public void paint(Graphics g) {
 
@@ -575,7 +501,6 @@ public class MyFarme extends JFrame implements MouseListener
 					g.drawImage(Fruitimage, (int)x1-5, (int)y1-6,30, 30, null);
 				}
 
-
 			}
 
 			for (int j=0; j<myGame.Packman_arr.size(); j++) {
@@ -589,7 +514,6 @@ public class MyFarme extends JFrame implements MouseListener
 			}
 
 			for (int j=0; j<myGame.Ghost_arr.size(); j++) {
-				System.out.println((Boxs_arr.get(0).toString()));
 				x1=(myGame.Ghost_arr.get(j).getPoint().x()*getWidth());
 				y1=(myGame.Ghost_arr.get(j).getPoint().y()*getHeight());	
 
@@ -609,10 +533,10 @@ public class MyFarme extends JFrame implements MouseListener
 			}
 
 			if(myGame.Player_user!=null){
-			x1=(myGame.Player_user.getPoint_player().x()*getWidth());
-			y1=(myGame.Player_user.getPoint_player().y()*getHeight());	
+				x1=(myGame.Player_user.getPoint_player().x()*getWidth());
+				y1=(myGame.Player_user.getPoint_player().y()*getHeight());	
 
-			g.drawImage(player,(int)x1,(int) y1,30, 30,null);
+				g.drawImage(player,(int)x1,(int) y1,30, 30,null);
 			}
 		}
 
@@ -656,7 +580,7 @@ public class MyFarme extends JFrame implements MouseListener
 			repaint();
 		}else if(isGamer==2)
 		{
-			myGame.Player_user=new Player(point_return, speed);
+			myGame.Player_user=new Player(point_return, speed,radius);
 			System.out.println("Ghost "+covertedfromPixel.toString());
 			repaint();
 		}
@@ -694,34 +618,41 @@ public class MyFarme extends JFrame implements MouseListener
 				new Point3D(X2/getWidth(), Y2/getHeight())));
 
 	}
-	
-	
-	
-	
-	
-	  public void keyPressed(KeyEvent e) {
-          int keyCode = e.getKeyCode();
-          if(keyCode == KeyEvent.VK_DOWN) {
-        	  double y=   ( myGame.Player_user.getPoint_player().y()*getHeight())-1;
-              myGame.Player_user.setPoint_player(new Point3D(myGame.Player_user.getPoint_player().y(),y/getHeight()));
-           
-          }
-          if(keyCode == KeyEvent.VK_UP) {
-        	  double y=   ( myGame.Player_user.getPoint_player().y()*getHeight())+1;
-              myGame.Player_user.setPoint_player(new Point3D(myGame.Player_user.getPoint_player().y(),y/getHeight()));
-           
-          }
-          if(keyCode == KeyEvent.VK_RIGHT) {
-        	  double x=   ( myGame.Player_user.getPoint_player().x()*getWidth())+1;
-              myGame.Player_user.setPoint_player(new Point3D(x/getWidth(), myGame.Player_user.getPoint_player().y()));
-           
-          }
-          if(keyCode == KeyEvent.VK_LEFT) {
-        	  double x=   ( myGame.Player_user.getPoint_player().x()*getWidth())-1;
-              myGame.Player_user.setPoint_player(new Point3D(x/getWidth(), myGame.Player_user.getPoint_player().y()));
-           
-          }
-      }
+
+
+
+
+
+	public void keyPressed(KeyEvent e) {
+		int keyCode = e.getKeyCode();
+		if(keyCode == KeyEvent.VK_DOWN) {
+			double y=   ( myGame.Player_user.getPoint_player().y()*getHeight())-1;
+			myGame.Player_user.setPoint_player(new Point3D(myGame.Player_user.getPoint_player().y(),y/getHeight()));
+			repaint();
+
+
+		}
+		if(keyCode == KeyEvent.VK_UP) {
+			playGame.rotate(90);
+			repaint();
+
+
+		}
+		if(keyCode == KeyEvent.VK_RIGHT) {
+			double x=   ( myGame.Player_user.getPoint_player().x()*getWidth())+1;
+			myGame.Player_user.setPoint_player(new Point3D(x/getWidth(), myGame.Player_user.getPoint_player().y()));
+			repaint();
+
+
+		}
+		if(keyCode == KeyEvent.VK_LEFT) {
+			double x=   ( myGame.Player_user.getPoint_player().x()*getWidth())-1;
+			myGame.Player_user.setPoint_player(new Point3D(x/getWidth(), myGame.Player_user.getPoint_player().y()));
+			repaint();
+
+		}
+
+	}
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
@@ -742,6 +673,18 @@ public class MyFarme extends JFrame implements MouseListener
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 
 	}
