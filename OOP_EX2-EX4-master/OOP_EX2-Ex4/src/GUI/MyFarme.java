@@ -177,22 +177,47 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 			@Override
 
 			public void actionPerformed(ActionEvent e) {
+
+
 				if(myGame.Packman_arr.size() >0 && myGame.Fruits_arr.size() > 0 ) {
 					Start_game=true;
 					isGamer=2;
 					playGame.getBoard();
+					playGame.setInitLocation(32.1040,35.2061);
+					playGame.start();
 
-					while(true) {
-						try {
-							myGame.CreateGame(playGame.getBoard());
-							System.out.println(myGame.Packman_arr.get(0).toString());
-							repaint();
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
+					Thread thread = new Thread(){
+						ArrayList<String> board_data = playGame.getBoard();
+						
+						
+
+						public void run(){ //אני שומע!!!!!!!!!!!!!!
+
+							for(int j=0;j<100000;j++) {
+								try {
+									sleep(1000);
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								for (int i = 0; i < 10; i++) {
+									playGame.rotate(36*i);
+								}
+								
+								board_data = playGame.getBoard();
+
+
+								try {myGame.CreateGame(board_data);} catch (IOException e1) {e1.printStackTrace();}
+								repaint();
+							}
+							String info = playGame.getStatistics();
+							System.out.println(info);
 						}
+					};
+					thread.start();
 
-					}
+
+
 
 
 				}
@@ -389,11 +414,11 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 						e2.printStackTrace();
 					}
 					myGame.setfile_directory(fileChooser.getSelectedFile().getPath());
-//					myGame.Packman_arr = theGame.Packman_arr;
-//					myGame.Fruits_arr = theGame.Fruits_arr;
-//					myGame.Boxs_arr = theGame.Boxs_arr;
-//					myGame.Ghost_arr = theGame.Ghost_arr;
-//					myGame.file_directory = theGame.file_directory;
+					//					myGame.Packman_arr = theGame.Packman_arr;
+					//					myGame.Fruits_arr = theGame.Fruits_arr;
+					//					myGame.Boxs_arr = theGame.Boxs_arr;
+					//					myGame.Ghost_arr = theGame.Ghost_arr;
+					//					myGame.file_directory = theGame.file_directory;
 					isGamer = 2;
 
 					repaint();
@@ -494,11 +519,23 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 		if (isGamer!=0) {
 
 			if(myGame.Fruits_arr.size() > 0) {
+
+				for (int j=0; j<myGame.Boxs_arr.size(); j++) {
+
+					x1=(myGame.Boxs_arr.get(j).getP1().x()*getWidth());
+					y1=(myGame.Boxs_arr.get(j).getP1().y()*getHeight());
+					x2=(myGame.Boxs_arr.get(j).getP2().x()*getWidth());
+					y2=(myGame.Boxs_arr.get(j).getP2().y()*getHeight());	
+					double width = x2-x1;
+					double height = y2-y1;
+					g.drawImage(box, (int)x1,(int) y1,(int)width, (int)height, null);
+
+				}
 				for (int i=0; i<myGame.Fruits_arr.size(); i++) 	{
 					x1=(int)(myGame.Fruits_arr.get(i).getFruitPoint().x()*getWidth());
 					y1=(int)(myGame.Fruits_arr.get(i).getFruitPoint().y()*getHeight());	
 
-					g.drawImage(Fruitimage, (int)x1-5, (int)y1-6,30, 30, null);
+					g.drawImage(Fruitimage, (int)x1, (int)y1,30, 30, null);
 				}
 
 			}
@@ -509,7 +546,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 				y1=(myGame.Packman_arr.get(j).getPoint().y()*getHeight());	
 
 
-				g.drawImage(packimage, (int)x1-6,(int) y1-7,30, 30, null);
+				g.drawImage(packimage, (int)x1,(int) y1,30, 30, null);
 
 			}
 
@@ -518,17 +555,6 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 				y1=(myGame.Ghost_arr.get(j).getPoint().y()*getHeight());	
 
 				g.drawImage(ghost, (int)x1,(int) y1,30, 30, null);
-
-			}
-			for (int j=0; j<myGame.Boxs_arr.size(); j++) {
-
-				x1=(myGame.Boxs_arr.get(j).getP1().x()*getWidth());
-				y1=(myGame.Boxs_arr.get(j).getP1().y()*getHeight());
-				x2=(myGame.Boxs_arr.get(j).getP2().x()*getWidth());
-				y2=(myGame.Boxs_arr.get(j).getP2().y()*getHeight());	
-				double width = x2-x1;
-				double height = y2-y1;
-				g.drawImage(box, (int)x1,(int) y1,(int)width, (int)height, null);
 
 			}
 
@@ -626,29 +652,22 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
 		if(keyCode == KeyEvent.VK_DOWN) {
-			double y=   ( myGame.Player_user.getPoint_player().y()*getHeight())-1;
-			myGame.Player_user.setPoint_player(new Point3D(myGame.Player_user.getPoint_player().y(),y/getHeight()));
-			repaint();
+			playGame.rotate(-180);
 
 
 		}
 		if(keyCode == KeyEvent.VK_UP) {
-			playGame.rotate(90);
-			repaint();
+			playGame.rotate(0);
 
 
 		}
 		if(keyCode == KeyEvent.VK_RIGHT) {
-			double x=   ( myGame.Player_user.getPoint_player().x()*getWidth())+1;
-			myGame.Player_user.setPoint_player(new Point3D(x/getWidth(), myGame.Player_user.getPoint_player().y()));
-			repaint();
+			playGame.rotate(90);
 
 
 		}
 		if(keyCode == KeyEvent.VK_LEFT) {
-			double x=   ( myGame.Player_user.getPoint_player().x()*getWidth())-1;
-			myGame.Player_user.setPoint_player(new Point3D(x/getWidth(), myGame.Player_user.getPoint_player().y()));
-			repaint();
+			playGame.rotate(-90);	
 
 		}
 
