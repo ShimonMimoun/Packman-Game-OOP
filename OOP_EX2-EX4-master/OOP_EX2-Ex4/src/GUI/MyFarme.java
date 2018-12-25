@@ -1,14 +1,15 @@
 package GUI;
 import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Menu;
 import java.awt.MenuBar;
 import java.awt.MenuItem;
+import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -23,7 +24,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
-
 
 import Algorithm.ShortestPathAlgo;
 import Coords.Map;
@@ -262,13 +262,21 @@ public class MyFarme extends JFrame implements MouseListener
 			}
 		});
 
-		Player_User_item.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				isGamer = 2;
-
-			}
-		});
+//		Player_User_item.addActionListener  (new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				isGamer = 2;
+//				   Panel panel = new Panel();
+//				   panel.addKeyListener(new KeyListener() {
+//				        public void keyTyped(KeyEvent e) {
+//
+//				        }
+//
+//				   }
+//				keyPressed(e);
+//
+//			}
+//		});
 
 		Packman_Item.addActionListener(new ActionListener() {
 			@Override
@@ -699,6 +707,34 @@ public class MyFarme extends JFrame implements MouseListener
 				new Point3D(X2/getWidth(), Y2/getHeight())));
 
 	}
+	
+	
+	
+	
+	
+	  public void keyPressed(KeyEvent e) {
+          int keyCode = e.getKeyCode();
+          if(keyCode == KeyEvent.VK_DOWN) {
+        	  double y=   ( myGame.Player_user.getPoint_player().y()*getHeight())-1;
+              myGame.Player_user.setPoint_player(new Point3D(myGame.Player_user.getPoint_player().y(),y/getHeight()));
+           
+          }
+          if(keyCode == KeyEvent.VK_UP) {
+        	  double y=   ( myGame.Player_user.getPoint_player().y()*getHeight())+1;
+              myGame.Player_user.setPoint_player(new Point3D(myGame.Player_user.getPoint_player().y(),y/getHeight()));
+           
+          }
+          if(keyCode == KeyEvent.VK_RIGHT) {
+        	  double x=   ( myGame.Player_user.getPoint_player().x()*getWidth())+1;
+              myGame.Player_user.setPoint_player(new Point3D(x/getWidth(), myGame.Player_user.getPoint_player().y()));
+           
+          }
+          if(keyCode == KeyEvent.VK_LEFT) {
+        	  double x=   ( myGame.Player_user.getPoint_player().x()*getWidth())-1;
+              myGame.Player_user.setPoint_player(new Point3D(x/getWidth(), myGame.Player_user.getPoint_player().y()));
+           
+          }
+      }
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
