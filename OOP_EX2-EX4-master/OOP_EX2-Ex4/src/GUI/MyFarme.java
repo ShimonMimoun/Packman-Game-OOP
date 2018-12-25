@@ -419,7 +419,7 @@ boolean solo_Play=false;
 					myGame.setfile_directory(fileChooser.getSelectedFile().getPath());
 				
 					isGamer = 2;
-
+					JOptionPane.showMessageDialog(fileChooser, "Don't forget to add a Player to run!!!!","WARNING", returnValue);
 					repaint();
 
 				}
