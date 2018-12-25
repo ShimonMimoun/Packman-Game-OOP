@@ -191,7 +191,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 						
 						
 
-						public void run(){ //אני שומע!!!!!!!!!!!!!!
+						public void run(){ 
 
 							for(int j=0;j<100000;j++) {
 								try {
