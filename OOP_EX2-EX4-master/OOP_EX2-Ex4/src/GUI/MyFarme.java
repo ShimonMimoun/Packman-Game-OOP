@@ -7,7 +7,7 @@ import java.awt.Menu;
 import java.awt.MenuBar;
 import java.awt.MenuItem;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.ActionListener;	
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -59,7 +59,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 	public BufferedImage box;
 	public BufferedImage player;
 
-
+	boolean player_user_boll=false;
 	boolean solo_Play=false;
 	double radius = 1;
 	int speed = 1;
@@ -176,50 +176,51 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 			public void actionPerformed(ActionEvent e) {
 
-
-				if(myGame.Packman_arr.size() >0 && myGame.Fruits_arr.size() > 0 &&solo_Play==true ) {
-					Start_game=true;
-					isGamer=2;
-					playGame.getBoard();
-					playGame.start();
-
-
-					Thread thread = new Thread(){
-						ArrayList<String> board_data = playGame.getBoard();
+				if(player_user_boll==true) {
+					if(myGame.Packman_arr.size() >0 && myGame.Fruits_arr.size() > 0 &&solo_Play==true ) {
+						Start_game=true;
+						isGamer=2;
+						playGame.getBoard();
+						playGame.start();
 
 
+						Thread thread = new Thread(){
+							ArrayList<String> board_data = playGame.getBoard();
 
-						public void run(){ 
 
-							for(int j=0;j<100000;j++) {
-								try {
-									sleep(1000);
-								} catch (InterruptedException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
+
+							public void run(){ 
+
+								for(int j=0;j<100000;j++) {
+									try {
+										sleep(1000);
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+									for (int i = 0; i < 10; i++) {
+										playGame.rotate(36*i);
+									}
+
+									board_data = playGame.getBoard();
+
+
+									try {myGame.CreateGame(board_data);} catch (IOException e1) {e1.printStackTrace();}
+									repaint();
 								}
-								for (int i = 0; i < 10; i++) {
-									playGame.rotate(36*i);
-								}
-
-								board_data = playGame.getBoard();
-
-
-								try {myGame.CreateGame(board_data);} catch (IOException e1) {e1.printStackTrace();}
-								repaint();
+								String info = playGame.getStatistics();
+								System.out.println(info);
 							}
-							String info = playGame.getStatistics();
-							System.out.println(info);
-						}
-					};
-					thread.start();
+						};
+						thread.start();
 
 
 
 
 
-				}
-				Start_game = false;
+					}
+					Start_game = false;
+				}	else JOptionPane.showMessageDialog(null, "Enter Player to run!!!!");
 
 			}
 		});
@@ -227,6 +228,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 		reload_item.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				player_user_boll=false;
 				solo_Play=false;
 				radius = 1;
 				speed = 1;
@@ -419,7 +421,6 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 					myGame.setfile_directory(fileChooser.getSelectedFile().getPath());
 
 					isGamer = 2;
-					JOptionPane.showMessageDialog(fileChooser, "Don't forget to add a Player to run!!!!","WARNING", returnValue);
 					repaint();
 
 				}
@@ -607,8 +608,11 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 		{
 			myGame.Player_user=new Player(point_return, speed,radius);
 
-			System.out.println("Player "+covertedfromPixel.toString());
-			if(solo_Play==true) playGame.setInitLocation(covertedfromPixel.x(), covertedfromPixel.y());
+			//System.out.println("Player "+covertedfromPixel.toString());
+			if(solo_Play==true) {
+				playGame.setInitLocation(covertedfromPixel.x(), covertedfromPixel.y());
+				player_user_boll=true;
+			}
 			repaint();
 		}
 
