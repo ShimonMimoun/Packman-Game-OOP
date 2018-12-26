@@ -16,15 +16,13 @@ public class test {
 
 
 
-		Point3D a=new Point3D(32.106352,35.205225,650);
-		Point3D b = new Point3D (337,-359,-20);
-		System.out.println(m.add(a, b).toString());
-//		System.out.println(m.ConvertToCartesian(a).toString());
-//		System.out.println(m.ConvertToCartesian(a).toString());
-//		Point3D shilo = m.ConvertToCartesian(a);
-//		System.out.println(m.ConvertToGps(shilo));
+		Point3D pack=new Point3D(32.1040274470405,35.20560909618209,0.0);
+		Point3D fruit = new Point3D(32.105082626168226,35.206251845080764,0.0);
+		double[] arr = m.azimuth_elevation_dist(fruit, pack);
 		
-
+		for (int i = 0; i < arr.length; i++) {
+			System.out.println(arr[i]);
+		}
 
 
 

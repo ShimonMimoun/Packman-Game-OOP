@@ -26,6 +26,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
 import Coords.Map;
+import Coords.MyCoords;
 import GIS.Fruit;
 import GIS.Game;
 import GIS.Ghost;
@@ -177,10 +178,11 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 			public void actionPerformed(ActionEvent e) {
 
 
-				if(myGame.Packman_arr.size() >0 && myGame.Fruits_arr.size() > 0 &&solo_Play==true ) {
+				if(myGame.Player_user != null) {
 					Start_game=true;
-					isGamer=2;
 					playGame.getBoard();
+					isGamer = 4;
+					click = true;
 					playGame.start();
 
 
@@ -408,10 +410,8 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 						// TODO Auto-generated catch block
 						e2.printStackTrace();
 					}
+					isGamer = 4;
 					myGame.setfile_directory(fileChooser.getSelectedFile().getPath());
-
-					isGamer = 2;
-					JOptionPane.showMessageDialog(fileChooser, "Don't forget to add a Player to run!!!!","WARNING", returnValue);
 					repaint();
 
 				}
@@ -561,7 +561,8 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 
 
-
+	private boolean click = false;
+	private MyCoords m = new MyCoords();
 
 	@Override
 	public void mouseClicked(MouseEvent arg) {
@@ -569,11 +570,19 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 		double x_temp=arg.getX();
 		x_temp=x_temp/getWidth();
 
-
 		double y_temp=arg.getY();
 		y_temp=y_temp/getHeight();
 		Point3D point_return=new Point3D(x_temp, y_temp, 0);
 		Point3D covertedfromPixel = theMap.Pixel2GPS(x_temp, y_temp);
+		
+		
+		if(click == true) {
+			Point3D playerConert = theMap.Pixel2GPS(myGame.Player_user.getPoint_player().x(), myGame.Player_user.getPoint_player().y());
+			double finalnum = m.azimuth(covertedfromPixel,playerConert);
+			System.out.println(finalnum);
+			dir = finalnum;
+			playGame.rotate(dir);
+		}
 
 
 		if (isGamer==(1))
@@ -673,8 +682,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub		
-
+				
 	}
 
 	@Override
@@ -693,6 +701,12 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

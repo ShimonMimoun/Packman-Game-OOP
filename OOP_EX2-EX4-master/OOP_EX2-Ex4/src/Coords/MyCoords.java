@@ -71,6 +71,27 @@ public class MyCoords implements coords_converter {
 		
 		return ans;
 	}
+	public double azimuth(Point3D gps0, Point3D gps1) {
+
+		double[] ans = new double[3];
+		ans[0] = gps1.north_angle(gps0);
+		double resulte =covertDeg(ans[0]);
+
+		
+		return resulte;
+	}
+	public double covertDeg(double num) {
+	
+		if( num >= 0 && num <=90 ) {
+			return 90-num;
+		}else {
+			return 450-num;
+		}
+		
+	}
+
+	
+	
 
 	@Override
 	public boolean isValid_GPS_Point(Point3D p) {
