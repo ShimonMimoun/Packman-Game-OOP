@@ -13,7 +13,7 @@ public class MyFrameMain
 		MyFarme window = new MyFarme();
 		window.setVisible(true);
 		
-		window.setSize(1000,500);
+		window.setSize(window.myImage.getWidth(),window.myImage.getHeight());
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}

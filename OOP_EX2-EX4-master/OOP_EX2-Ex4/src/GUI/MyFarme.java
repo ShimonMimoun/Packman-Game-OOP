@@ -186,37 +186,29 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 					Thread thread = new Thread(){
 						ArrayList<String> board_data = playGame.getBoard();
-
-
-
+					
 						public void run(){ 
 
-							for(int j=0;j<100000;j++) {
+							while(playGame.isRuning()){ 
+							
 								try {
-									sleep(1000);
+									sleep(200);
 								} catch (InterruptedException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
-								for (int i = 0; i < 10; i++) {
-									playGame.rotate(36*i);
-								}
-
-								board_data = playGame.getBoard();
-
-
-								try {myGame.CreateGame(board_data);} catch (IOException e1) {e1.printStackTrace();}
-								repaint();
+					
+									playGame.rotate(dir);
+									board_data = playGame.getBoard();
+									try {myGame.CreateGame(board_data);} catch (IOException e1) {e1.printStackTrace();}
+									repaint();						
 							}
 							String info = playGame.getStatistics();
 							System.out.println(info);
+							
 						}
 					};
 					thread.start();
-
-
-
-
 
 				}
 				Start_game = false;
@@ -648,29 +640,29 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 
 
-
+	private double dir;
 
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
 		if(keyCode == KeyEvent.VK_DOWN) {
-			playGame.rotate(-180);
+			dir = -180;
 
 
 		}
 		if(keyCode == KeyEvent.VK_UP) {
-			playGame.rotate(0);
+			dir = 0;
 
 
 		}
 		if(keyCode == KeyEvent.VK_RIGHT) {
-			playGame.rotate(90);
+			dir = 90;
 
 
 		}
 		if(keyCode == KeyEvent.VK_LEFT) {
-			playGame.rotate(-90);	
-
+			dir = -90;
 		}
+		
 
 	}
 	@Override
@@ -703,11 +695,6 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 	}
 
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-
-	}
 
 
 }
