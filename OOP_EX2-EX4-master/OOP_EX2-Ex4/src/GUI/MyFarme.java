@@ -75,6 +75,8 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 	private int isGamer=0;// if is Gamer==1 --> Fruit :::: if is Gamer == -1 --> Packman 
 	public boolean Start_game=false;
 	public boolean drwaline = false;
+	private double dir;
+
 	public ArrayList<Packman> ArrayTemp=new ArrayList<>();
 	Path TheCloserPackman;
 
@@ -649,31 +651,9 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 
 
-	private double dir;
-
-	public void keyPressed(KeyEvent e) {
-		int keyCode = e.getKeyCode();
-		if(keyCode == KeyEvent.VK_DOWN) {
-			dir = -180;
 
 
-		}
-		if(keyCode == KeyEvent.VK_UP) {
-			dir = 0;
-
-
-		}
-		if(keyCode == KeyEvent.VK_RIGHT) {
-			dir = 90;
-
-
-		}
-		if(keyCode == KeyEvent.VK_LEFT) {
-			dir = -90;
-		}
-		
-
-	}
+	
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
@@ -705,6 +685,12 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
