@@ -509,18 +509,20 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 	}
 	public void update(Graphics g){
+	
 		paint(g);
 	}
 	public void paint(Graphics g) {
 
 		if(dbg==null){
-			image = createImage(getWidth(),getHeight());
+			image = createImage(this.getWidth(),this.getHeight());
 			dbg = image.getGraphics();
+			
 		}
 	
 		
 		Image scaledImage = myImage.getScaledInstance(this.getWidth(),this.getHeight(),myImage.SCALE_SMOOTH);
-		dbg.drawImage(scaledImage, 8,50, getWidth()-17, getHeight()-60,null);
+		dbg.drawImage(scaledImage, 8,50, this.getWidth()-17, this.getHeight()-60,null);
 
 //
 //		Graphics2D g2 = (Graphics2D)dbg;

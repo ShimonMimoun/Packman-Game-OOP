@@ -1,6 +1,10 @@
 package GUI;
 
+import java.awt.Toolkit;
+
 import javax.swing.JFrame;
+
+
 
 /**
  * Main function that launches my GUI program
@@ -13,7 +17,15 @@ public class MyFrameMain
 		MyFarme window = new MyFarme();
 		window.setVisible(true);
 		
-		window.setSize(950,600);
+		Toolkit tk=java.awt.Toolkit.getDefaultToolkit();
+		int xsize=(int)tk.getScreenSize().getWidth();
+		int ysize=(int)tk.getScreenSize().getHeight();
+		
+		
+		window.setSize(xsize+50,ysize);
+		
+		
+	//	window.setSize(300,300);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}
