@@ -201,11 +201,11 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
-					
+									System.out.println("before the Game:  "+myGame.Player_user.getPoint_player().toString());
 									playGame.rotate(dir);
 									board_data = playGame.getBoard();
-									String info = playGame.getStatistics();
-									System.out.println(info);
+//									String info = playGame.getStatistics();
+//									System.out.println(info);
 									try {myGame.CreateGame(board_data);} catch (IOException e1) {e1.printStackTrace();}
 									repaint();						
 							}
@@ -504,7 +504,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 		Graphics2D g2 = (Graphics2D)g;
 
 		g2.setStroke(new BasicStroke(3));
-
+		
 		double x1 = 0;
 		double y1 = 0 ;
 		double x2 = 0;
@@ -554,10 +554,11 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 			}
 
 			if(myGame.Player_user!=null){
+				
 				x1=(myGame.Player_user.getPoint_player().x()*getWidth());
 				y1=(myGame.Player_user.getPoint_player().y()*getHeight());	
-				System.out.println(x1+" , "+y1);
-				myGame.Player_user.nextPoint(dir, myGame.Player_user);
+
+				
 				g.drawImage(player,(int)x1,(int) y1,30, 30,null);
 			}
 		}
@@ -577,15 +578,16 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 		double y_temp=arg.getY();
 		y_temp=y_temp/getHeight();
+		Point3D playerConert = theMap.Pixel2GPS(myGame.Player_user.getPoint_player().x(), myGame.Player_user.getPoint_player().y());
+
 		Point3D point_return=new Point3D(x_temp, y_temp, 0);
 		Point3D covertedfromPixel = theMap.Pixel2GPS(x_temp, y_temp);
 		
 		
 		if(click == true) {
-			Point3D playerConert = theMap.Pixel2GPS(myGame.Player_user.getPoint_player().x(), myGame.Player_user.getPoint_player().y());
 			double finalnum = m.azimuth(covertedfromPixel,playerConert);
-			System.out.println(finalnum);
 			dir = finalnum;
+			
 			playGame.rotate(dir);
 		}
 
@@ -613,7 +615,8 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 		{
 			myGame.Player_user=new Player(point_return, speed,radius);
 
-			System.out.println("Player "+covertedfromPixel.toString());
+			//System.out.println("Player "+covertedfromPixel.toString());
+			System.out.println("Player: "+x_temp+" , "+y_temp);
 			if(solo_Play==true) playGame.setInitLocation(covertedfromPixel.x(), covertedfromPixel.y());
 			repaint();
 		}
