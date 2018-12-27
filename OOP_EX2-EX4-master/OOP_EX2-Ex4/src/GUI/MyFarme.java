@@ -1,5 +1,6 @@
 package GUI;
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -51,7 +52,8 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 	 */
 	private static final long serialVersionUID = 1L;
 
-
+	private boolean click = false;
+	Image image;
 	public boolean Start_game=false;
 	public boolean verif_game_player=false;
 	public boolean drwaline = false;
@@ -60,7 +62,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 	private int isGamer=0;
 
 
-	public  Image dbImage;
+	
 	public  Graphics dbg;
 	public BufferedImage myImage;
 	public BufferedImage packimage;
@@ -83,6 +85,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 	public Map theMap = new Map();
 	Path TheCloserPackman;
 	public Play playGame;
+	private MyCoords m = new MyCoords();
 
 
 	MenuBar menuBarOption = new MenuBar();
@@ -118,41 +121,41 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 		Menu SetMenu = new Menu("Set"); 
 		Menu Add_import=new Menu ("Import");
 		Menu Add_export=new Menu ("Export");
-		
-		
-		
+
+
+
 		menuBarOption.add(OptionMenu);
 		menuBarOption.add(AddMenu);
 		menuBarOption.add(AddLimite);
 		menuBarOption.add(SetMenu);
 		menuBarOption.add(Add_import);
 		menuBarOption.add(Add_export);
-		
-		
+
+
 		MenuItem runItem = new MenuItem("Run");
 		MenuItem reload_item = new MenuItem("Reload");
 		MenuItem exit = new MenuItem("Exit");
-	
+
 		MenuItem Packman_Item = new MenuItem("Packman");
 		MenuItem Fruit_item = new MenuItem("Fruit");	
 		MenuItem Player_User_item = new MenuItem("Player_User");	
 		MenuItem Ghost_item = new MenuItem("Ghost");
 
 		MenuItem Box_item = new MenuItem("Box");
-		
+
 		MenuItem setraduisAll = new MenuItem("Radius All");
 		MenuItem setradius2Pack = new MenuItem("Radius To Packman");
 		MenuItem setSpeedAll = new MenuItem("Speed All");
 		MenuItem setSpeed2Pack = new MenuItem("Speed To Packman");
 		MenuItem setWeightAll= new MenuItem("Weight All");
 		MenuItem setWeight2Friut= new MenuItem("Weight to Friut");
-		
-		
+
+
 		MenuItem Csv_read = new MenuItem("Csv");
-		
+
 		MenuItem Csv_writing_csv = new MenuItem(" Csv ");
 		MenuItem Csv_writing_kml = new MenuItem(" Kml ");
-		
+
 
 		OptionMenu.add(runItem);
 		OptionMenu.add(reload_item);
@@ -164,7 +167,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 		AddMenu.add(Ghost_item);
 
 		AddLimite.add(Box_item);	
-		
+
 		SetMenu.add(setraduisAll);
 		SetMenu.add(setradius2Pack);
 		SetMenu.add(setSpeedAll);
@@ -174,9 +177,6 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 
 		Add_import.add(Csv_read);
-
-		Add_export.add(Csv_writing_csv);
-		Add_export.add(Csv_writing_kml);
 
 
 
@@ -508,23 +508,24 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 		});
 
 	}
-	public void paint(Graphics g)
-	{
-
-		dbg=myImage.getGraphics();
-		paintComponent(dbg);
-		g.drawImage(myImage, 0,0, getWidth(), getHeight(),null);
-
+	public void update(Graphics g){
+		paint(g);
 	}
-	public void paintComponent(Graphics g) {
-		//
-		//		Image scaledImage = myImage.getScaledInstance(this.getWidth(),this.getHeight(),myImage.SCALE_SMOOTH);
-		//		g.drawImage(scaledImage, 8,50, getWidth()-17, getHeight()-60,null);
-		//
+	public void paint(Graphics g) {
 
-		Graphics2D g2 = (Graphics2D)g;
+		if(dbg==null){
+			image = createImage(getWidth(),getHeight());
+			dbg = image.getGraphics();
+		}
+	
+		
+		Image scaledImage = myImage.getScaledInstance(this.getWidth(),this.getHeight(),myImage.SCALE_SMOOTH);
+		dbg.drawImage(scaledImage, 8,50, getWidth()-17, getHeight()-60,null);
 
-		g2.setStroke(new BasicStroke(3));
+//
+//		Graphics2D g2 = (Graphics2D)dbg;
+//
+//		g2.setStroke(new BasicStroke(3));
 
 		double x1 = 0;
 		double y1 = 0 ;
@@ -544,14 +545,14 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 					y2=(myGame.Boxs_arr.get(j).getP2().y()*getHeight());	
 					double width = x2-x1;
 					double height = y2-y1;
-					g.drawImage(box, (int)x1,(int) y1,(int)width, (int)height, null);
+					dbg.drawImage(box, (int)x1,(int) y1,(int)width, (int)height, null);
 
 				}
 				for (int i=0; i<myGame.Fruits_arr.size(); i++) 	{
 					x1=(int)(myGame.Fruits_arr.get(i).getFruitPoint().x()*getWidth());
 					y1=(int)(myGame.Fruits_arr.get(i).getFruitPoint().y()*getHeight());	
 
-					g.drawImage(Fruitimage, (int)x1, (int)y1,30, 30, null);
+					dbg.drawImage(Fruitimage, (int)x1, (int)y1,30, 30, null);
 				}
 
 			}
@@ -562,7 +563,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 				y1=(myGame.Packman_arr.get(j).getPoint().y()*getHeight());	
 
 
-				g.drawImage(packimage, (int)x1,(int) y1,30, 30, null);
+				dbg.drawImage(packimage, (int)x1,(int) y1,30, 30, null);
 
 			}
 
@@ -570,7 +571,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 				x1=(myGame.Ghost_arr.get(j).getPoint().x()*getWidth());
 				y1=(myGame.Ghost_arr.get(j).getPoint().y()*getHeight());	
 
-				g.drawImage(ghost, (int)x1,(int) y1,30, 30, null);
+				dbg.drawImage(ghost, (int)x1,(int) y1,30, 30, null);
 
 			}
 
@@ -579,16 +580,17 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 				y1=(myGame.Player_user.getPoint_player().y()*getHeight());	
 				System.out.println(x1+" , "+y1);
 				myGame.Player_user.nextPoint(dir, myGame.Player_user);
-				g.drawImage(player,(int)x1,(int) y1,30, 30,null);
+				dbg.drawImage(player,(int)x1,(int) y1,30, 30,null);
 			}
 		}
+		
+		g.drawImage(image, 0, 0, this);
 
 	}
 
 
 
-	private boolean click = false;
-	private MyCoords m = new MyCoords();
+	
 
 	@Override
 	public void mouseClicked(MouseEvent arg) {
