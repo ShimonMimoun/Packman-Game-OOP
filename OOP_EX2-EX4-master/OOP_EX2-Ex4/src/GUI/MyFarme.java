@@ -204,6 +204,8 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 					
 									playGame.rotate(dir);
 									board_data = playGame.getBoard();
+									String info = playGame.getStatistics();
+									System.out.println(info);
 									try {myGame.CreateGame(board_data);} catch (IOException e1) {e1.printStackTrace();}
 									repaint();						
 							}
