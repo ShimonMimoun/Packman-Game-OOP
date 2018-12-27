@@ -581,7 +581,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 				x1=(myGame.Player_user.getPoint_player().x()*getWidth());
 				y1=(myGame.Player_user.getPoint_player().y()*getHeight());	
 				System.out.println(x1+" , "+y1);
-				myGame.Player_user.nextPoint(dir, myGame.Player_user);
+		
 				dbg.drawImage(player,(int)x1,(int) y1,30, 30,null);
 			}
 		}
