@@ -7,6 +7,7 @@ import GIS.Fruit;
 import GIS.Game;
 import GIS.Packman;
 import GIS.Path;
+import GIS.Player;
 import Geom.Point3D;
 
 /**
@@ -161,23 +162,6 @@ public class ShortestPathAlgo {
 			Path PackmanPath = new Path();
 			Path p = new Path();
 			PackmanPath = packman.getPath();
-
-
-			//Packman pack = new Packman(packman);
-//			packman.getPath().setPath(algoSinglePackman(packman).TheCurrentPath());
-//			packman.getPath().setTheTotalTime(packman.getPath().CalPathTime(packman));
-//			
-//			
-//				if(PackmanPath.getTheTime() <= pack.getPath().getTheTime()) {
-//				packman.getPath().setPath(PackmanPath.TheCurrentPath());
-//				PackmanPath.CalPathTime(packman);
-//			}
-//			else {
-//	
-//				packman.getPath().setPath(pack.getPath().TheCurrentPath());
-//		
-//			}
-
 		}
 
 
@@ -307,6 +291,8 @@ public class ShortestPathAlgo {
 		}
 		return -1;
 	}
+	
+	
 
 
 
