@@ -26,14 +26,13 @@ public class Player {
 		Point_player = point_player;
 	}
 
-	public Point3D nextPoint (double dir , Player player) {
-		
-		double vy = player.getSpeed()*Math.sin(dir);
-		double vx = player.getSpeed()*Math.cos(dir);
+	public Point3D nextPoint (double dir) {
+		double vy = this.getSpeed()*Math.sin(dir);
+		double vx = this.getSpeed()*Math.cos(dir);
 		double t = 100.0D;
 		
-		double x = player.getPoint_player().x()+vx*t;
-		double y = player.getPoint_player().y()+vy*t;		
+		double x = this.getPoint_player().x()+vx*t;
+		double y = this.getPoint_player().y()+vy*t;		
 		
 		
 		return new Point3D(y,x);
