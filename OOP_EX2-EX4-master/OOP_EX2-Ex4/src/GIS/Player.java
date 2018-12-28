@@ -27,15 +27,16 @@ public class Player {
 	}
 
 	public Point3D nextPoint (double dir) {
-		double vy = this.getSpeed()*Math.sin(dir);
-		double vx = this.getSpeed()*Math.cos(dir);
+		double fixDir = (dir*Math.PI/180);
+
+		double vy = this.getSpeed()*Math.sin(fixDir);
+		double vx = this.getSpeed()*Math.cos(fixDir);
 		double t = 100.0D;
-		
 		double x = this.getPoint_player().x()+vx*t;
 		double y = this.getPoint_player().y()+vy*t;		
 		
 		
-		return new Point3D(y,x);
+		return new Point3D(x,y);
 	}
 
 

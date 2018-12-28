@@ -212,11 +212,12 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
-
+									
+									System.out.println("Berfore Rotate: "+myGame.Player_user.getPoint_player().x()+" ,"+myGame.Player_user.getPoint_player().y());;
 									playGame.rotate(dir);
 									board_data = playGame.getBoard();
-									String info = playGame.getStatistics();
-									System.out.println(info);
+//									String info = playGame.getStatistics();
+//									System.out.println(info);
 									try {myGame.CreateGame(board_data);} catch (IOException e1) {e1.printStackTrace();}
 									repaint();						
 								}
@@ -580,7 +581,8 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 			if(myGame.Player_user!=null){
 				x1=(myGame.Player_user.getPoint_player().x()*getWidth());
 				y1=(myGame.Player_user.getPoint_player().y()*getHeight());	
-				System.out.println(x1+" , "+y1);
+				Point3D p = myGame.Player_user.nextPoint(dir);
+				System.out.println("the next point is:"+p.toString());
 		
 				dbg.drawImage(player,(int)x1,(int) y1,30, 30,null);
 			}
