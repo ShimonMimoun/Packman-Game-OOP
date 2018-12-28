@@ -13,6 +13,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -62,7 +63,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 	private int isGamer=0;
 
 
-	
+
 	public  Graphics dbg;
 	public BufferedImage myImage;
 	public BufferedImage packimage;
@@ -92,6 +93,10 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 
 
+
+
+
+	Game Game_temp_run=new Game(Packman_arr, Fruits_arr,Boxs_arr,Ghost_arr);
 
 	public MyFarme() 
 	{
@@ -192,6 +197,8 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 				if (verif_game_player==true) {
 					if(myGame.Player_user != null) {
+
+
 						Start_game=true;
 						playGame.getBoard();
 						isGamer = 4;
@@ -199,13 +206,15 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 						playGame.start();
 
 
+
+
 						Thread thread = new Thread(){
 							ArrayList<String> board_data = playGame.getBoard();
 
 							public void run(){ 
-
+								int p=0;
 								while(playGame.isRuning()){ 
-
+									p++;
 									try {
 										sleep(200);
 									} catch (InterruptedException e) {
@@ -215,8 +224,38 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 									playGame.rotate(dir);
 									board_data = playGame.getBoard();
-									String info = playGame.getStatistics();
-									System.out.println(info);
+									//									String info = playGame.getStatistics();
+									//									System.out.println(info);
+
+
+									
+									/// ************************************************************************************************/
+									// ************************************************************************************************/
+									// ************************************************************************************************/
+									// ************************************************************************************************/
+									try {	Game_temp_run.CreateGame(board_data);
+
+									Point3D covertedfromPixel2 = theMap.Pixel2GPS(myGame.Player_user.getPoint_player().x()*getWidth(), myGame.Player_user.getPoint_player().y()*getHeight());
+									Point3D covertedfromPixel3 = theMap.Pixel2GPS(Game_temp_run.Player_user.getPoint_player().x()*getWidth(), Game_temp_run.Player_user.getPoint_player().y()*getHeight());
+									
+									playGame.setInitLocation(covertedfromPixel2.x(), covertedfromPixel2.y());
+									
+									System.out.println("Point old : " +covertedfromPixel2.toString());
+									System.out.println("Point new : " +covertedfromPixel3.toString()+"\n\n\n");
+									
+									
+									
+									} catch (IOException e) {	e.printStackTrace();	}
+									
+									/// ************************************************************************************************/
+									// ************************************************************************************************/
+									// ************************************************************************************************/
+									// ************************************************************************************************/
+									
+									
+									
+									
+									
 									try {myGame.CreateGame(board_data);} catch (IOException e1) {e1.printStackTrace();}
 									repaint();						
 								}
@@ -509,7 +548,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 	}
 	public void update(Graphics g){
-	
+
 		paint(g);
 	}
 	public void paint(Graphics g) {
@@ -517,17 +556,17 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 		if(dbg==null){
 			image = createImage(5000,5000);
 			dbg = image.getGraphics();
-			
+
 		}
-	
-		
-	//Image scaledImage = myImage.getScaledInstance(this.getWidth(),this.getHeight(),myImage.SCALE_SMOOTH);
+
+
+		//Image scaledImage = myImage.getScaledInstance(this.getWidth(),this.getHeight(),myImage.SCALE_SMOOTH);
 		dbg.drawImage(myImage, 8,50, this.getWidth()-17, this.getHeight()-60,null);
 
-//
-//		Graphics2D g2 = (Graphics2D)dbg;
-//
-//		g2.setStroke(new BasicStroke(3));
+		//
+		//		Graphics2D g2 = (Graphics2D)dbg;
+		//
+		//		g2.setStroke(new BasicStroke(3));
 
 		double x1 = 0;
 		double y1 = 0 ;
@@ -554,7 +593,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 					x1=(int)(myGame.Fruits_arr.get(i).getFruitPoint().x()*getWidth());
 					y1=(int)(myGame.Fruits_arr.get(i).getFruitPoint().y()*getHeight());	
 
-					dbg.drawImage(Fruitimage, (int)x1, (int)y1,30, 30, null);
+					dbg.drawImage(Fruitimage, (int)x1, (int)y1,20, 20, null);
 				}
 
 			}
@@ -565,7 +604,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 				y1=(myGame.Packman_arr.get(j).getPoint().y()*getHeight());	
 
 
-				dbg.drawImage(packimage, (int)x1,(int) y1,30, 30, null);
+				dbg.drawImage(packimage, (int)x1,(int) y1,20, 20, null);
 
 			}
 
@@ -573,26 +612,25 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 				x1=(myGame.Ghost_arr.get(j).getPoint().x()*getWidth());
 				y1=(myGame.Ghost_arr.get(j).getPoint().y()*getHeight());	
 
-				dbg.drawImage(ghost, (int)x1,(int) y1,30, 30, null);
+				dbg.drawImage(ghost, (int)x1,(int) y1,20, 20, null);
 
 			}
 
 			if(myGame.Player_user!=null){
 				x1=(myGame.Player_user.getPoint_player().x()*getWidth());
 				y1=(myGame.Player_user.getPoint_player().y()*getHeight());	
-				System.out.println(x1+" , "+y1);
-		
+
 				dbg.drawImage(player,(int)x1,(int) y1,30, 30,null);
 			}
 		}
-		
+
 		g.drawImage(image, 0, 0, this);
 
 	}
 
 
 
-	
+
 
 	@Override
 	public void mouseClicked(MouseEvent arg) {
