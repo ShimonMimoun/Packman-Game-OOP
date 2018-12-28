@@ -58,7 +58,6 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 	Image image;
 	public boolean Start_game=false;
 	public boolean verif_game_player=false;
-	public boolean drwaline = false;
 	private double dir;
 	boolean solo_Play=false;
 	private int isGamer=0;
@@ -218,10 +217,10 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 									try {
 										sleep(200);
 									} catch (InterruptedException e) {
-										// TODO Auto-generated catch block
+
 										e.printStackTrace();
 									}
-									
+
 									System.out.println("dir is: "+dir);
 									playGame.rotate(dir);
 									board_data = playGame.getBoard();
@@ -229,31 +228,31 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 									//									System.out.println(info);
 
 
-									
+
 									/// ************************************************************************************************/
 									// ************************************************************************************************/
 									// ************************************************************************************************/
 									// ************************************************************************************************/
 									try {	Game_temp_run.CreateGame(board_data);
+									System.out.println("my gammmmmmmmmmmmmmm:" +myGame.Player_user.getPoint_player().toString());
+									Point3D covertedfromPixel2 = theMap.Pixel2GPS(myGame.Player_user.getPoint_player().x(), myGame.Player_user.getPoint_player().y());
+									Point3D covertedfromPixel3 = theMap.Pixel2GPS(Game_temp_run.Player_user.getPoint_player().x(), Game_temp_run.Player_user.getPoint_player().y());
 
-									Point3D covertedfromPixel2 = theMap.Pixel2GPS(myGame.Player_user.getPoint_player().x()*getWidth(), myGame.Player_user.getPoint_player().y()*getHeight());
-									Point3D covertedfromPixel3 = theMap.Pixel2GPS(Game_temp_run.Player_user.getPoint_player().x()*getWidth(), Game_temp_run.Player_user.getPoint_player().y()*getHeight());
-									
-									playGame.setInitLocation(covertedfromPixel2.x(), covertedfromPixel2.y());
-									
-//									System.out.println("Point old : " +covertedfromPixel2.toString());
-//									System.out.println("Point new : " +covertedfromPixel3.toString()+"\n\n\n");
-							
-									
+									//playGame.setInitLocation(covertedfromPixel2.x(), covertedfromPixel2.y());
+
+									System.out.println("Point old : " +covertedfromPixel2.toString());
+									System.out.println("Point new : " +covertedfromPixel3.toString()+"\n\n\n");
+
+
 									AlgoTest algo = new AlgoTest(Game_temp_run, getWidth(),getHeight());
-									
+
 									double theDir = algo.update_Game(covertedfromPixel3);
 									System.out.println("theDir: "+theDir);
 
 									dir = theDir;
-									
+
 									} catch (IOException e) {	e.printStackTrace();	}
-									
+
 									/// ************************************************************************************************/
 									// ************************************************************************************************/
 									// ************************************************************************************************/
@@ -292,7 +291,6 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 				myGame=new Game(Packman_arr, Fruits_arr,Boxs_arr,Ghost_arr);
 				isGamer=0;
 				Start_game=false;
-				drwaline = false;
 				ArrayTemp=new ArrayList<>();
 				TheCloserPackman=null;
 				repaint();
@@ -617,7 +615,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 				dbg.drawImage(ghost, (int)x1,(int) y1,20, 20, null);
 
 			}
-
+			// probleme Player icon 
 			if(myGame.Player_user!=null){
 				x1=(myGame.Player_user.getPoint_player().x()*getWidth());
 				y1=(myGame.Player_user.getPoint_player().y()*getHeight());	
@@ -643,6 +641,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 		double y_temp=arg.getY();
 		y_temp=y_temp/getHeight();
 		Point3D point_return=new Point3D(x_temp, y_temp, 0);
+
 		Point3D covertedfromPixel = theMap.Pixel2GPS(x_temp, y_temp);
 
 
@@ -650,6 +649,8 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 			Point3D playerConert = theMap.Pixel2GPS(myGame.Player_user.getPoint_player().x(), myGame.Player_user.getPoint_player().y());
 			double finalnum = m.myDir(covertedfromPixel,playerConert);
 			System.out.println(finalnum);
+
+
 			dir = finalnum;
 			playGame.rotate(dir);
 		}
