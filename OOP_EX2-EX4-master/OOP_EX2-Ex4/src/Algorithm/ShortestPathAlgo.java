@@ -20,6 +20,7 @@ public class ShortestPathAlgo {
 
 	private ArrayList<Fruit> fruits = new ArrayList<>(); // Arraylist of fruit
 	private ArrayList<Packman> Packmans = new ArrayList<>();//Arraylist of Packman 
+	private Player player = new Player(new Point3D(0,0,0),1,1);
 	private distance_Comperator calDis = new distance_Comperator();// Call to the Comparator 
 	private Map themap = new Map();// create a Map object
 
@@ -34,6 +35,7 @@ public class ShortestPathAlgo {
 		ArrayList<Fruit> clone = new ArrayList<Fruit>(theGame.Fruits_arr.size());  for (Fruit item : theGame.Fruits_arr) clone.add(item);
 		this.fruits = clone;	//Create a new fruit for not to overwrite Game data later
 		this.Packmans = theGame.Packman_arr;
+		this.player = theGame.Player_user;
 	}
 
 	/**

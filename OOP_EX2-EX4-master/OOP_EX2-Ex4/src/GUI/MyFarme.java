@@ -27,6 +27,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
+import Algorithm.AlgoTest;
 import Coords.Map;
 import Coords.MyCoords;
 import GIS.Fruit;
@@ -210,7 +211,6 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 						Thread thread = new Thread(){
 							ArrayList<String> board_data = playGame.getBoard();
-
 							public void run(){ 
 								int p=0;
 								while(playGame.isRuning()){ 
@@ -222,7 +222,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 										e.printStackTrace();
 									}
 									
-									//System.out.println("Berfore Rotate: "+myGame.Player_user.getPoint_player().x()+" ,"+myGame.Player_user.getPoint_player().y());;
+									System.out.println("dir is: "+dir);
 									playGame.rotate(dir);
 									board_data = playGame.getBoard();
 									//									String info = playGame.getStatistics();
@@ -241,10 +241,16 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 									
 									playGame.setInitLocation(covertedfromPixel2.x(), covertedfromPixel2.y());
 									
-									System.out.println("Point old : " +covertedfromPixel2.toString());
-									System.out.println("Point new : " +covertedfromPixel3.toString()+"\n\n\n");
+//									System.out.println("Point old : " +covertedfromPixel2.toString());
+//									System.out.println("Point new : " +covertedfromPixel3.toString()+"\n\n\n");
+							
 									
+									AlgoTest algo = new AlgoTest(Game_temp_run, getWidth(),getHeight());
 									
+									double theDir = algo.update_Game(covertedfromPixel3);
+									System.out.println("theDir: "+theDir);
+
+									dir = theDir;
 									
 									} catch (IOException e) {	e.printStackTrace();	}
 									
@@ -642,7 +648,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 		if(click == true) {
 			Point3D playerConert = theMap.Pixel2GPS(myGame.Player_user.getPoint_player().x(), myGame.Player_user.getPoint_player().y());
-			double finalnum = m.azimuth(covertedfromPixel,playerConert);
+			double finalnum = m.myDir(covertedfromPixel,playerConert);
 			System.out.println(finalnum);
 			dir = finalnum;
 			playGame.rotate(dir);
