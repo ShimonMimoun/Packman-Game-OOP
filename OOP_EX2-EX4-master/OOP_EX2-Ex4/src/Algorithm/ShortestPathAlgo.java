@@ -21,7 +21,6 @@ public class ShortestPathAlgo {
 	private ArrayList<Fruit> fruits = new ArrayList<>(); // Arraylist of fruit
 	private ArrayList<Packman> Packmans = new ArrayList<>();//Arraylist of Packman 
 	private Player player = new Player(new Point3D(0,0,0),1,1);
-	private distance_Comperator calDis = new distance_Comperator();// Call to the Comparator 
 	private Map themap = new Map();// create a Map object
 
 
@@ -111,7 +110,6 @@ public class ShortestPathAlgo {
 			double temp = themap.distancePixels(packman.getPoint(), myFurits.get(i).getFruitPoint());
 			SortPathByDis.add(temp);
 		}
-		SortPathByDis.sort(calDis);
 		double temp;
 
 		for(double distance : SortPathByDis) {

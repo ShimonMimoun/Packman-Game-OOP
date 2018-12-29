@@ -234,20 +234,14 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 									// ************************************************************************************************/
 									// ************************************************************************************************/
 									try {	Game_temp_run.CreateGame(board_data);
-									System.out.println("my gammmmmmmmmmmmmmm:" +myGame.Player_user.getPoint_player().toString());
 									Point3D covertedfromPixel2 = theMap.Pixel2GPS(myGame.Player_user.getPoint_player().x(), myGame.Player_user.getPoint_player().y());
 									Point3D covertedfromPixel3 = theMap.Pixel2GPS(Game_temp_run.Player_user.getPoint_player().x(), Game_temp_run.Player_user.getPoint_player().y());
 
-									//playGame.setInitLocation(covertedfromPixel2.x(), covertedfromPixel2.y());
-
-									System.out.println("Point old : " +covertedfromPixel2.toString());
-									System.out.println("Point new : " +covertedfromPixel3.toString()+"\n\n\n");
 
 
-									AlgoTest algo = new AlgoTest(Game_temp_run, getWidth(),getHeight());
-
-									double theDir = algo.update_Game(covertedfromPixel3);
-									System.out.println("theDir: "+theDir);
+									AlgoTest algo = new AlgoTest(Game_temp_run);
+									Game_temp_run.Player_user.setPoint_player(covertedfromPixel3);
+									double theDir = algo.update_Game(Game_temp_run.Player_user);
 
 									dir = theDir;
 
