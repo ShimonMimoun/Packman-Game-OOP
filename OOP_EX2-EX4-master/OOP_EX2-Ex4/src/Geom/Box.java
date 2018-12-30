@@ -9,7 +9,7 @@ public class Box {
 	private double x_left_up;
 	private double y_left_up;
 	private double x_right_down;
-	private double y_right_down;
+	private double y_right_down;ss
 
 	private static int _count = 0;
 	
