@@ -157,6 +157,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 			public void actionPerformed(ActionEvent e) {
 
+				playGame.setIDs(342685898, 311326490);
 				if (verif_game_player==true) {
 					if(myGame.Player_user != null) {
 
@@ -197,9 +198,9 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 									Game_temp_run.Player_user.setPoint_player(covertedfromPixel3);
 									myGame.Player_user.setPoint_player(covertedfromPixel2);
 
-									double theDir = algo.update_Game(myGame.Player_user,Game_temp_run.Player_user);
-
-									dir = theDir;
+//									double theDir = algo.update_Game(myGame.Player_user,Game_temp_run.Player_user);
+//
+//									dir = theDir;
 
 									} catch (IOException e) {	e.printStackTrace();	}
 
@@ -361,7 +362,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 				y1=(myGame.Player_user.getPoint_player().y()*getHeight());	
 
 				//dbg.drawImage(player,(int)x1,(int) y1,30, 30,null);
-				dbg.setColor(Color.red);
+				dbg.setColor(Color.cyan);
 				dbg.fillOval((int)x1,(int) y1, 10, 10);
 			}
 		}
