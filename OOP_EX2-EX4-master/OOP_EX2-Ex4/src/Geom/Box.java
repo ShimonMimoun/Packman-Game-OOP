@@ -1,7 +1,5 @@
 package Geom;
 
-import Coords.LatLonAlt;
-
 public class Box {
 	
 	private Point3D p1; // left down
@@ -9,7 +7,7 @@ public class Box {
 	private double x_left_up;
 	private double y_left_up;
 	private double x_right_down;
-	private double y_right_down;ss
+	private double y_right_down;
 
 	private static int _count = 0;
 	

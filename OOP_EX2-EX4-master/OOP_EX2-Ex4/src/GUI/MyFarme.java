@@ -240,7 +240,10 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 
 									AlgoTest algo = new AlgoTest(Game_temp_run);
+								
+									
 									Game_temp_run.Player_user.setPoint_player(covertedfromPixel3);
+									
 									double theDir = algo.update_Game(Game_temp_run.Player_user);
 
 									dir = theDir;

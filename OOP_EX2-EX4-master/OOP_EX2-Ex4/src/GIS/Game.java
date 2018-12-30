@@ -146,6 +146,7 @@ public class Game {
 		Packman_arr=new ArrayList<>();
 		Fruits_arr=new  ArrayList<>();
 		Ghost_arr=new ArrayList<>();
+		this.Boxs_arr=new ArrayList<>();
 		for(int i=0;i<s.size();i++) {
 			String line = s.get(i);
 			String[] row = line.split(",");

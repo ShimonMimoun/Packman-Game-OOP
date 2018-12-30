@@ -1,6 +1,5 @@
 package Algorithm;
 
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import Coords.Map;
@@ -9,7 +8,6 @@ import GIS.Fruit;
 import GIS.Game;
 import GIS.Ghost;
 import GIS.Packman;
-import GIS.Path;
 import GIS.Player;
 import Geom.Box;
 import Geom.Point3D;
@@ -24,6 +22,7 @@ public class AlgoTest {
 	private MyCoords m;
 	private Player player = new Player(new Point3D(0,0,0),1,1);
 	private Map theMap = new Map();// create a Map object
+	int verif=0;
 
 
 	/**
@@ -41,27 +40,40 @@ public class AlgoTest {
 		this.m = new MyCoords();
 		this.ans = new ArrayList<>();
 		this.ans = addingTo1List(this.Packmans,this.fruits);
-		this.newBoxs = new ArrayList<>();
-		this.newBoxs = boxList(this.boxs);
+	this.newBoxs = boxList(boxs);
+	
+	
+
+
 
 
 	}
 
 
+	public ArrayList<Box> getBoxs() {
+		return boxs;
+	}
+
+
+	public void setBoxs(ArrayList<Box> boxs) {
+		this.boxs = boxs;
+	}
+
+
 	public double update_Game(Player p) {
+
 		double dir;
-		
+
 		Point3D theClose = TheCloserFurit(p,ans);
-//		if(checkBox(p)) {
-//			System.out.println("in the fun");
-//			
-//			return dir;
-//		}
+		//		if(checkBox(p)) {
+		//			System.out.println("in the fun");
+		//			
+		//			return dir;
+		//		}
 		for (int i = 0; i < newBoxs.size(); i++) {
 			System.out.println(newBoxs.get(i).toString());
-			
 		}
-		
+
 		dir = m.myDir(theClose,p.getPoint_player());
 
 
@@ -71,18 +83,23 @@ public class AlgoTest {
 
 
 	private ArrayList<Box> boxList(ArrayList<Box> boxs) {
-		
 		ArrayList<Box> ansBoxs = new ArrayList<>();
-		
-		for (int i = 0; i < boxs.size(); i++) {
-			Point3D boxGPS_1 = theMap.Pixel2GPS(boxs.get(i).getP1().x(), boxs.get(i).getP1().y());
-			Point3D boxGPS_2 = theMap.Pixel2GPS(boxs.get(i).getP2().x(), boxs.get(i).getP2().y());
-			Box b = new Box(boxGPS_1,boxGPS_2);
-			ansBoxs.add(b);
+	
+			for (int i = 0; i < boxs.size(); i++) {
+				Point3D boxGPS_1 = theMap.Pixel2GPS(boxs.get(i).getP1().x(), boxs.get(i).getP1().y());
+				Point3D boxGPS_2 = theMap.Pixel2GPS(boxs.get(i).getP2().x(), boxs.get(i).getP2().y());
+				Box b = new Box(boxGPS_1,boxGPS_2);
+
+				
+				ansBoxs.add(b);
+			
 		}
 		return ansBoxs;
 
+
+
 	}
+
 	private ArrayList<Point3D> addingTo1List(ArrayList<Packman> Packmans,ArrayList<Fruit> fruits) {
 
 
