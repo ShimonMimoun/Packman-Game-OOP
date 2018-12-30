@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import Algorithm.ShortestPathAlgo;
 import Coords.Map;
-import Geom.Box;
+import Geom.Box_temp;
 import Geom.Point3D;
 import Robot.Play;
 
@@ -25,7 +25,7 @@ public class Game {
 
 	public  ArrayList<Packman> Packman_arr = new ArrayList<>();
 	public  ArrayList<Fruit> Fruits_arr = new ArrayList<>();
-	public  ArrayList<Box> Boxs_arr = new ArrayList<>();
+	public  ArrayList<Box_temp> Boxs_arr = new ArrayList<>();
 	public  ArrayList<Ghost> Ghost_arr = new ArrayList<>();
 	public Player Player_user;
 	public 	String file_directory = "";
@@ -43,7 +43,7 @@ public class Game {
 	 * @throws IOException 
 	 */
 
-	public Game(ArrayList<Packman> pack,ArrayList<Fruit> fruit,ArrayList<Box> box,ArrayList<Ghost> ghost) {
+	public Game(ArrayList<Packman> pack,ArrayList<Fruit> fruit,ArrayList<Box_temp> box,ArrayList<Ghost> ghost) {
 
 		this.Packman_arr = pack;
 		this.Fruits_arr = fruit;
@@ -170,7 +170,7 @@ public class Game {
 				Point3D p2 = new Point3D(row[5],row[6],row[7]);
 				p1 = theMap.GPS2Pixel(p1);
 				p2 = theMap.GPS2Pixel(p2);
-				Boxs_arr.add(new Box(p1,p2));
+				Boxs_arr.add(new Box_temp(p1,p2));
 
 			}
 			if(row[0].equals("G")) {
