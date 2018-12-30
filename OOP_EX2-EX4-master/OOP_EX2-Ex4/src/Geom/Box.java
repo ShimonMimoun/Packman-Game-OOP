@@ -1,6 +1,6 @@
 package Geom;
 
-public class Box_temp {
+public class Box {
 	
 	private Point3D p1; // left down
 	private Point3D p2; // right up
@@ -11,7 +11,7 @@ public class Box_temp {
 
 	private static int _count = 0;
 	
-	public Box_temp(Point3D p1 , Point3D p2) {
+	public Box(Point3D p1 , Point3D p2) {
 		
 		this.p1 = p1;
 		this.p2 = p2;

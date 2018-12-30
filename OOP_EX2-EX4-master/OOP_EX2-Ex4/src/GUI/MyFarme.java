@@ -36,7 +36,7 @@ import GIS.Ghost;
 import GIS.Packman;
 import GIS.Path;
 import GIS.Player;
-import Geom.Box_temp;
+import Geom.Box;
 import Geom.Point3D;
 import Robot.Play;
 
@@ -79,7 +79,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 	public  ArrayList<Packman> Packman_arr = new ArrayList<>();
 	public  ArrayList<Fruit> Fruits_arr = new ArrayList<>();
-	public  ArrayList<Box_temp> Boxs_arr = new ArrayList<>();
+	public  ArrayList<Box> Boxs_arr = new ArrayList<>();
 	public  ArrayList<Ghost> Ghost_arr = new ArrayList<>();
 	public ArrayList<Packman> ArrayTemp=new ArrayList<>();
 	private Game myGame=new Game(Packman_arr, Fruits_arr,Boxs_arr,Ghost_arr);
@@ -720,7 +720,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 			Y2=Double.parseDouble(y2);
 		} while ((Y2<0) ||(Y2>this.getWidth())||(Y2<Y1));
 
-		Boxs_arr.add(new Box_temp(new Point3D(X1/getWidth(), Y1/getHeight()),
+		Boxs_arr.add(new Box(new Point3D(X1/getWidth(), Y1/getHeight()),
 				new Point3D(X2/getWidth(), Y2/getHeight())));
 
 	}

@@ -1,6 +1,6 @@
 package Algorithm;
 
-import Geom.Box_temp;
+import Geom.Box;
 import Geom.Point3D;
 
 public class check {
@@ -13,8 +13,8 @@ public class check {
 		Point3D in4 = new Point3D(32.103734489361706,35.20960879581993,0.0);
 
 		//Point3D out = new Point3D(32.10406533944954,35.20631261588785,0.0);
-		Box_temp b1 = new Box_temp(new Point3D(32.10270219,35.2081838	,0),new Point3D(32.10498118,35.2085177,0));
-		Box_temp b2 = new Box_temp(new Point3D(32.10354703,35.2056557,0),new Point3D(32.10395902,35.2106165,0));
+		Box b1 = new Box(new Point3D(32.10270219,35.2081838	,0),new Point3D(32.10498118,35.2085177,0));
+		Box b2 = new Box(new Point3D(32.10354703,35.2056557,0),new Point3D(32.10395902,35.2106165,0));
 		System.out.println(b1.inBox(in1));
 		System.out.println(b2.inBox(in1));
 		System.out.println(b1.inBox(in2));
