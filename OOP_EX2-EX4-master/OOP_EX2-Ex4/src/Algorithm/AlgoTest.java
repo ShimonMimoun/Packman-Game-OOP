@@ -9,16 +9,16 @@ import GIS.Game;
 import GIS.Ghost;
 import GIS.Packman;
 import GIS.Player;
-import Geom.Box_temp;
+import Geom.Box;
 import Geom.Point3D;
 
 public class AlgoTest {
 	private ArrayList<Fruit> fruits = new ArrayList<>(); // Arraylist of fruit
 	private ArrayList<Packman> Packmans = new ArrayList<>();//Arraylist of Packman 
-	private ArrayList<Box_temp> boxs = new ArrayList<>();//Arraylist of boxs 
+	private ArrayList<Box> boxs = new ArrayList<>();//Arraylist of boxs 
 	private ArrayList<Ghost> ghosts = new ArrayList<>();//Arraylist of ghosts 
 	private ArrayList<Point3D> ans;
-	private ArrayList<Box_temp> newBoxs;
+	private ArrayList<Box> newBoxs;
 	private MyCoords m;
 	private Player player = new Player(new Point3D(0,0,0),1,1);
 	private Map theMap = new Map();// create a Map object
@@ -50,31 +50,31 @@ public class AlgoTest {
 	}
 
 
-	public ArrayList<Box_temp> getBoxs() {
+	public ArrayList<Box> getBoxs() {
 		return boxs;
 	}
 
 
-	public void setBoxs(ArrayList<Box_temp> boxs) {
+	public void setBoxs(ArrayList<Box> boxs) {
 		this.boxs = boxs;
 	}
 
 
-	public double update_Game(Player p) {
+	public double update_Game(Player p1 ,Player p2) {
 
 		double dir;
 
-		Point3D theClose = TheCloserFurit(p,ans);
-		//		if(checkBox(p)) {
-		//			System.out.println("in the fun");
-		//			
-		//			return dir;
-		//		}
-		for (int i = 0; i < newBoxs.size(); i++) {
-			System.out.println(newBoxs.get(i).toString());
-		}
+		Point3D theClose = TheCloserFurit(p2,ans);
+		System.out.println(p1.getPoint_player().toString());
+		System.out.println(p2.getPoint_player().toString());
 
-		dir = m.myDir(theClose,p.getPoint_player());
+//		if(p1.getPoint_player().equals(p2.getPoint_player())) {
+//			dir = 90;
+//			return dir;
+//		}
+
+
+		dir = m.myDir(theClose,p2.getPoint_player());
 
 
 
@@ -82,13 +82,13 @@ public class AlgoTest {
 	}
 
 
-	private ArrayList<Box_temp> boxList(ArrayList<Box_temp> boxs) {
-		ArrayList<Box_temp> ansBoxs = new ArrayList<>();
+	private ArrayList<Box> boxList(ArrayList<Box> boxs) {
+		ArrayList<Box> ansBoxs = new ArrayList<>();
 	
 			for (int i = 0; i < boxs.size(); i++) {
 				Point3D boxGPS_1 = theMap.Pixel2GPS(boxs.get(i).getP1().x(), boxs.get(i).getP1().y());
 				Point3D boxGPS_2 = theMap.Pixel2GPS(boxs.get(i).getP2().x(), boxs.get(i).getP2().y());
-				Box_temp b = new Box_temp(boxGPS_1,boxGPS_2);
+				Box b = new Box(boxGPS_1,boxGPS_2);
 
 				
 				ansBoxs.add(b);

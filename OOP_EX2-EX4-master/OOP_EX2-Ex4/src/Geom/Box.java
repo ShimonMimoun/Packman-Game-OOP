@@ -1,68 +1,61 @@
 package Geom;
 
-import java.io.Serializable;
 
-public class Box  implements Serializable{
+public class Box {
+	
+	private Point3D p1; // left down
+	private Point3D p2; // right up
+	private double x_left_up;
+	private double y_left_up;
+	private double x_right_down;
+	private double y_right_down;
 
-	private int _id = 0;
-	private Point3D _min;
-	private Point3D _max;
-	private double _weight;
 	private static int _count = 0;
+	
+	public Box(Point3D p1 , Point3D p2) {
+		
+		this.p1 = p1;
+		this.p2 = p2;
+		this.x_left_up = p1.x();
+		this.y_left_up = p2.y();
+		this.x_right_down = p2.x();
+		this.y_right_down = p1.y();
+	}
+	
+	
+	public boolean inBox(Point3D m) {
 
-	public Box(Point3D p1, Point3D p2) { _min = new Point3D(Math.min(p1.x(), p2.x()), 
-			Math.min(p1.y(), p2.y()), Math.min(p1.x(), p2.x()));
-	_max = new Point3D(Math.max(p1.x(), p2.x()), 
-			Math.max(p1.y(), p2.y()), Math.max(p1.x(), p2.x()));
-	_id = (_count++);
-	_weight = 1.0D;
+		if((m.x() >= p1.x() && m.x() <= p2.x()) && (m.y() >= p1.y() && m.y() <= p2.y())) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	
+	public Point3D getP1() {
+		return p1;
 	}
 
-	public Box(String line) {
-		String[] arr = line.split(",");
-		_id = Integer.parseInt(arr[1]);
-		String p = arr[2] + "," + arr[3] + "," + arr[4];
-		_min = new Point3D(p);
-		p = arr[5] + "," + arr[6] + "," + arr[7];
-		_max = new Point3D(p);
-		_weight = Double.parseDouble(arr[8]);
+
+	public void setP1(Point3D p1) {
+		this.p1 = p1;
 	}
 
-	public Box(Box BOx2)
-	{
-		this(BOx2.toString());
+
+	public Point3D getP2() {
+		return p2;
 	}
 
+
+	public void setP2(Point3D p2) {
+		this.p2 = p2;
+	}
+	@Override
 	public String toString() {
-		String ans = "B," + _id + "," + _min + "," + _max + "," + _weight;
-		return ans; }
-
-	public double getWeight() { return _weight; }
-	public void setWeight(double w) { _weight = w; }
-
-	public boolean isIn2D(Point3D q) { boolean ans = false;
-	if ((q.y() >= _min.x()) && (q.y() >= _min.y()) && (q.x() <= _max.x()) && (q.y() <= _max.y())) {
-		ans = true;
-	}
-	return ans;
+		return "Box [p1=" + p1 + ", p2=" + p2 + "]";
 	}
 
-	public boolean isIn3D(Point3D q) { boolean ans = isIn2D(q);
-	ans = (ans) && (q.x() >= _min.x()) && (q.x() <= _max.x());
-	return ans; }
-
-	public Point3D getMin() { return _min; }
-	public Point3D getMax() { return _max; }
-
-public static void main(String[] args) {
-	
-	Box a=new Box(new Point3D(32.10354703120936,35.2056556995029),new Point3D(32.10395902208114,35.210616500952405));
-	Point3D b= new Point3D(32.10353216683579,35.20953020326105);
-	
-	System.out.println(a.isIn2D(b));
-	
-}
 
 }
-
 

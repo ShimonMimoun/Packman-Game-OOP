@@ -36,7 +36,7 @@ import GIS.Ghost;
 import GIS.Packman;
 import GIS.Path;
 import GIS.Player;
-import Geom.Box_temp;
+import Geom.Box;
 import Geom.Point3D;
 import Robot.Play;
 
@@ -79,7 +79,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 	public  ArrayList<Packman> Packman_arr = new ArrayList<>();
 	public  ArrayList<Fruit> Fruits_arr = new ArrayList<>();
-	public  ArrayList<Box_temp> Boxs_arr = new ArrayList<>();
+	public  ArrayList<Box> Boxs_arr = new ArrayList<>();
 	public  ArrayList<Ghost> Ghost_arr = new ArrayList<>();
 	public ArrayList<Packman> ArrayTemp=new ArrayList<>();
 	private Game myGame=new Game(Packman_arr, Fruits_arr,Boxs_arr,Ghost_arr);
@@ -122,44 +122,20 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 		Menu OptionMenu = new Menu("File"); 
 		Menu AddMenu = new Menu("Add"); 
-		Menu AddLimite = new Menu("Limit"); 
-		Menu SetMenu = new Menu("Set"); 
 		Menu Add_import=new Menu ("Import");
-		Menu Add_export=new Menu ("Export");
 
 
 
 		menuBarOption.add(OptionMenu);
 		menuBarOption.add(AddMenu);
-		menuBarOption.add(AddLimite);
-		menuBarOption.add(SetMenu);
 		menuBarOption.add(Add_import);
-		menuBarOption.add(Add_export);
 
 
 		MenuItem runItem = new MenuItem("Run");
 		MenuItem reload_item = new MenuItem("Reload");
-		MenuItem exit = new MenuItem("Exit");
-
-		MenuItem Packman_Item = new MenuItem("Packman");
-		MenuItem Fruit_item = new MenuItem("Fruit");	
-		MenuItem Player_User_item = new MenuItem("Player_User");	
-		MenuItem Ghost_item = new MenuItem("Ghost");
-
-		MenuItem Box_item = new MenuItem("Box");
-
-		MenuItem setraduisAll = new MenuItem("Radius All");
-		MenuItem setradius2Pack = new MenuItem("Radius To Packman");
-		MenuItem setSpeedAll = new MenuItem("Speed All");
-		MenuItem setSpeed2Pack = new MenuItem("Speed To Packman");
-		MenuItem setWeightAll= new MenuItem("Weight All");
-		MenuItem setWeight2Friut= new MenuItem("Weight to Friut");
-
-
+		MenuItem exit = new MenuItem("Exit");	
+		MenuItem Player_User_item = new MenuItem("Player");	
 		MenuItem Csv_read = new MenuItem("Csv");
-
-		MenuItem Csv_writing_csv = new MenuItem(" Csv ");
-		MenuItem Csv_writing_kml = new MenuItem(" Kml ");
 
 
 		OptionMenu.add(runItem);
@@ -167,20 +143,6 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 		OptionMenu.add(exit);
 
 		AddMenu.add(Player_User_item);
-		AddMenu.add(Packman_Item);
-		AddMenu.add(Fruit_item);
-		AddMenu.add(Ghost_item);
-
-		AddLimite.add(Box_item);	
-
-		SetMenu.add(setraduisAll);
-		SetMenu.add(setradius2Pack);
-		SetMenu.add(setSpeedAll);
-		SetMenu.add(setSpeed2Pack);
-		SetMenu.add(setWeightAll);
-		SetMenu.add(setWeight2Friut);
-
-
 		Add_import.add(Csv_read);
 
 
@@ -207,10 +169,9 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 
 
-
 						Thread thread = new Thread(){
 							ArrayList<String> board_data = playGame.getBoard();
-							
+
 							public void run(){ 
 								int p=0;
 								while(playGame.isRuning()){ 
@@ -222,49 +183,30 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 										e.printStackTrace();
 									}
 
-									System.out.println("dir is: "+dir);
 									playGame.rotate(dir);
 									board_data = playGame.getBoard();
-									//									String info = playGame.getStatistics();
-									//									System.out.println(info);
+									String info = playGame.getStatistics();
+									System.out.println(info);
 
-
-
-									/// ************************************************************************************************/
-									// ************************************************************************************************/
-									// ************************************************************************************************/
-									// ************************************************************************************************/
 									try {	Game_temp_run.CreateGame(board_data);
 									Point3D covertedfromPixel2 = theMap.Pixel2GPS(myGame.Player_user.getPoint_player().x(), myGame.Player_user.getPoint_player().y());
 									Point3D covertedfromPixel3 = theMap.Pixel2GPS(Game_temp_run.Player_user.getPoint_player().x(), Game_temp_run.Player_user.getPoint_player().y());
 
-
-
 									AlgoTest algo = new AlgoTest(Game_temp_run);
-								
+
 									Game_temp_run.Player_user.setPoint_player(covertedfromPixel3);
-									
-									
-									if((Game_temp_run.Player_user.getPoint_player()).equals(myGame.Player_user.getPoint_player())){
-										System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-								}
-									
-									double theDir = algo.update_Game(Game_temp_run.Player_user);
+									myGame.Player_user.setPoint_player(covertedfromPixel2);
+
+									double theDir = algo.update_Game(myGame.Player_user,Game_temp_run.Player_user);
 
 									dir = theDir;
 
 									} catch (IOException e) {	e.printStackTrace();	}
 
-									/// ************************************************************************************************/
-									// ************************************************************************************************/
-									// ************************************************************************************************/
-									// ************************************************************************************************/
+							
 									try {myGame.CreateGame(board_data);} catch (IOException e1) {e1.printStackTrace();}
 									repaint();						
 								}
-								String info = playGame.getStatistics();
-								System.out.println(info);
-
 							}
 						};
 						thread.start();
@@ -299,9 +241,6 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 			}
 		});
 
-
-
-
 		exit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -309,43 +248,6 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 			}
 		});
 
-		Fruit_item.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				isGamer = 1;
-
-			}
-		});
-
-
-
-		Ghost_item.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				isGamer = 3;
-			}
-		});
-
-
-
-		Box_item.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				createdbox();
-				repaint();
-
-			}
-		});
-
-
-		Packman_Item.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				isGamer = -1;
-
-			}
-		});
 
 		Player_User_item.addActionListener  (new ActionListener() {
 			@Override
@@ -353,98 +255,8 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 				isGamer = 2;
 
-
-
-
-
 			}
 		});
-
-		//
-		Packman_Item.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				isGamer = -1;
-
-			}
-		});
-
-		setraduisAll.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (myGame.Packman_arr.size() > 0) {
-					String radius= JOptionPane.showInputDialog("Please input the Radius for all the Packmans: ");
-					double input_radius = Double.parseDouble(radius);
-					for (int i = 0; i < myGame.Packman_arr.size(); i++) {
-						myGame.Packman_arr.get(i).setRadius(input_radius);
-					}
-				} else {
-					JOptionPane.showMessageDialog(null,"EROR: There is no Packmans in the Game");
-
-				}
-
-			}
-		});
-		setradius2Pack.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(myGame.Packman_arr.size() > 0) {
-					String i = JOptionPane.showInputDialog("Please input which packman you want to change (starting from 0)");
-					int numberPack = Integer.parseInt(i);
-					if(numberPack > myGame.Packman_arr.size()) {
-						JOptionPane.showMessageDialog(null,"EROR: Cant find this Packman");
-
-					}else {
-						String radius= JOptionPane.showInputDialog("Please input the Radius for this Packman: ");
-						double input_radius = Double.parseDouble(radius);
-						myGame.Packman_arr.get(numberPack).setRadius(input_radius);	
-					}
-				}else {
-					JOptionPane.showMessageDialog(null,"EROR: There is no Packmans in the Game");
-
-				}
-			}
-		});
-
-
-		setSpeed2Pack.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(myGame.Packman_arr.size() > 0) {
-					String i = JOptionPane.showInputDialog("Please input which packman you want to change (starting from 0)");
-					int numberPack = Integer.parseInt(i);
-					if(numberPack > myGame.Packman_arr.size()) {
-						JOptionPane.showMessageDialog(null,"EROR: Cant find this Packman");
-
-					}else {
-						String Speed= JOptionPane.showInputDialog("Please input the Speed for this Packman: ");
-						double input_Speed = Double.parseDouble(Speed);
-						myGame.Packman_arr.get(numberPack).setSpeed(input_Speed);	
-					}
-				}else {
-					JOptionPane.showMessageDialog(null,"EROR: There is no Packmans in the Game");
-
-				}
-			}
-		});
-		setSpeedAll.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (myGame.Packman_arr.size() > 0) {
-					String speed= JOptionPane.showInputDialog("Please input the Speed for all the Packmans: ");
-					double input_speed = Double.parseDouble(speed);
-					for (int i = 0; i < myGame.Packman_arr.size(); i++) {
-						myGame.Packman_arr.get(i).setSpeed(input_speed);
-					}
-				} else {
-					JOptionPane.showMessageDialog(null,"EROR: There is no Packmans in the Game");
-
-				}
-
-			}
-		});
-
-
 
 		Csv_read.addActionListener(new ActionListener() {
 			@Override
@@ -479,75 +291,6 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 
 
-
-
-		Csv_writing_csv.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-				jfc.setDialogTitle("Export to Csv File");
-				jfc.setAcceptAllFileFilterUsed(false);
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("csv","CSV");
-				jfc.addChoosableFileFilter(filter);
-
-				int returnValue = jfc.showSaveDialog(null);
-
-				if (returnValue == JFileChooser.APPROVE_OPTION) {
-					File selectedFile = jfc.getSelectedFile();
-					System.out.println(selectedFile.getAbsolutePath());
-
-
-					myGame.setfile_directory(selectedFile.getAbsolutePath());
-					try {
-						myGame.save2Csv();
-					} catch (FileNotFoundException e1) {
-						e1.printStackTrace();
-					}
-				}
-
-
-			}
-
-		});
-
-
-		Csv_writing_kml.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-				jfc.setDialogTitle("Export to KML File");
-				jfc.setAcceptAllFileFilterUsed(false);
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("kml","KML");
-				jfc.addChoosableFileFilter(filter);
-
-				int returnValue = jfc.showSaveDialog(null);
-
-				if (returnValue == JFileChooser.APPROVE_OPTION) {
-					File selectedFile = jfc.getSelectedFile();
-					System.out.println(selectedFile.getAbsolutePath());
-
-
-					myGame.setfile_directory(selectedFile.getAbsolutePath());
-
-
-
-
-					try {
-						myGame.save_to_kml();
-					} catch (FileNotFoundException e1) {
-						e1.printStackTrace();
-					}
-
-
-				}
-
-
-			}
-
-		});
-
 	}
 	public void update(Graphics g){
 
@@ -562,13 +305,8 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 		}
 
 
-		//Image scaledImage = myImage.getScaledInstance(this.getWidth(),this.getHeight(),myImage.SCALE_SMOOTH);
 		dbg.drawImage(myImage, 8,50, this.getWidth()-17, this.getHeight()-60,null);
 
-		//
-		//		Graphics2D g2 = (Graphics2D)dbg;
-		//
-		//		g2.setStroke(new BasicStroke(3));
 
 		double x1 = 0;
 		double y1 = 0 ;
@@ -633,9 +371,6 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 	}
 
 
-
-
-
 	@Override
 	public void mouseClicked(MouseEvent arg) {
 
@@ -692,42 +427,6 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 		}
 
 	}
-
-	public void createdbox() {
-		double X1=0;
-		double X2=0;
-		double Y1=0;
-		double Y2=0;
-
-
-		do {
-			String	x1=JOptionPane.showInputDialog("Enter X1 Pixel");
-			X1=Double.parseDouble(x1);
-		} while ((X1<0) ||(X1>this.getWidth()));
-
-		do {
-			String	y1=JOptionPane.showInputDialog("Enter Y1 Pixel");
-			Y1=Double.parseDouble(y1);
-		} while ((Y1<0) ||(Y1>this.getHeight()));
-
-		do {
-			String	x2=JOptionPane.showInputDialog("Enter X2 Pixel");
-			X2=Double.parseDouble(x2);
-		} while ((X2<0) ||(X2>this.getWidth())||(X2<X1));
-
-		do {
-			String	y2=JOptionPane.showInputDialog("Enter Y2 Pixel");	
-			Y2=Double.parseDouble(y2);
-		} while ((Y2<0) ||(Y2>this.getWidth())||(Y2<Y1));
-
-		Boxs_arr.add(new Box_temp(new Point3D(X1/getWidth(), Y1/getHeight()),
-				new Point3D(X2/getWidth(), Y2/getHeight())));
-
-	}
-
-
-
-
 
 
 	@Override
