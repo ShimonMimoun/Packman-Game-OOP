@@ -78,11 +78,11 @@ public class AlgoTest {
 	
 			for (int i = 0; i < boxs.size(); i++) {
 				
-				Box b1 = boxs.get(i).addtoConner();
+				//Box b1 = boxs.get(i).addtoConner();
 				
 				
-				Point3D boxGPS_1 = theMap.Pixel2GPS(b1.getP1().x(), b1.getP1().y());
-				Point3D boxGPS_2 = theMap.Pixel2GPS(b1.getP2().x(), b1.getP2().y());
+				Point3D boxGPS_1 = theMap.Pixel2GPS(boxs.get(i).getP1().x(), boxs.get(i).getP1().y());
+				Point3D boxGPS_2 = theMap.Pixel2GPS(boxs.get(i).getP2().x(), boxs.get(i).getP2().y());
 				Box b = new Box(boxGPS_1,boxGPS_2);
 
 				
