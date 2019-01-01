@@ -40,13 +40,8 @@ public class AlgoTest {
 		this.m = new MyCoords();
 		this.ans = new ArrayList<>();
 		this.ans = addingTo1List(this.Packmans,this.fruits);
-	this.newBoxs = boxList(boxs);
+		this.newBoxs = boxList(boxs);
 	
-	
-
-
-
-
 	}
 
 
@@ -166,7 +161,6 @@ public class AlgoTest {
 				dir = 180;
 				return dir;
 			}
-
 		 
 		}
 		return 5;
