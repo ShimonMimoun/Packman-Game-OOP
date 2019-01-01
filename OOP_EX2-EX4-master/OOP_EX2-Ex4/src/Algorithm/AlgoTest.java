@@ -60,25 +60,16 @@ public class AlgoTest {
 	}
 
 
-	public double update_Game(Player p1 ,Player p2) {
-
-		double dir;
+	public double update_Game(Player p1 ,Player p2, double dir) { 
 
 		Point3D theClose = TheCloserFurit(p2,ans);
-		System.out.println(p1.getPoint_player().toString());
-		System.out.println(p2.getPoint_player().toString());
+		double ansBoxs = checkBox(p2.getPoint_player(), dir ,theClose );
+		if(ansBoxs == 5) {
+			dir = m.myDir(theClose,p2.getPoint_player());
+			return dir;
+		}
 
-//		if(p1.getPoint_player().equals(p2.getPoint_player())) {
-//			dir = 90;
-//			return dir;
-//		}
-
-
-		dir = m.myDir(theClose,p2.getPoint_player());
-
-
-
-		return dir;
+		return ansBoxs;
 	}
 
 
@@ -86,8 +77,12 @@ public class AlgoTest {
 		ArrayList<Box> ansBoxs = new ArrayList<>();
 	
 			for (int i = 0; i < boxs.size(); i++) {
-				Point3D boxGPS_1 = theMap.Pixel2GPS(boxs.get(i).getP1().x(), boxs.get(i).getP1().y());
-				Point3D boxGPS_2 = theMap.Pixel2GPS(boxs.get(i).getP2().x(), boxs.get(i).getP2().y());
+				
+				Box b1 = boxs.get(i).addtoConner();
+				
+				
+				Point3D boxGPS_1 = theMap.Pixel2GPS(b1.getP1().x(), b1.getP1().y());
+				Point3D boxGPS_2 = theMap.Pixel2GPS(b1.getP2().x(), b1.getP2().y());
 				Box b = new Box(boxGPS_1,boxGPS_2);
 
 				
@@ -152,21 +147,34 @@ public class AlgoTest {
 		}
 	}
 
-	// the points in pixels now..
 
-
-
-	public boolean checkBox(Player m) {
-
+	public double checkBox(Point3D m, double dir, Point3D theClose) {
 		for (int i = 0; i < newBoxs.size(); i++) {
-			if(newBoxs.get(i).inBox(m.getPoint_player())) {
-				System.out.println("here!");
-				return true;
+			if(newBoxs.get(i).inBox(m, theClose) == 1) {
+				dir = 90;
+				return dir;
 			}
+			else if(newBoxs.get(i).inBox(m, theClose) == 2) {
+				dir = 0;
+				return dir;
+			}
+			else if(newBoxs.get(i).inBox(m, theClose) == 3) {
+				dir = 270;
+				return dir;
+			}
+			else if(newBoxs.get(i).inBox(m, theClose) == 4) {
+				dir = 180;
+				return dir;
+			}
+
+		 
 		}
-		return false;
+		return 5;
 
 	}
+	
+	
+	
 }
 
 

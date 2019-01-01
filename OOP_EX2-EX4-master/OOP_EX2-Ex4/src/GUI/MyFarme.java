@@ -198,9 +198,9 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 									Game_temp_run.Player_user.setPoint_player(covertedfromPixel3);
 									myGame.Player_user.setPoint_player(covertedfromPixel2);
 
-//									double theDir = algo.update_Game(myGame.Player_user,Game_temp_run.Player_user);
-//
-//									dir = theDir;
+									double theDir = algo.update_Game(myGame.Player_user,Game_temp_run.Player_user , dir);
+
+									dir = theDir;
 
 									} catch (IOException e) {	e.printStackTrace();	}
 
