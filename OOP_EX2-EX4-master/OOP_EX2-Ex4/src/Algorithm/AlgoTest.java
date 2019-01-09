@@ -41,7 +41,7 @@ public class AlgoTest {
 		this.ans = new ArrayList<>();
 		this.ans = addingTo1List(this.Packmans,this.fruits);
 		this.newBoxs = boxList(boxs);
-	
+
 	}
 
 
@@ -58,31 +58,40 @@ public class AlgoTest {
 	public double update_Game(Player p2, double dir) { 
 
 		Point3D theClose = TheCloserFurit(p2,ans);
-		
-		double ansBoxs = checkBox(p2.getPoint_player(), dir ,theClose );
-		if(ansBoxs == 5) {
+
+		if(CheckTheWayToFruit(p2.getPoint_player(),theClose)==false) {
 			dir = m.myDir(theClose,p2.getPoint_player());
 			return dir;
-		}
+		}else {
+			Point3D connverTogo = theCloseConner(p2.getPoint_player(),theClose);
+			double rotate = checkBox(p2.getPoint_player(),dir,theClose);
+			System.out.println("rotate is:"+rotate);
+			if(rotate !=5) {
+				return rotate;
+			}else {
+				dir = m.myDir(connverTogo,p2.getPoint_player());
+				System.out.println("the dir is: "+dir);
+				return dir;	
 
-		return ansBoxs;
+			}
+		}
 	}
 
 
 	private ArrayList<Box> boxList(ArrayList<Box> boxs) {
 		ArrayList<Box> ansBoxs = new ArrayList<>();
-	
-			for (int i = 0; i < boxs.size(); i++) {
-				
-				Box bans = boxs.get(i).addToConver();
-				
-				Point3D boxGPS_1 = theMap.Pixel2GPS(bans.getP1().x(), bans.getP1().y());
-				Point3D boxGPS_2 = theMap.Pixel2GPS(bans.getP2().x(), bans.getP2().y());
-				Box b = new Box(boxGPS_1,boxGPS_2);
 
-				
-				ansBoxs.add(b);
-			
+		for (int i = 0; i < boxs.size(); i++) {
+
+			Box bans = boxs.get(i).addToConver();
+
+			Point3D boxGPS_1 = theMap.Pixel2GPS(bans.getP1().x(), bans.getP1().y());
+			Point3D boxGPS_2 = theMap.Pixel2GPS(bans.getP2().x(), bans.getP2().y());
+			Box b = new Box(boxGPS_1,boxGPS_2);
+
+
+			ansBoxs.add(b);
+
 		}
 		return ansBoxs;
 
@@ -95,10 +104,6 @@ public class AlgoTest {
 
 		ArrayList<Point3D> ans = new ArrayList<>();
 
-//		for (int i = 0; i < Packmans.size(); i++) {
-//			Point3D pGPS = theMap.Pixel2GPS(Packmans.get(i).getPoint().x(), Packmans.get(i).getPoint().y());
-//			ans.add(pGPS);
-//		}
 
 		for (int i = 0; i < fruits.size(); i++) {
 			Point3D fGPS = theMap.Pixel2GPS(fruits.get(i).getFruitPoint().x(), fruits.get(i).getFruitPoint().y());
@@ -161,15 +166,79 @@ public class AlgoTest {
 				dir = 180;
 				return dir;
 			}
-		 
+
 		}
 		return 5;
 
 	}
-	
+
+	public Point3D theCloseConner(Point3D player, Point3D theClose) {
+
+
+		double closeConner_min_Final=0;
+		double theConner = 0;
+		Point3D ans  = new Point3D(player);
+		Point3D theConnerAns = new Point3D(newBoxs.get(0).getP1());
+		Point3D temp  = new Point3D(player);
+
+
+		for (int i = 0; i < newBoxs.size(); i++) {
+
+			while(m.distance3d(temp, theClose) >= 1) {
+				
+				if(newBoxs.get(i).checkit1(temp,theClose)==true){
+					
+				
+					theConner =m.distance3d(theConnerAns,player);
+					closeConner_min_Final = theConner;
+
+					theConner = m.distance3d(newBoxs.get(i).getP2(),player); 
+					if(theConner < closeConner_min_Final){
+						closeConner_min_Final = theConner;  
+						theConnerAns = newBoxs.get(i).getP2();
+					}
+					theConner = m.distance3d(newBoxs.get(i).getP3(),player);
+					if(theConner < closeConner_min_Final){
+						closeConner_min_Final = theConner; 
+						theConnerAns = newBoxs.get(i).getP3();
+					}
+					theConner = m.distance3d(newBoxs.get(i).getP4(),player);
+					if(theConner < closeConner_min_Final){
+						closeConner_min_Final = theConner; 
+						theConnerAns = newBoxs.get(i).getP4();
+					}
+
+				}
+				ans = theNextPoint(temp, theClose);
+				temp = ans;
+			}
+
+
+		}
+		return theConnerAns;
+
+
+	}
+
+
+
+	public boolean CheckTheWayToFruit (Point3D p, Point3D theClose) {
+		Point3D temp = new Point3D(p);
+		Point3D ans;
+
+		for (int i = 0; i < newBoxs.size(); i++) {
+			if(newBoxs.get(i).checkit1(p, theClose)==true) {
+				return true;
+			}
+		}
+		return false	;
+
+	}
+
+
 	public  Point3D theNextPoint(Point3D p1 , Point3D f1) {
 
-		double dt = 1000; // the time from (x1,y1) to (x2,y2) example: 300.
+		double dt = 10000; // the time from (x1,y1) to (x2,y2) example: 300.
 
 		double Vx = p1.x()/dt;
 		double Vy = p1.y()/dt;
@@ -181,9 +250,9 @@ public class AlgoTest {
 	}
 
 
-	
-	
-	
+
+
+
 }
 
 

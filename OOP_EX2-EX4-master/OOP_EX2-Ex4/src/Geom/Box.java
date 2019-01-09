@@ -7,6 +7,9 @@ public class Box {
 
 	private Point3D p1; // left down
 	private Point3D p2; // right up
+	private Point3D p3; // right down
+	private Point3D p4; // left up
+
 	private double x_left_up;
 	private double y_left_up;
 	private double x_right_down;
@@ -19,10 +22,12 @@ public class Box {
 
 		this.p1 = p1;
 		this.p2 = p2;
-		this.x_left_up = p1.x();
-		this.y_left_up = p2.y();
-		this.x_right_down = p2.x();
-		this.y_right_down = p1.y();
+		this.p3 = new Point3D(p1.x(),p2.y());
+		this.p4 = new Point3D(p2.x(),p1.y());
+//		this.x_left_up = p1.x();
+//		this.y_left_up = p2.y();
+//		this.x_right_down = p2.x();
+//		this.y_right_down = p1.y();
 	}
 	
 	public Box addToConver() {
@@ -49,27 +54,28 @@ public class Box {
 
 
 	public double inBox(Point3D m, Point3D theClose) {
-		double meter = 2;
+		double meter = 1;
 		Point3D Width_y_down = new Point3D(p1.x(),m.y());
 		Point3D Height_x_right = new Point3D(m.x(),p2.y());
 		Point3D Height_x_left = new Point3D(m.x(),p1.y());
 		Point3D Width_y_up = new Point3D(p2.x(),m.y());
 
 
-		
-		if((my.distance3d(m, Width_y_down) <= meter) && (m.y() <= p2.y()) && (m.y() >= p1.y())){
-			if(!checkit1(m,theClose)) {
-				System.out.println("can do stright 1");
-				return 5;
+//		
+//		if((my.distance3d(m, Width_y_down) <= meter)){
+//			if(m.y() > p3.y() && m.x() < p2.x()) {
+//				return 1;
+//			}
+//			else {
+//				return 2;
+//			}
+//		}
+		if((my.distance3d(m, Height_x_right) <= meter)){
+			if(m.x() > p2.x() && m.y() > p1.y()) {
+				return 3;
+			}else {
+				return 4;
 			}
-			return 1;
-		}
-		if((my.distance3d(m, Height_x_right) <= meter) && m.x() <= p2.x() && m.y() >= p2.y()){
-			if(!checkit1(m,theClose)) {
-				return 5;
-
-			}
-			return 2;
 		}
 		if((my.distance3d(m, Width_y_up) <=meter)&& (m.y() <= p2.y()) && (m.y() >= p1.y())){
 			if(!checkit1(m,theClose)) {
@@ -92,6 +98,22 @@ public class Box {
 
 	}
 	
+	public Point3D getP3() {
+		return p3;
+	}
+
+	public void setP3(Point3D p3) {
+		this.p3 = p3;
+	}
+
+	public Point3D getP4() {
+		return p4;
+	}
+
+	public void setP4(Point3D p4) {
+		this.p4 = p4;
+	}
+
 	public  Point3D theNextPoint(Point3D p1 , Point3D f1) {
 
 		double dt = 1000; // the time from (x1,y1) to (x2,y2) example: 300.
