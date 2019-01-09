@@ -11,7 +11,6 @@ public class Box {
 	private double y_left_up;
 	private double x_right_down;
 	private double y_right_down;
-	private Map theMap = new Map();
 	private MyCoords my = new MyCoords();
 
 	private static int _count = 0;
@@ -24,6 +23,14 @@ public class Box {
 		this.y_left_up = p2.y();
 		this.x_right_down = p2.x();
 		this.y_right_down = p1.y();
+	}
+	
+	public Box addToConver() {
+		
+		Point3D p1 = new Point3D(this.p1.x()-0.0010,this.p1.y()+0.0010);//down left
+		Point3D p2 = new Point3D(this.p2.x()+0.0010,this.p2.y()-0.0010);//up right
+		
+		return new Box(p1,p2);
 	}
 
 
@@ -42,36 +49,36 @@ public class Box {
 
 
 	public double inBox(Point3D m, Point3D theClose) {
-		double meter = 4;
+		double meter = 2;
 		Point3D Width_y_down = new Point3D(p1.x(),m.y());
 		Point3D Height_x_right = new Point3D(m.x(),p2.y());
 		Point3D Height_x_left = new Point3D(m.x(),p1.y());
 		Point3D Width_y_up = new Point3D(p2.x(),m.y());
 
 
-		if((my.distance3d(m, Width_y_down) <= meter) && (m.y() < p2.y()) && (m.y() > p1.y())){
+		
+		if((my.distance3d(m, Width_y_down) <= meter) && (m.y() <= p2.y()) && (m.y() >= p1.y())){
 			if(!checkit1(m,theClose)) {
 				System.out.println("can do stright 1");
-
 				return 5;
 			}
 			return 1;
 		}
-		if((my.distance3d(m, Height_x_right) <= meter) && m.x() < p2.x() &&	 m.y() > p2.y()){
+		if((my.distance3d(m, Height_x_right) <= meter) && m.x() <= p2.x() && m.y() >= p2.y()){
 			if(!checkit1(m,theClose)) {
 				return 5;
 
 			}
 			return 2;
 		}
-		if((my.distance3d(m, Width_y_up) <=meter) && m.y() > p1.y() && m.y() < p2.y()){
+		if((my.distance3d(m, Width_y_up) <=meter)&& (m.y() <= p2.y()) && (m.y() >= p1.y())){
 			if(!checkit1(m,theClose)) {
 				System.out.println("can do stright 3");
 				return 5;
 			}
 			return 3;
 		}
-		if((my.distance3d(m, Height_x_left) <= meter) && m.x() > p2.x() &&	 m.y() < p2.y()){
+		if((my.distance3d(m, Height_x_left) <= meter) && m.x() >= p1.x()){
 			System.out.println(my.distance3d(m, Height_x_left));
 			if(!checkit1(m,theClose)) {
 
@@ -84,8 +91,7 @@ public class Box {
 		return 5;
 
 	}
-
-
+	
 	public  Point3D theNextPoint(Point3D p1 , Point3D f1) {
 
 		double dt = 1000; // the time from (x1,y1) to (x2,y2) example: 300.
@@ -98,11 +104,6 @@ public class Box {
 		return new Point3D(xt,yt);
 
 	}
-
-
-
-
-
 
 
 

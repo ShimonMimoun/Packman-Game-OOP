@@ -55,9 +55,10 @@ public class AlgoTest {
 	}
 
 
-	public double update_Game(Player p1 ,Player p2, double dir) { 
+	public double update_Game(Player p2, double dir) { 
 
 		Point3D theClose = TheCloserFurit(p2,ans);
+		
 		double ansBoxs = checkBox(p2.getPoint_player(), dir ,theClose );
 		if(ansBoxs == 5) {
 			dir = m.myDir(theClose,p2.getPoint_player());
@@ -73,11 +74,10 @@ public class AlgoTest {
 	
 			for (int i = 0; i < boxs.size(); i++) {
 				
-				//Box b1 = boxs.get(i).addtoConner();
+				Box bans = boxs.get(i).addToConver();
 				
-				
-				Point3D boxGPS_1 = theMap.Pixel2GPS(boxs.get(i).getP1().x(), boxs.get(i).getP1().y());
-				Point3D boxGPS_2 = theMap.Pixel2GPS(boxs.get(i).getP2().x(), boxs.get(i).getP2().y());
+				Point3D boxGPS_1 = theMap.Pixel2GPS(bans.getP1().x(), bans.getP1().y());
+				Point3D boxGPS_2 = theMap.Pixel2GPS(bans.getP2().x(), bans.getP2().y());
 				Box b = new Box(boxGPS_1,boxGPS_2);
 
 				
@@ -95,10 +95,10 @@ public class AlgoTest {
 
 		ArrayList<Point3D> ans = new ArrayList<>();
 
-		for (int i = 0; i < Packmans.size(); i++) {
-			Point3D pGPS = theMap.Pixel2GPS(Packmans.get(i).getPoint().x(), Packmans.get(i).getPoint().y());
-			ans.add(pGPS);
-		}
+//		for (int i = 0; i < Packmans.size(); i++) {
+//			Point3D pGPS = theMap.Pixel2GPS(Packmans.get(i).getPoint().x(), Packmans.get(i).getPoint().y());
+//			ans.add(pGPS);
+//		}
 
 		for (int i = 0; i < fruits.size(); i++) {
 			Point3D fGPS = theMap.Pixel2GPS(fruits.get(i).getFruitPoint().x(), fruits.get(i).getFruitPoint().y());
@@ -166,6 +166,21 @@ public class AlgoTest {
 		return 5;
 
 	}
+	
+	public  Point3D theNextPoint(Point3D p1 , Point3D f1) {
+
+		double dt = 1000; // the time from (x1,y1) to (x2,y2) example: 300.
+
+		double Vx = p1.x()/dt;
+		double Vy = p1.y()/dt;
+
+		double xt = p1.x()+Vx*(f1.x()-p1.x());
+		double yt= p1.y()+Vy*(f1.y()-p1.y());
+		return new Point3D(xt,yt);
+
+	}
+
+
 	
 	
 	

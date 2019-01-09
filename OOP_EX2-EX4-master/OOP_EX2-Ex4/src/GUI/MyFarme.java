@@ -167,14 +167,22 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 						isGamer = 4;
 						click = true;
 						playGame.start();
-
+						
+						int ran = (int)(Math.random()*myGame.Fruits_arr.size());
+						playGame.setInitLocation(myGame.Fruits_arr.get(ran).getFruitPoint().x(), myGame.Fruits_arr.get(ran).getFruitPoint().y());
+						myGame.Player_user.setPoint_player(myGame.Fruits_arr.get(ran).getFruitPoint());
+						
 
 
 						Thread thread = new Thread(){
 							ArrayList<String> board_data = playGame.getBoard();
+						
 
 							public void run(){ 
 								int p=0;
+						
+								
+								
 								while(playGame.isRuning()){ 
 									p++;
 									try {
@@ -183,6 +191,9 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 										e.printStackTrace();
 									}
+									
+
+									
 
 									playGame.rotate(dir);
 									board_data = playGame.getBoard();
@@ -197,8 +208,10 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 									Game_temp_run.Player_user.setPoint_player(covertedfromPixel3);
 									myGame.Player_user.setPoint_player(covertedfromPixel2);
+							
+					
 
-									double theDir = algo.update_Game(myGame.Player_user,Game_temp_run.Player_user , dir);
+									double theDir = algo.update_Game(Game_temp_run.Player_user , dir);
 
 									dir = theDir;
 

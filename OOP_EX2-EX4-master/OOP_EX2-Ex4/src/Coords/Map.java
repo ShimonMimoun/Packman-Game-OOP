@@ -13,6 +13,9 @@ public class Map {
 									
 	private Point3D leftUp;
 	private Point3D RightDown;
+	private Point3D leftDown;
+	private Point3D RightUp;
+
 	private double x_length;
 	private double y_length;
 	private String diractroyMap;
@@ -21,12 +24,16 @@ public class Map {
 	 * Default Constractor of my Class 
 	 */
 	public Map() {
-		//32.101898,35.202369,0.0,32.105728,35.212416,0.0
-		this.leftUp = new Point3D(32.105770,  35.202469);
-		this.RightDown = new Point3D(32.101899, 35.211588);
+		//32.101898,35.202369,0.0, // left down
+		//32.105728,35.212416,0.0 // right up
+		
+		this.leftUp = new Point3D(32.105728,  35.202369);
+		this.RightDown = new Point3D(32.101898, 35.212416);
+		
 		this.x_length = this.RightDown.y()-this.leftUp.y();
 		this.y_length = this.RightDown.x()-this.leftUp.x();
 		this.diractroyMap = "Pictures&Icones/Ariel1.png";
+		
 
 	}
 	/**
