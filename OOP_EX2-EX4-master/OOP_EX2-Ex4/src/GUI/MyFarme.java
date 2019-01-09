@@ -1,8 +1,6 @@
 package GUI;
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Menu;
 import java.awt.MenuBar;
@@ -13,10 +11,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -25,7 +21,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.filechooser.FileSystemView;
 
 import Algorithm.AlgoTest;
 import Coords.Map;
@@ -56,7 +51,6 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 	private boolean click = false;
 	Image image;
-	public boolean Start_game=false;
 	public boolean verif_game_player=false;
 	private double dir;
 	boolean solo_Play=false;
@@ -131,14 +125,16 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 		menuBarOption.add(Add_import);
 
 
-		MenuItem runItem = new MenuItem("Run");
+		MenuItem runItem_Manual = new MenuItem("Run Manual");
+		MenuItem runItem_Auto= new MenuItem("Run Automatic");
 		MenuItem reload_item = new MenuItem("Reload");
 		MenuItem exit = new MenuItem("Exit");	
-		MenuItem Player_User_item = new MenuItem("Player");	
+		MenuItem Player_User_item = new MenuItem("Player Manual");	
 		MenuItem Csv_read = new MenuItem("Csv");
 
 
-		OptionMenu.add(runItem);
+		OptionMenu.add(runItem_Manual);
+		OptionMenu.add(runItem_Auto);
 		OptionMenu.add(reload_item);
 		OptionMenu.add(exit);
 
@@ -152,7 +148,7 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 
 		//Turn on the buttons
 
-		runItem.addActionListener(new ActionListener() {
+		runItem_Manual.addActionListener(new ActionListener() {
 			@Override
 
 			public void actionPerformed(ActionEvent e) {
@@ -161,78 +157,127 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 				if (verif_game_player==true) {
 					if(myGame.Player_user != null) {
 
-
-						Start_game=true;
 						playGame.getBoard();
 						isGamer = 4;
 						click = true;
 						playGame.start();
-						
-						int ran = (int)(Math.random()*myGame.Fruits_arr.size());
-						playGame.setInitLocation(myGame.Fruits_arr.get(ran).getFruitPoint().x(), myGame.Fruits_arr.get(ran).getFruitPoint().y());
-						myGame.Player_user.setPoint_player(myGame.Fruits_arr.get(ran).getFruitPoint());
-						
-
 
 						Thread thread = new Thread(){
 							ArrayList<String> board_data = playGame.getBoard();
-						
+
 
 							public void run(){ 
-								int p=0;
-						
-								
-								
+
+
 								while(playGame.isRuning()){ 
-									p++;
-									try {
-										sleep(200);
-									} catch (InterruptedException e) {
 
-										e.printStackTrace();
-									}
-									
-
-									
+									try {sleep(200);} catch (InterruptedException e) {	e.printStackTrace();	}
 
 									playGame.rotate(dir);
 									board_data = playGame.getBoard();
 									String info = playGame.getStatistics();
 									System.out.println(info);
 
-									try {	Game_temp_run.CreateGame(board_data);
-									Point3D covertedfromPixel2 = theMap.Pixel2GPS(myGame.Player_user.getPoint_player().x(), myGame.Player_user.getPoint_player().y());
-									Point3D covertedfromPixel3 = theMap.Pixel2GPS(Game_temp_run.Player_user.getPoint_player().x(), Game_temp_run.Player_user.getPoint_player().y());
 
-									AlgoTest algo = new AlgoTest(Game_temp_run);
-
-									Game_temp_run.Player_user.setPoint_player(covertedfromPixel3);
-									myGame.Player_user.setPoint_player(covertedfromPixel2);
-							
-					
-
-									double theDir = algo.update_Game(Game_temp_run.Player_user , dir);
-
-									dir = theDir;
-
-									} catch (IOException e) {	e.printStackTrace();	}
-
-							
 									try {myGame.CreateGame(board_data);} catch (IOException e1) {e1.printStackTrace();}
-									repaint();						
+
+									repaint();
+
 								}
 							}
 						};
+
 						thread.start();
 
 					}
-					Start_game = false;
+
 				}
 				else 
 					JOptionPane.showMessageDialog(null,"EROR: Enter Player to launch te Game ");
 
 			}
 		});
+
+
+
+
+
+
+		runItem_Auto.addActionListener(new ActionListener() {
+			@Override
+
+			public void actionPerformed(ActionEvent e) {
+
+				
+				if (verif_game_player==true) {
+					JOptionPane.showMessageDialog(null,"The player will be written to a new random point close to a Fruit ");
+				}
+				
+				playGame.setIDs(342685898, 311326490);
+				click = false;
+
+				int ran = (int)(Math.random()*myGame.Fruits_arr.size());
+				
+				System.out.println(myGame.Fruits_arr.get(ran).getFruitPoint().x());
+				Point3D temp_point_locat=theMap.Pixel2GPS(myGame.Fruits_arr.get(ran).getFruitPoint().x(), myGame.Fruits_arr.get(ran).getFruitPoint().y());
+					
+				playGame.setInitLocation(temp_point_locat.x(),temp_point_locat.y());
+
+				if(myGame.Player_user != null) {
+					playGame.getBoard();
+					isGamer = 4;
+
+					playGame.start();
+
+					Thread thread = new Thread(){
+						ArrayList<String> board_data = playGame.getBoard();
+
+
+						public void run(){ 
+
+
+
+
+							while(playGame.isRuning()){ 
+
+								try {sleep(200);} catch (InterruptedException e) {e.printStackTrace();}
+
+								playGame.rotate(dir);
+								board_data = playGame.getBoard();
+								String info = playGame.getStatistics();
+								System.out.println(info);
+
+								try {	Game_temp_run.CreateGame(board_data);
+								Point3D covertedfromPixel2 = theMap.Pixel2GPS(myGame.Player_user.getPoint_player().x(), myGame.Player_user.getPoint_player().y());
+								Point3D covertedfromPixel3 = theMap.Pixel2GPS(Game_temp_run.Player_user.getPoint_player().x(), Game_temp_run.Player_user.getPoint_player().y());
+
+								AlgoTest algo = new AlgoTest(Game_temp_run);
+
+								Game_temp_run.Player_user.setPoint_player(covertedfromPixel3);
+								myGame.Player_user.setPoint_player(covertedfromPixel2);
+
+
+
+								double theDir = algo.update_Game(Game_temp_run.Player_user , dir);
+
+								dir = theDir;
+
+								} catch (IOException e) {	e.printStackTrace();	}
+
+
+								try {myGame.CreateGame(board_data);} catch (IOException e1) {e1.printStackTrace();}
+								repaint();						
+							}
+						}
+					};
+					thread.start();
+				}
+			}
+
+		});
+		
+		
+		
 
 		reload_item.addActionListener(new ActionListener() {
 			@Override
@@ -248,8 +293,8 @@ public class MyFarme extends JFrame implements MouseListener , KeyListener
 				Ghost_arr = new ArrayList<>();
 				myGame=new Game(Packman_arr, Fruits_arr,Boxs_arr,Ghost_arr);
 				isGamer=0;
-				Start_game=false;
 				ArrayTemp=new ArrayList<>();
+				verif_game_player=false;
 				TheCloserPackman=null;
 				repaint();
 			}
